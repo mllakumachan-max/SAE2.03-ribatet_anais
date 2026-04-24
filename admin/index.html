@@ -20,15 +20,14 @@
       window.C = {};
 
       C.start = function () {
-        V.renderLog("Démarrage de l'application");
         V.renderMovie("C.handlerAddMovie()");
       };
 
       C.handlerAddMovie = async function(){
         let form = document.querySelector('.addMovie__form');
-        let fd = new FormData(form);
-        // Attend la réponse de la fonction `DataMovie.add(fd)`
-        let res = await DataMovie.add(fd);
+        let fdata = new FormData(form);
+        // Attend la réponse de la fonction `DataMovie.add(fdata)`
+        let res = await DataMovie.add(fdata);
         // Affiche le résultat de la mise à jour dans la console
         V.renderLog(res);
       }

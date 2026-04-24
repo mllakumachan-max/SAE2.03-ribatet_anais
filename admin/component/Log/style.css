@@ -1,8 +1,10 @@
 .log {
   display: flex;
+  justify-content: center;
   align-items: flex-end;
   width: 30rem;
   height: 8rem;
+  margin: 2rem auto;
   padding: 1rem 1rem 1rem 1.5rem;
 
   background-color: var(--color-bg);

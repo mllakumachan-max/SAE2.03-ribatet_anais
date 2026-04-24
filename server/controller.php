@@ -57,12 +57,14 @@ function addMovieController(){
                 return "Le film $titre a été ajouté avec succès.";
             }
             else{
-                return false;
+                return "L'âge minimum pour ce film doit être de 10, 12, 16 ou 18 ans.";
             }
         }
         return "Le film $titre a été ajouté avec succès.";
     }
     else{
-        return false;
+        return "Veuillez remplir le champs 'titre'.";
     }
 }
+
+?>

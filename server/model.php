@@ -76,3 +76,5 @@ function addMovie($t, $an, $duree, $desc, $r, $c, $aff, $l, $age){
     // Exécute la requête SQL
     $stmt->execute();
 }
+
+?>
