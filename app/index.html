@@ -13,7 +13,9 @@
     <section id="content"></section>
 
     <script type="module">
-      import { NavBar } from "./component/NavBar/script.js";
+      import {NavBar} from "./component/NavBar/script.js";
+      import {Movie} from "./component/Movie/script.js";
+      import {DataMovie} from "./data/dataMovie.js";
 
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
@@ -26,8 +28,19 @@
         );
       };
 
+      // Lire les films et les afficher
+      C.readMovies = async function() {
+        let data = await DataMovie.requestMovies();
+        if (data.length != 0){
+          V.renderMovie(data);
+        }
+        else{
+          V.renderMovie(["Aucun film disponible pour le moment"]);
+        }
+      }
+
       C.start = function () {
-        V.renderNavBar("C.handlerAbout()");
+        V.renderNavBar("C.readMovies()");
       };
 
       // Vue (contient tout ce qui est relatif à l'affichage)
@@ -43,6 +56,12 @@
       V.renderNavBar = function (hAbout) {
         let header = document.querySelector("#header");
         header.innerHTML = NavBar.format(hAbout);
+      };
+
+      // Afficher les films
+      V.renderMovie = function (data) {
+        let content = document.querySelector("#content");
+        content.innerHTML = Movie.formatMany(data);
       };
 
       C.start(); // Démarre l'application

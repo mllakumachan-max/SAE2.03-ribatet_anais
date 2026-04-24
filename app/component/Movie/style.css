@@ -1,0 +1,27 @@
+.movies {
+    --_bg: var(--color-bg);
+    --_fg: var(--color-fg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--_fg);
+    .movies__film {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin: 2rem;
+        width: 25rem;
+        height: fit-content;
+        background-color: var(--_bg);
+        .movies__affiche {
+            width: inherit;
+            object-fit: cover;
+        }
+        .movies__title {
+            margin: 1rem;
+            font-size: 2rem;
+            text-transform: capitalize;
+        }
+    }
+}

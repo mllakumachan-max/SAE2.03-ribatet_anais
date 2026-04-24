@@ -9,20 +9,40 @@
   <body>
     <section id="log"></section>
 
+    <section id="addMovie"></section>
+
     <script type="module">
-      import { Log } from "./component/Log/script.js";
+      import {Log} from "./component/Log/script.js";
+      import {NewMovieForm} from "./component/MovieForm/script.js";
+      
+      import {DataMovie} from "./data/dataMovie.js";
 
       window.C = {};
 
       C.start = function () {
         V.renderLog("Démarrage de l'application");
+        V.renderMovie("C.handlerAddMovie()");
       };
+
+      C.handlerAddMovie = async function(){
+        let form = document.querySelector('.addMovie__form');
+        let fd = new FormData(form);
+        // Attend la réponse de la fonction `DataMovie.add(fd)`
+        let res = await DataMovie.add(fd);
+        // Affiche le résultat de la mise à jour dans la console
+        V.renderLog(res);
+      }
 
       window.V = {};
 
       V.renderLog = function (txt) {
         let content = document.querySelector("#log");
         content.innerHTML = Log.format(txt);
+      };
+
+      V.renderMovie = function (handler) {
+        let content = document.querySelector("#addMovie");
+        content.innerHTML = NewMovieForm.format(handler);
       };
 
       C.start();

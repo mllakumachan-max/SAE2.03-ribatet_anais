@@ -1,4 +1,9 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 /** ARCHITECTURE PHP SERVEUR : Rôle du fichier script.php
  * 
  * Ce fichier est celui à qui on adresse toutes les requêtes HTTP.
@@ -20,7 +25,7 @@
  * Inclusion du fichier controller.php.
  * 
  * Il contient les fonctions nécessaires pour traiter chaque type de requête
- * et définir la réponnse à renvoyer au client.
+ * et définir la réponse à renvoyer au client.
  */
 require("controller.php");
 
@@ -56,6 +61,9 @@ if ( isset($_REQUEST['todo']) ){
       $data = readMoviesController();
       break;
 
+    case 'addmovie':
+      $data = addMovieController();
+      break;
 
     default: // il y a un paramètre todo mais sa valeur n'est pas reconnue/supportée
       echo json_encode('[error] Unknown todo value');

@@ -1,0 +1,17 @@
+.addMovie {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 2rem auto;
+    .addMovie__title {
+        text-transform: capitalize;
+    }
+    .addMovie__form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
