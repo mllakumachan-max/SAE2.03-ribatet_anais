@@ -20,10 +20,21 @@
  */
 require("model.php");
 
-
+// Fonction de contrôle pour la lecture de tous les films
 function readMoviesController(){
     $movies = getAllMovies();
     return $movies;
+}
+
+// Fonctions de contrôle pour les catégories et les âges
+function readCategoriesController(){
+    $categories = getAllCategories();
+    return $categories;
+}
+
+function readAgesController(){
+    $ages = getAllAges();
+    return $ages;
 }
 
 /** addMovieController
@@ -60,20 +71,36 @@ function addMovieController(){
         }
         // Ajout du film à l'aide de la fonction addMovie décrite dans model.php
         addMovie($titre, $annee, $duree, $desc, $real, $categorie, $img, $lien, $age);
+        // Vérifie que le paramètre 'categorie' n'est pas absent ou vide
+        if (isset($categorie)==true && empty($categorie)==false){
+            $liste = ["Action", "Aventure", "Animation", "Comédie", "Documentaire", "Drame", "Fantastique", "Horreur", "Policier", "Science-fiction"];
+            if (in_array($categorie, $liste)){
+                return "Le film $titre a été ajouté avec succès.";
+            }
+        }
         // Vérifie que le paramètre 'age' n'est pas absent ou vide
-        if (isset($age)==true && $age!=null){
+        if (isset($age)==true && $age != null){
             $min_age = [10, 12, 16, 18];
             if (in_array($age, $min_age)){
                 return "Le film $titre a été ajouté avec succès.";
-            }
-            else{
-                return "L'âge minimum pour ce film doit être de 10, 12, 16 ou 18 ans.";
             }
         }
         return "Le film $titre a été ajouté avec succès.";
     }
     else{
         return "Veuillez remplir le champs 'titre'.";
+    }
+}
+
+// Fonction de contrôle pour la lecture des détails d'un film
+function readMovieDetailsController(){
+    $id = $_REQUEST['id'];
+    if (isset($id)==true && empty($id)==false){
+        $movie_details = getMovieDetails($id);
+        return $movie_details;
+    }
+    else{
+        return "Veuillez fournir un id de film valide.";
     }
 }
 

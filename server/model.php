@@ -33,6 +33,35 @@ function getAllMovies(){
     return $res; // Retourne les résultats
 }
 
+// Liste des catégories et des âges pour les formulaires d'ajout de film
+function getAllCategories(){
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    // Requête SQL pour récupérer les catégories
+    $sql = "select name from Category";
+    // Prépare la requête SQL
+    $stmt = $cnx->prepare($sql);
+    // Exécute la requête SQL
+    $stmt->execute();
+    // Récupère les résultats de la requête sous forme d'objets
+    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+    return $res; // Retourne les résultats
+}
+
+function getAllAges(){
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    // Requête SQL pour récupérer les âges
+    $sql = "select min_age from Movie";
+    // Prépare la requête SQL
+    $stmt = $cnx->prepare($sql);
+    // Exécute la requête SQL
+    $stmt->execute();
+    // Récupère les résultats de la requête sous forme d'objets
+    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+    return $res; // Retourne les résultats
+}
+
 /**
  * Ajoute un film dans la base de données.
  *
@@ -67,6 +96,28 @@ function addMovie($t, $an, $duree, $desc, $r, $c, $aff, $l, $age){
     $stmt->bindParam(':age', $age);
     // Exécute la requête SQL
     $stmt->execute();
+}
+
+/**
+ * Lit les détails d'un film dans la base de données.
+ *
+ * @param int $id L'ID du film.
+ * @return object Les détails du film.
+ */
+function getMovieDetails($id){
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    // Requête SQL pour récupérer les détails d'un film
+    $sql = "select * from Movie where id=:id";
+    // Prépare la requête SQL
+    $stmt = $cnx->prepare($sql);
+    // Lie le paramètre à la valeur
+    $stmt->bindParam(':id', $id);
+    // Exécute la requête SQL
+    $stmt->execute();
+    // Récupère le résultat de la requête sous forme d'un objet
+    $res = $stmt->fetch(PDO::FETCH_OBJ);
+    return $res; // Retourne les résultats
 }
 
 ?>

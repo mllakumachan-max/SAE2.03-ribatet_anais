@@ -1,21 +1,25 @@
 let templateFile = await fetch("./component/Movie/template.html");
 let template = await templateFile.text();
+let templateFile2 = await fetch("./component/Movie/templateLi.html");
+let template2 = await templateFile2.text();
 
 let Movie = {};
 
-Movie.format = function(movie) {
-    let html = template;
-    html = html.replace("{{id}}", movie.id);
-    html = html.replace('{{film_titre}}', movie.name);
-    html = html.replace("{{img}}", "../server/images/" + movie.image);
+Movie.formatOne = function(id, name, image) {
+    let html = template2;
+    html = html.replace("{{id}}", id);
+    html = html.replace('{{film_titre}}', name);
+    html = html.replace("{{img}}", "../server/images/" + image);
     return html;
 };
 
-Movie.formatMany = function(movies) {
-    let html = "";
-        for (let movie of movies){
-            html += Movie.format(movie);
-        };
+Movie.format = function(movie) {
+    let html = template;
+    let liste = "";
+    for (let film of movie){
+        liste += Movie.formatOne(film.id, film.name, film.image);
+    };
+    html = html.replace("{{movies}}", liste);
     return html;
 };
 

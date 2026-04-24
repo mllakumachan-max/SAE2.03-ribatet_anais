@@ -3,6 +3,18 @@ let HOST_URL = ".."; "https://mmi.unilim.fr/~ribatet1/S2/SAE2.03-ribatet_anais";
 
 let DataMovie = {};
 
+DataMovie.requestCategories = async function() {
+    let answer = await fetch(HOST_URL + "/server/script.php?todo=readcategories");
+    let data = await answer.json();
+    return data;
+}
+
+DataMovie.requestAges = async function() {
+    let answer = await fetch(HOST_URL + "/server/script.php?todo=readages");
+    let data = await answer.json();
+    return data;
+}
+
 DataMovie.add = async function(formdata) {
     let config = {
         method: "POST", // méthode HTTP à utiliser

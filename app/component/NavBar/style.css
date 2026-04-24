@@ -2,10 +2,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 3rem;
+  padding: 1rem 2rem;
   color: var(--color-fg);
   background-color: var(--color-bg);
-
+  .navbar__list {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+  }
   .navbar__item {
     --_offset: 0.2rem;
     padding: 0.5rem 1rem;

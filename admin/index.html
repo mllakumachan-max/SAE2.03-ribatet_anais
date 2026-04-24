@@ -39,9 +39,11 @@
         content.innerHTML = Log.format(txt);
       };
 
-      V.renderMovie = function (handler) {
+      V.renderMovie = async function (handler) {
         let content = document.querySelector("#addMovie");
-        content.innerHTML = NewMovieForm.format(handler);
+        let categories = await DataMovie.requestCategories();
+        let ages = await DataMovie.requestAges();
+        content.innerHTML = NewMovieForm.format(categories, ages, handler);
       };
 
       C.start();

@@ -1,4 +1,6 @@
 .addMovie {
+    --_bg: var(--color-bg);
+    --_fg: var(--color-fg);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,5 +15,24 @@
         align-items: center;
         flex-direction: column;
         gap: 0.5rem;
+        margin: 2rem;
+        padding: 1rem;
+        .addMovie__form-info {
+            padding: 0.5rem;
+            width: 20rem;
+        }
+        .addMovie__form-desc {
+            padding: 0.5rem;
+            width: 20rem;
+            height: 10rem;
+        }
+        .addMovie__form-button {
+            padding: 0.5rem;
+            width: 10rem;
+            color: var(--_fg);
+            background-color: var(--_bg);
+            border: none;
+            cursor: pointer;
+        }
     }
 }

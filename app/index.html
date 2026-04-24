@@ -24,14 +24,12 @@
       // Une fois l'application terminée, on pourrait remettre let C.
       window.C = {};
 
-      C.handlerAbout = function () {
-        alert(
-          "Ceci est une base de projet pour la SAE2.03 édition 2025. Bonne chance !"
-        );
+      C.handlerHome = function () {
+        
       };
 
       // Lire les films et les afficher
-      C.readMovies = async function() {
+      C.handlerMovies = async function() {
         let data = await DataMovie.requestMovies();
         if (data.length != 0){
           V.renderMovie(data);
@@ -41,9 +39,21 @@
         }
       }
 
+      // Lire les détails d'un film et les afficher
+      C.handlerDetail = function (id) {
+        let data = DataMovie.requestMovieDetails(id);
+        if (data != null){
+          V.renderMovieDetail(data);
+        }
+        else{
+          V.renderMovieDetail(["Aucun détail disponible pour ce film"]);
+        }
+      };
+
       C.start = function () {
-        V.renderNavBar("C.handlerAbout()");
-        C.readMovies();
+        V.renderNavBar("C.handlerHome()");
+        C.handlerMovies();
+        V.renderMovieDetail("C.handlerDetail()");
       };
 
       // Vue (contient tout ce qui est relatif à l'affichage)
@@ -56,15 +66,21 @@
        * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
        * formaté par le composant NavBar.
        */
-      V.renderNavBar = function (hAbout) {
+      V.renderNavBar = function (hHome) {
         let header = document.querySelector("#header");
-        header.innerHTML = NavBar.format(hAbout);
+        header.innerHTML = NavBar.format(hHome);
       };
 
       // Afficher les films
       V.renderMovie = function (data) {
         let content = document.querySelector("#content");
-        content.innerHTML = Movie.formatMany(data);
+        content.innerHTML = Movie.format(data);
+      };
+
+      // Afficher les détails du film
+      V.renderMovieDetail = function (hDetails) {
+        let content = document.querySelector("#content");
+        content.innerHTML = MovieDetail.format(hDetails);
       };
 
       C.start(); // Démarre l'application
