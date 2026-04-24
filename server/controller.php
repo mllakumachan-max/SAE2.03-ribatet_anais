@@ -48,10 +48,20 @@ function addMovieController(){
     $age = $_REQUEST['age'];
     // Vérifie que le paramètre 'titre' n'est pas absent ou vide
     if (isset($titre)==true && empty($titre)==false){
+        // Vérifie que les paramètres 'annee', 'duree' et 'age' ne sont pas vides, sinon les définit à null
+        if (isset($annee)==true && empty($annee)==true){
+            $annee = null;
+        }
+        if (isset($duree)==true && empty($duree)==true){
+            $duree = null;
+        }
+        if (isset($age)==true && empty($age)==true){
+            $age = null;
+        }
         // Ajout du film à l'aide de la fonction addMovie décrite dans model.php
         addMovie($titre, $annee, $duree, $desc, $real, $categorie, $img, $lien, $age);
         // Vérifie que le paramètre 'age' n'est pas absent ou vide
-        if (isset($age)==true && empty($age)==false){
+        if (isset($age)==true && $age!=null){
             $min_age = [10, 12, 16, 18];
             if (in_array($age, $min_age)){
                 return "Le film $titre a été ajouté avec succès.";

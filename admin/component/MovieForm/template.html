@@ -3,19 +3,13 @@
     <form class="addMovie__form" action="">
         <input required type="text" name="titre" placeholder="Saisir un titre">
         <input type="number" name="annee" placeholder="Saisir une année de sortie">
-        <input type="time" name="duree" placeholder="Saisir une durée">
+        <input type="number" name="duree" placeholder="Saisir une durée">
         <input type="text" name="desc" placeholder="Saisir une description ou un synopsis">
         <input type="text" name="real" placeholder="Saisir un réalisateur" pattern="[^0-9]+" title="Numbers are not allowed">
         <input type="text" name="categorie" placeholder="Saisir une catégorie" pattern="[^0-9]+" title="Numbers are not allowed">
         <input type="text" name="img" placeholder="Saisir le nom d'une affiche">
         <input type="text" name="lien" placeholder="Saisir le lien d'un trailer">
-        <select name="age">
-            <option value="">-- Choisir une restriction d'âge --</option>
-            <option value="10">10</option>
-            <option value="12">12</option>
-            <option value="16">16</option>
-            <option value="18">18</option>
-        </select>
+        <input type="number" name="age" placeholder="Saisir une restriction d'âge">
 
         <input onclick="{{handler}}" type="button" value="Ajouter" name="todo">
     </form>
