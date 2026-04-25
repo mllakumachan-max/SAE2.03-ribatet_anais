@@ -12,4 +12,5 @@
   /* Sementic Tokens */
   --color-fg: var(--color-white);
   --color-bg: var(--color-gray-dark);
+  --color-accent: var(--color-gray-light);
 }
