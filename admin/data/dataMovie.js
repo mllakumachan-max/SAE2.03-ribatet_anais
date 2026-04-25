@@ -9,12 +9,6 @@ DataMovie.requestCategories = async function() {
     return data;
 }
 
-DataMovie.requestAges = async function() {
-    let answer = await fetch(HOST_URL + "/server/script.php?todo=readages");
-    let data = await answer.json();
-    return data;
-}
-
 DataMovie.add = async function(formdata) {
     let config = {
         method: "POST", // méthode HTTP à utiliser

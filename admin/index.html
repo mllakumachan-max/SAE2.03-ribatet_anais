@@ -42,8 +42,7 @@
       V.renderMovie = async function (handler) {
         let content = document.querySelector("#addMovie");
         let categories = await DataMovie.requestCategories();
-        let ages = await DataMovie.requestAges();
-        content.innerHTML = NewMovieForm.format(categories, ages, handler);
+        content.innerHTML = NewMovieForm.format(categories, handler);
       };
 
       C.start();

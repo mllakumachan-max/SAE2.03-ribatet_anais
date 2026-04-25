@@ -32,11 +32,6 @@ function readCategoriesController(){
     return $categories;
 }
 
-function readAgesController(){
-    $ages = getAllAges();
-    return $ages;
-}
-
 /** addMovieController
  * 
  * Cette fonction est en charge du traitement des requêtes HTTP pour lesquelles le paramètre 'todo' vaut 'add'.

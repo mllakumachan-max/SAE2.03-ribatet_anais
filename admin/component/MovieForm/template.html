@@ -14,7 +14,10 @@
         <input class="addMovie__form-info" type="text" name="lien" placeholder="Saisir le lien d'un trailer"/>
         <select class="addMovie__form-info" name="age">
             <option value="">-- Sélectionner une restriction d'âge --</option>
-            {{age__liste}}
+            <option value="10">10</option>
+            <option value="12">12</option>
+            <option value="16">16</option>
+            <option value="18">18</option>
         </select>
 
         <input class="addMovie__form-button" onclick="{{handler}}" type="button" value="Ajouter" name="todo">
