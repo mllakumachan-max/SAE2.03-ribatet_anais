@@ -1,19 +1,20 @@
 <div class="addMovie">
-    <h2 class="addMovie__title">#Ajouter un film</h2>
+    <h2 class="addMovie__title">Ajouter un film</h2>
     <form class="addMovie__form" action="">
         <input class="addMovie__form-info" required type="text" name="titre" placeholder="Saisir un titre"/>
         <input class="addMovie__form-info" type="number" name="annee" placeholder="Saisir une année de sortie"/>
         <input class="addMovie__form-info" type="number" name="duree" placeholder="Saisir une durée"/>
-        <textarea class="addMovie__form-desc" type="text" name="desc" placeholder="Saisir une description ou un synopsis"></textarea>
+        <textarea class="addMovie__form-desc" type="text" name="desc" placeholder="Saisir un synopsis"></textarea>
         <input class="addMovie__form-info" type="text" name="real" placeholder="Saisir un réalisateur" pattern="[^0-9]+" title="Numbers are not allowed"/>
         <select class="addMovie__form-info" name="categorie">
             <option value="">-- Sélectionner une catégorie --</option>
             {{categorie__liste}}
         </select>
-        <input class="addMovie__form-info" type="text" name="img" placeholder="Saisir le nom d'une affiche"/>
-        <input class="addMovie__form-info" type="text" name="lien" placeholder="Saisir le lien d'un trailer"/>
+        <input class="addMovie__form-info" type="text" name="img" placeholder="Insérer une affiche"/>
+        <input class="addMovie__form-info" type="text" name="lien" placeholder="Insérer une bande-annonce"/>
         <select class="addMovie__form-info" name="age">
-            <option value="">-- Sélectionner une restriction d'âge --</option>
+            <option value="">-- Sélectionner un public --</option>
+            <option value="Tout public">Tout public</option>
             <option value="10">10 ans et plus</option>
             <option value="12">12 ans et plus</option>
             <option value="16">16 ans et plus</option>

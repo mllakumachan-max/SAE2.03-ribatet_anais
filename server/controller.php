@@ -75,7 +75,7 @@ function addMovieController(){
         }
         // Vérifie que le paramètre 'age' n'est pas absent ou vide
         if (isset($age)==true && $age != null){
-            $min_age = [10, 12, 16, 18];
+            $min_age = ["Tout public", "10 ans et plus", "12 ans et plus", "16 ans et plus", "18 ans et plus"];
             if (in_array($age, $min_age)){
                 return "Le film $titre a été ajouté avec succès.";
             }
