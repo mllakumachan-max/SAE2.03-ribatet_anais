@@ -3,16 +3,18 @@
     <figure class="movie__film">
         <img class="movie__affiche" src="{{img}}" alt="">
         <figcaption class="movie__infos">
-            <p class="movie__real">{{realisateur}}</p>
-            <p class="movie__categorie">{{categorie}}</p>
             <p class="movie__notes">
                 <span class="movie__date">{{date}}</span>
-                <span class="movie__duree">{{duree}}</span>
-                <span class="movie__age">{{age}}</span>
+                <span class="movie__duree">{{duree}} min</span>
+                <span class="movie__age">-{{age}} ans</span>
             </p>
-            <iframe class="movie__trailer" src="{{lien}}"></iframe> 
-            <h3 class="movie__section-title">Synopsis</h3>
-            <p class="movie__desc">{{desc}}</p>
+            <p class="movie__real">Par {{realisateur}}</p>
+            <p class="movie__categorie">{{categorie}}</p>
         </figcaption>
     </figure>
+    <iframe class="movie__trailer" src="{{lien}}"></iframe> 
+    <section class="movie__section">
+        <h3 class="movie__section-title">Synopsis</h3>
+        <p class="movie__desc">{{desc}}</p>
+    </section>
 </div>

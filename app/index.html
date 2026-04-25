@@ -25,11 +25,11 @@
       window.C = {};
 
       C.handlerHome = function () {
-        
+        C.handlerMovie();
       };
 
       // Lire les films et les afficher
-      C.handlerMovies = async function() {
+      C.handlerMovie = async function() {
         let data = await DataMovie.requestMovies();
         if (data.length != 0){
           V.renderMovie(data);
@@ -40,8 +40,8 @@
       }
 
       // Lire les détails d'un film et les afficher
-      C.handlerDetail = function (id) {
-        let data = DataMovie.requestMovieDetails(id);
+      C.handlerDetail = async function (id) {
+        let data = await DataMovie.requestMovieDetails(id);
         if (data != null){
           V.renderMovieDetail(data);
         }
@@ -52,8 +52,8 @@
 
       C.start = function () {
         V.renderNavBar("C.handlerHome()");
-        C.handlerMovies();
-        V.renderMovieDetail("C.handlerDetail()");
+        C.handlerMovie();
+        V.renderMovieDetail("C.handlerDetail(#id)");
       };
 
       // Vue (contient tout ce qui est relatif à l'affichage)
