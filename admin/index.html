@@ -19,9 +19,18 @@
 
       window.C = {};
 
-      C.start = function () {
-        V.renderMovie("C.handlerAddMovie()");
+      C.start = async function () {
+        await V.renderMovie("C.handlerAddMovie()");
       };
+
+      C.readCategorie = async function(){
+        let data = await DataMovie.requestCategories();
+        let res = [];
+        for (let i=0; i < data.length; i++){
+          res.push(data[i]);
+        }
+        return res
+      }
 
       C.handlerAddMovie = async function(){
         let form = document.querySelector('.addMovie__form');
@@ -41,7 +50,7 @@
 
       V.renderMovie = async function (handler) {
         let content = document.querySelector("#addMovie");
-        let categories = await DataMovie.requestCategories();
+        let categories = await C.readCategorie();
         content.innerHTML = NewMovieForm.format(categories, handler);
       };
 

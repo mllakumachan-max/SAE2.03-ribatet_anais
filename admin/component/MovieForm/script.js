@@ -15,12 +15,12 @@ NewMovieForm.formatCategorie = function(id, categorie){
 NewMovieForm.format = function(categorie, handler){
     let html= template;
     let liste = '';
-    for (let cat in categorie) {
-        liste += NewMovieForm.formatCategorie(cat.category);
+    for (let i = 0; i < categorie.length; i++) {
+        liste += NewMovieForm.formatCategorie(categorie[i].id, categorie[i].name);
     }
     html = html.replace('{{categorie__liste}}', liste);
     html = html.replace('{{handler}}', handler);
     return html;
 }
-    
+
 export {NewMovieForm};

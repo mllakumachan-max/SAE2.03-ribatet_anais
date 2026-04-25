@@ -38,7 +38,7 @@ function getAllCategories(){
     // Connexion à la base de données
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
     // Requête SQL pour récupérer les catégories
-    $sql = "select name from Category";
+    $sql = "select id, name from Category";
     // Prépare la requête SQL
     $stmt = $cnx->prepare($sql);
     // Exécute la requête SQL
