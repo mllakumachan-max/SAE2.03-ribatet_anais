@@ -19,6 +19,20 @@ define("DBLOGIN", "ribatet1");
 define("DBPWD", "ribatet1");
 
 
+function getAllMovies(){
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    // Requête SQL pour récupérer tous les films
+    $sql = "select Movie.id, Movie.name, Movie.image from Movie";
+    // Prépare la requête SQL
+    $stmt = $cnx->prepare($sql);
+    // Exécute la requête SQL
+    $stmt->execute();
+    // Récupère les résultats de la requête sous forme d'objets
+    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+    return $res; // Retourne les résultats
+}
+
 /**
  * Récupère tous les films groupés par catégorie.
  * Cette fonction retourne une structure de données où les films sont organisés
@@ -42,10 +56,10 @@ function getAllMoviesByCategory(){
     
     // Grouper les films par catégorie
     $moviesByCategory = [];
-    for ($i = 0; $i < $movies; $i++) {
+    for ($i = 0; $i < count($movies); $i++) {
         $movie = $movies[$i];
         //Récupère le nom de la catégorie du film
-        $category = $movie[$i]["category_name"];
+        $category = $movie["category_name"];
         // Si la catégorie n'existe pas encore dans le tableau, l'ajouter dans un tableau vide
         if (!isset($moviesByCategory[$category])) {
             $moviesByCategory[$category] = [];

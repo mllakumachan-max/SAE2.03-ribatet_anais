@@ -14,6 +14,7 @@
 
     <script type="module">
       import {NavBar} from "./component/NavBar/script.js";
+      import {Movie} from "./component/Movie/script.js";
       import {MovieDetail} from "./component/MovieDetail/script.js";
       import {MovieCategory} from "./component/MovieCategory/script.js";
       
@@ -35,7 +36,7 @@
           V.renderMovies(data);
         }
         else{
-          V.renderMovies({"Aucun film disponible pour le moment": []});
+          V.renderMovies("Erreur: [Aucun film disponible pour le moment]");
         }
       }
 
@@ -46,7 +47,7 @@
           V.renderMovieDetail(data);
         }
         else{
-          V.renderMovieDetail(["Aucun détail disponible pour ce film"]);
+          V.renderMovieDetail("Erreur: [Aucun détail disponible pour ce film]");
         }
       };
 
@@ -74,7 +75,12 @@
       // Afficher les films par catégorie
       V.renderMovies = function (data) {
         let content = document.querySelector("#content");
-        content.innerHTML = MovieCategory.format(data);
+        let html = "";
+        // Parcourir les catégories
+        for (let categoryName in data) {
+          html += MovieCategory.format(categoryName, data[categoryName]);
+        }
+        content.innerHTML = html;
       };
 
       // Afficher les détails du film
