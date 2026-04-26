@@ -1,26 +1,61 @@
 <div class="addMovie">
     <h2 class="addMovie__title">Ajouter un film</h2>
-    <form class="addMovie__form" action="">
-        <input class="addMovie__form-info" required type="text" name="titre" placeholder="Saisir un titre"/>
-        <input class="addMovie__form-info" type="number" name="annee" placeholder="Saisir une année de sortie"/>
-        <input class="addMovie__form-info" type="number" name="duree" placeholder="Saisir une durée"/>
-        <textarea class="addMovie__form-desc" type="text" name="desc" placeholder="Saisir un synopsis"></textarea>
-        <input class="addMovie__form-info" type="text" name="real" placeholder="Saisir un réalisateur" pattern="[^0-9]+" title="Numbers are not allowed"/>
-        <select class="addMovie__form-info" name="categorie">
-            <option value="">-- Sélectionner une catégorie --</option>
-            {{categorie__liste}}
-        </select>
-        <input class="addMovie__form-info" type="text" name="img" placeholder="Insérer une affiche"/>
-        <input class="addMovie__form-info" type="text" name="lien" placeholder="Insérer une bande-annonce"/>
-        <select class="addMovie__form-info" name="age">
-            <option value="">-- Sélectionner un public --</option>
-            <option value="Tout public">Tout public</option>
-            <option value="10">10 ans et plus</option>
-            <option value="12">12 ans et plus</option>
+    <form class="addMovie__form">
+        <div class="form__group titre">
+            <label class="form__group-title">Titre *</label>
+            <input class="addMovie__form-info" required type="text" name="titre" placeholder="Saisir un titre"/>
+        </div>
+
+        <div class="form__group real">
+            <label class="form__group-title">Réalisateur</label>
+            <input class="addMovie__form-info" type="text" name="real" placeholder="Saisir un réalisateur" pattern="[^0-9]+" title="Numbers are not allowed"/>
+        </div>
+
+        <div class="form__group annee">
+            <label class="form__group-title">Année de sortie</label>
+            <input class="addMovie__form-info" type="number" name="annee" placeholder="Saisir une année de sortie"/>
+        </div>
+
+        <div class="form__group duree">
+            <label class="form__group-title">Durée</label>
+            <input class="addMovie__form-info" type="number" name="duree" placeholder="Saisir une durée"/>
+        </div>
+
+        <div class="form__group categorie">
+            <label class="form__group-title">Catégorie</label>
+            <select class="addMovie__form-info" name="categorie">
+                <option value="">-- Sélectionner une catégorie --</option>
+                {{categorie__liste}}
+            </select>
+        </div>
+
+        <div class="form__group desc">
+            <label class="form__group-title">Description ou synopsis</label>
+            <textarea class="addMovie__form-desc" type="text" name="desc" placeholder="Saisir une description"></textarea>        
+        </div>
+
+        <div class="form__group img">
+            <label class="form__group-title">Affiche</label>
+            <input class="addMovie__form-info" type="text" name="img" placeholder="Insérer une affiche"/>
+        </div>
+
+        <div class="form__group lien">
+            <label class="form__group-title">Trailer</label>
+            <input class="addMovie__form-info" type="text" name="lien" placeholder="Insérer une bande-annonce"/>
+        </div>
+
+        <div class="form__group age">
+            <label class="form__group-title">Restriction d'âge</label>
+            <select class="addMovie__form-info" name="age">
+                <option value="">-- Sélectionner une restriction --</option>
+                <option value="Tout public">Tout public</option>
+                <option value="10">10 ans et plus</option>
+                <option value="12">12 ans et plus</option>
             <option value="16">16 ans et plus</option>
             <option value="18">18 ans et plus</option>
-        </select>
+            </select>
+        </div>
 
-        <input class="addMovie__form-button" onclick="{{handler}}" type="button" value="Ajouter" name="todo">
+        <input class="addMovie__form-button button" onclick="{{handler}}" type="button" value="Ajouter" name="todo">
     </form>
 </div>
