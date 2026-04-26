@@ -1,0 +1,10 @@
+.movieCategory{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem 0;
+    .movieCategory__title{
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+}

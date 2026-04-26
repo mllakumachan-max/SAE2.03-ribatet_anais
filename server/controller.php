@@ -22,11 +22,11 @@ require("model.php");
 
 // Fonction de contrôle pour la lecture de tous les films
 function readMoviesController(){
-    $movies = getAllMovies();
+    $movies = getAllMoviesByCategory();
     return $movies;
 }
 
-// Fonctions de contrôle pour les catégories et les âges
+// Fonctions de contrôle pour les catégories
 function readCategoriesController(){
     $categories = getAllCategories();
     return $categories;

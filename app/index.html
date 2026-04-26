@@ -14,8 +14,8 @@
 
     <script type="module">
       import {NavBar} from "./component/NavBar/script.js";
-      import {Movie} from "./component/Movie/script.js";
       import {MovieDetail} from "./component/MovieDetail/script.js";
+      import {MovieCategory} from "./component/MovieCategory/script.js";
       
       import {DataMovie} from "./data/dataMovie.js";
 
@@ -25,17 +25,17 @@
       window.C = {};
 
       C.handlerHome = function () {
-        C.handlerMovie();
+        C.handlerMovies();
       };
 
       // Lire les films et les afficher
-      C.handlerMovie = async function() {
+      C.handlerMovies = async function() {
         let data = await DataMovie.requestMovies();
         if (data.length != 0){
-          V.renderMovie(data);
+          V.renderMovies(data);
         }
         else{
-          V.renderMovie(["Aucun film disponible pour le moment"]);
+          V.renderMovies({"Aucun film disponible pour le moment": []});
         }
       }
 
@@ -52,7 +52,7 @@
 
       C.start = function () {
         V.renderNavBar("C.handlerHome()");
-        C.handlerMovie();
+        C.handlerMovies();
         V.renderMovieDetail("C.handlerDetail(#id)");
       };
 
@@ -71,10 +71,10 @@
         header.innerHTML = NavBar.format(hHome);
       };
 
-      // Afficher les films
-      V.renderMovie = function (data) {
+      // Afficher les films par catégorie
+      V.renderMovies = function (data) {
         let content = document.querySelector("#content");
-        content.innerHTML = Movie.format(data);
+        content.innerHTML = MovieCategory.format(data);
       };
 
       // Afficher les détails du film
