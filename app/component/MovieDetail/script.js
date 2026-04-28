@@ -12,7 +12,12 @@ MovieDetail.format = function(movie) {
     html = html.replace("{{categorie}}", movie.category_name);
     html = html.replace("{{date}}", movie.year);
     html = html.replace("{{duree}}", movie.length);
-    html = html.replace("{{age}}", movie.min_age);
+    if (movie.min_age != 0){
+        html = html.replace("{{age}}", "-" + movie.min_age + "ans");
+    }
+    else {
+        html = html.replace("{{age}}", "Tout public");
+    }
     html = html.replace("{{lien}}", movie.trailer);
     html = html.replace("{{desc}}", movie.description);
     return html;

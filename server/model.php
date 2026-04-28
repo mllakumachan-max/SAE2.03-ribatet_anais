@@ -24,7 +24,7 @@ function getAllMovies(){
     // Connexion à la base de données
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
     // Requête SQL pour récupérer tous les films
-    $sql = "select Movie.id, Movie.name, Movie.image from Movie";
+    $sql = "select Movie.id_movie, Movie.name, Movie.image from Movie";
     // Prépare la requête SQL
     $stmt = $cnx->prepare($sql);
     // Exécute la requête SQL
@@ -45,18 +45,19 @@ function getAllMoviesByCategory(){
     // Connexion à la base de données
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
     // Requête SQL pour récupérer les films avec leur catégorie
-    $sql = "select Movie.id, Movie.name, Movie.image, Category.name as category_name from Movie 
-            join Category on Movie.id_category = Category.id 
+    $sql = "select Movie.id_movie, Movie.name, Movie.image, Category.name as category_name from Movie 
+            join Category on Movie.id_category = Category.id_category 
             order by Category.name, Movie.name";
     // Prépare la requête SQL
     $stmt = $cnx->prepare($sql);
     // Exécute la requête SQL
     $stmt->execute();
-    // Récupère les résultats de la requête sous forme d'objets
+    // Récupère les résultats de la requête sous forme d'un tableau associatif
     $movies = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
     // Grouper les films par catégorie
     $moviesByCategory = [];
+    // Parcourt les films récupérés et les organise dans un tableau associatif où la clé est le nom de la catégorie
     for ($i = 0; $i < count($movies); $i++) {
         $movie = $movies[$i];
         //Récupère le nom de la catégorie du film
@@ -72,19 +73,19 @@ function getAllMoviesByCategory(){
     return $moviesByCategory;
     /*{
         "Animation": [{
-                    "id": 17,
+                    "id_movie": 17,
                     "name": "Your Name",
                     "image": "your_name.jpg",
                     "category_name": "Animation"
                 },
                 {
-                    "id": 18,
+                    "id_movie": 18,
                     "name": "Demon Slayer : La Forteresse de l'infini",
                     "image": "demon-slayer-forteresse_infini.jpg",
                     "category_name": "Animation"
                 }],
         "Aventure": [{
-                    "id": 27,
+                    "id_movie": 27,
                     "name": "Le Bon, la Brute et le Truand",
                     "image": "bon_brute_truand.jpg",
                     "category_name": "Aventure"
@@ -97,7 +98,7 @@ function getAllCategories(){
     // Connexion à la base de données
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
     // Requête SQL pour récupérer les catégories
-    $sql = "select id, name from Category";
+    $sql = "select id_category, name from Category";
     // Prépare la requête SQL
     $stmt = $cnx->prepare($sql);
     // Exécute la requête SQL
@@ -118,8 +119,8 @@ function getMovieDetails($id){
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
     // Requête SQL pour récupérer les détails d'un film
     $sql = "select Movie.*, Category.name as category_name from Movie 
-            join Category on Movie.id_category = Category.id 
-            where Movie.id=:id";
+            join Category on Movie.id_category = Category.id_category 
+            where Movie.id_movie=:id";
     // Prépare la requête SQL
     $stmt = $cnx->prepare($sql);
     // Lie le paramètre à la valeur
@@ -128,6 +129,20 @@ function getMovieDetails($id){
     $stmt->execute();
     // Récupère le résultat de la requête sous forme d'un objet
     $res = $stmt->fetch(PDO::FETCH_OBJ);
+    return $res; // Retourne les résultats
+}
+
+function getAllProfiles(){
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    // Requête SQL pour récupérer les catégories
+    $sql = "select * from Profile";
+    // Prépare la requête SQL
+    $stmt = $cnx->prepare($sql);
+    // Exécute la requête SQL
+    $stmt->execute();
+    // Récupère les résultats de la requête sous forme d'objets
+    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
     return $res; // Retourne les résultats
 }
 
@@ -153,7 +168,7 @@ function addMovie($t, $an, $duree, $desc, $r, $c, $aff, $l, $age){
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD); 
     // Requête SQL pour jouter un film avec des paramètres
     $sql = "insert into Movie (`name`, `year`, `length`, `description`, `director`, `id_category`, `image`, `trailer`, `min_age`) 
-        values (:titre, :annee, :duree, :desc, :real, (select id from Category where name=:categorie), :img, :lien, :age)";
+        values (:titre, :annee, :duree, :desc, :real, (select id_category from Category where name=:categorie), :img, :lien, :age)";
     // Prépare la requête SQL
     $stmt = $cnx->prepare($sql);
     // Lie les paramètres aux valeurs

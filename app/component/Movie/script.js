@@ -17,7 +17,7 @@ Movie.format = function(movie) {
     let html = template;
     let liste = "";
     for (let film of movie){
-        liste += Movie.formatOne(film.id, film.name, film.image);
+        liste += Movie.formatOne(film.id_movie, film.name, film.image);
     };
     html = html.replace("{{movies}}", liste);
     return html;

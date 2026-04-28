@@ -22,8 +22,8 @@
       window.C = {};
 
       C.start = function () {
-        V.renderMovie("C.handlerAddMovie()");
-        V.renderProfile("C.handlerAddProfile()");
+        V.renderMovie("C.handlerAddMovie()", "C.handlerAnnuler()");
+        V.renderProfile("C.handlerAddProfile()", "C.handlerAnnuler()");
       };
 
       C.readCategorie = async function(){
@@ -42,6 +42,10 @@
         let res = await DataMovie.add(fdata);
         // Affiche le résultat de la mise à jour dans la console
         V.renderLog(res);
+      }
+
+      C.handlerAnnuler = function(){
+        C.start();
       }
 
       C.handlerAddProfile = async function(){

@@ -1,7 +1,8 @@
 .navbar {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
   padding: 1rem 2rem;
   color: var(--color-fg);
   background-color: var(--color-bg);
@@ -22,5 +23,10 @@
     &:hover {
       --_offset: 0.5rem;
     }
+  }
+  .profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

@@ -3,9 +3,10 @@ let template = await templateFile.text();
 
 let NewProfileForm = {};
 
-NewProfileForm.format = function(handler){
+NewProfileForm.format = function(handlerAjouter, handlerAnnuler) {
     let html= template;
-    html = html.replace('{{handler}}', handler);
+    html = html.replace('{{handlerAjouter}}', handlerAjouter);
+    html = html.replace('{{handlerAnnuler}}', handlerAnnuler);
     return html;
 }
 

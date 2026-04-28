@@ -21,8 +21,8 @@ SET time_zone = "+00:00";
 -- Base de données : `SAE2.03`
 --
 
-CREATE DATABASE IF NOT EXISTS 'SAE203' DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE 'SAE203';
+-- CREATE DATABASE IF NOT EXISTS `SAE203` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+-- USE `SAE203`;
 -- --------------------------------------------------------
 
 --
@@ -30,7 +30,7 @@ USE 'SAE203';
 --
 
 CREATE TABLE `Category` (
-  `id` int(11) NOT NULL,
+  `id_category` int(11) NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -38,7 +38,7 @@ CREATE TABLE `Category` (
 -- Déchargement des données de la table `Category`
 --
 
-INSERT INTO `Category` (`id`, `name`) VALUES
+INSERT INTO `Category` (`id_category`, `name`) VALUES
 (1, 'Action'),
 (2, 'Comédie'),
 (3, 'Drame'),
@@ -57,7 +57,7 @@ INSERT INTO `Category` (`id`, `name`) VALUES
 --
 
 CREATE TABLE `Movie` (
-  `id` int(11) NOT NULL,
+  `id_movie` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `year` int(11) DEFAULT NULL,
   `length` int(11) DEFAULT NULL,
@@ -66,14 +66,14 @@ CREATE TABLE `Movie` (
   `id_category` int(11) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `trailer` varchar(255) DEFAULT NULL,
-  `min_age` int(11) DEFAULT NULL
+  `min_age` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `Movie`
 --
 
-INSERT INTO `Movie` (`id`, `name`, `year`, `length`, `description`, `director`, `id_category`, `image`, `trailer`, `min_age`) VALUES
+INSERT INTO `Movie` (`id_movie`, `name`, `year`, `length`, `description`, `director`, `id_category`, `image`, `trailer`, `min_age`) VALUES
 (7, 'Interstellar', 2014, 169, 'Un groupe d\'explorateurs voyage à travers un trou de ver pour sauver l\'humanité.', 'Christopher Nolan', 4, 'interstellar.jpg', 'https://www.youtube.com/embed/VaOijhK3CRU?si=76Ke4uw4LYjuLuQ6', 12),
 (12, 'La Liste de Schindler', 1993, 195, 'Un industriel allemand sauve des milliers de Juifs pendant l\'Holocauste.', 'Steven Spielberg', 3, 'schindler.webp', 'https://www.youtube.com/embed/ONWtyxzl-GE?si=xC3ASGGPy5Ib-aPn', 16),
 (17, 'Your Name', 2016, 107, 'Deux adolescents échangent leurs corps de manière mystérieuse.', 'Makoto Shinkai', 5, 'your_name.jpg', 'https://www.youtube.com/embed/AROOK45LXXg?si=aUQyGk2VMCb_ToUL', 10),
@@ -86,10 +86,10 @@ INSERT INTO `Movie` (`id`, `name`, `year`, `length`, `description`, `director`, 
 --
 
 CREATE TABLE `Profile` (
-  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id_profile` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `pseudo` varchar(255) NOT NULL,
   `avatar` varchar(255) DEFAULT NULL,
-  `min_age` int(11) DEFAULT NULL
+  `min_age` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -100,13 +100,13 @@ CREATE TABLE `Profile` (
 -- Index pour la table `Category`
 --
 ALTER TABLE `Category`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id_category`);
 
 --
 -- Index pour la table `Movie`
 --
 ALTER TABLE `Movie`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`id_movie`),
   ADD KEY `id_category` (`id_category`);
 
 --
@@ -117,13 +117,13 @@ ALTER TABLE `Movie`
 -- AUTO_INCREMENT pour la table `Category`
 --
 ALTER TABLE `Category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT pour la table `Movie`
 --
 ALTER TABLE `Movie`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_movie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- Contraintes pour les tables déchargées
@@ -133,7 +133,7 @@ ALTER TABLE `Movie`
 -- Contraintes pour la table `Movie`
 --
 ALTER TABLE `Movie`
-  ADD CONSTRAINT `movie_ibfk_1` FOREIGN KEY (`id_category`) REFERENCES `Category` (`id`);
+  ADD CONSTRAINT `movie_ibfk_1` FOREIGN KEY (`id_category`) REFERENCES `Category` (`id_category`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

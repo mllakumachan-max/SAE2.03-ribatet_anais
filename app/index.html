@@ -26,9 +26,17 @@
       // Une fois l'application terminée, on pourrait remettre let C.
       window.C = {};
 
+      // Bouton d'accueil
       C.handlerHome = function () {
         C.handlerMovies();
       };
+
+      // Bouton de profile
+      C.handlerProfile = function(){
+        alert (
+          
+        )
+      }
 
       // Lire les films et les afficher
       C.handlerMovies = async function() {
@@ -53,7 +61,7 @@
       };
 
       C.start = function () {
-        V.renderNavBar("C.handlerHome()");
+        V.renderNavBar("C.handlerHome()", "C.handlerProfile()");
         C.handlerMovies();
         V.renderMovieDetail("C.handlerDetail(#id)");
       };
@@ -68,9 +76,10 @@
        * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
        * formaté par le composant NavBar.
        */
-      V.renderNavBar = function (hHome) {
+      V.renderNavBar = async function (hHome, hProfile) {
         let header = document.querySelector("#header");
-        header.innerHTML = NavBar.format(hHome);
+        let profil = await DataProfile.requestProfiles();
+        header.innerHTML = NavBar.format(hHome, hProfile, profil);
       };
 
       // Afficher les films par catégorie

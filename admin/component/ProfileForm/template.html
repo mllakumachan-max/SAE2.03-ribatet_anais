@@ -14,14 +14,17 @@
         <div class="form__group age">
             <label class="form__group-title">Restriction d'âge</label>
             <select class="addProfile__form-info" name="age">
-                <option default value="Tout public">Tout public</option>
+                <option default value="0">Tout public</option>
                 <option value="10">10 ans et plus</option>
                 <option value="12">12 ans et plus</option>
-            <option value="16">16 ans et plus</option>
-            <option value="18">18 ans et plus</option>
+                <option value="16">16 ans et plus</option>
+                <option value="18">18 ans et plus</option>
             </select>
         </div>
 
-        <input class="addProfile__form-button button" onclick="{{handler}}" type="button" value="Ajouter" name="todo">
+        <div class="buttons">
+            <input class="button-ajouter" onclick="{{handlerAjouter}}" type="button" value="Ajouter" name="todo">
+            <input class="button-annuler" onclick="{{handlerAnnuler}}" type="button" value="Annuler" name="todo">
+        </div>
     </form>
 </div>

@@ -13,9 +13,9 @@
                             "annee . . duree . ."
                             "categorie categorie categorie categorie categorie categorie"
                             "desc desc desc desc desc desc"
-                            "img img . lien lien ."
+                            "img . . lien . ."
                             "age age age age age age"
-                            "button . . . . .";
+                            "buttons . . . . .";
         margin: 2rem;
         padding: 2rem;
         gap: 2rem;
@@ -48,8 +48,26 @@
         .age {
             grid-area: age;
         }
-         .button {
-            grid-area: button;
+        .buttons {
+            grid-area: buttons;
+            .button-ajouter {
+                padding: 0.5rem;
+                width: 5rem;
+                cursor: pointer;
+                border: none;
+                color: var(--_fg);
+                background-color: var(--_bg);
+                border-radius: 5px;
+            }
+            .button-annuler {
+                padding: 0.5rem;
+                width: 5rem;
+                cursor: pointer;
+                border: none;
+                color: var(--_bg);
+                background-color: none;
+                border-radius: 5px;
+            }
         }
         .form__group {
             display: flex;
@@ -70,15 +88,6 @@
             height: 10rem;
             border-radius: 5px;
             border: 1px solid var(--_bg);
-        }
-        .addMovie__form-button {
-            padding: 0.5rem;
-            width: 10rem;
-            color: var(--_fg);
-            background-color: var(--_bg);
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
         }
     }
 }
