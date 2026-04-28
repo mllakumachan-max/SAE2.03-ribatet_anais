@@ -84,9 +84,6 @@ function addMovieController(){
         if (isset($duree)==true && empty($duree)==true){
             $duree = null;
         }
-        if (isset($age)==true && empty($age)==true){
-            $age = null;
-        }
         // Ajout du film à l'aide de la fonction addMovie décrite dans model.php
         addMovie($titre, $annee, $duree, $desc, $real, $categorie, $img, $lien, $age);
         // Vérifie que le paramètre 'categorie' n'est pas absent ou vide
@@ -97,7 +94,7 @@ function addMovieController(){
             }
         }
         // Vérifie que le paramètre 'age' n'est pas absent ou vide
-        if (isset($age)==true && empty($age)==false){
+        if (isset($age)==true && $age != ''){
             $min_age = [0, 10, 12, 16, 18];
             if (in_array($age, $min_age)){
                 return "Le film $titre a été ajouté avec succès.";
@@ -125,7 +122,7 @@ function addProfileController(){
     $avatar = $_REQUEST['avatar'];
     $age = $_REQUEST['age'];
     if (isset($pseudo)==true && empty($pseudo)==false){
-        if (isset($age)==true && empty($age)==false){
+        if (isset($age)==true && $age != ''){
             $min_age = [0, 10, 12, 16, 18];
             if (in_array($age, $min_age)){
                 addProfile($pseudo, $avatar, $age);
@@ -134,7 +131,7 @@ function addProfileController(){
         }
     }
     else{
-        return "Veuillez remplir le champs 'pseudo'.";
+        return "Veuillez remplir le champs 'nom'.";
     }
 }
 
