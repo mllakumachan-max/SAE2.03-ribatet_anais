@@ -8,19 +8,22 @@
   </head>
   <body>
     <section id="log"></section>
-
     <section id="addMovie"></section>
+    <section id="addProfile"></section>
 
     <script type="module">
       import {Log} from "./component/Log/script.js";
       import {NewMovieForm} from "./component/MovieForm/script.js";
+      import {NewProfileForm} from "./component/ProfileForm/script.js";
       
       import {DataMovie} from "./data/dataMovie.js";
+      import {DataProfile} from "./data/dataProfile.js";
 
       window.C = {};
 
-      C.start = async function () {
-        await V.renderMovie("C.handlerAddMovie()");
+      C.start = function () {
+        V.renderMovie("C.handlerAddMovie()");
+        V.renderProfile("C.handlerAddProfile()");
       };
 
       C.readCategorie = async function(){
@@ -41,6 +44,15 @@
         V.renderLog(res);
       }
 
+      C.handlerAddProfile = async function(){
+        let form = document.querySelector('.addProfile__form');
+        let fdata = new FormData(form);
+        // Attend la réponse de la fonction `DataProfile.add(fdata)`
+        let res = await DataProfile.add(fdata);
+        // Affiche le résultat de la mise à jour dans la console
+        V.renderLog(res);
+      }
+
       window.V = {};
 
       V.renderLog = function (txt) {
@@ -52,6 +64,11 @@
         let content = document.querySelector("#addMovie");
         let categories = await C.readCategorie();
         content.innerHTML = NewMovieForm.format(categories, handler);
+      };
+
+      V.renderProfile = function (handler) {
+        let content = document.querySelector("#addProfile");
+        content.innerHTML = NewProfileForm.format(handler);
       };
 
       C.start();

@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 -- Base de données : `SAE2.03`
 --
 
+CREATE DATABASE IF NOT EXISTS 'SAE203' DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE 'SAE203';
 -- --------------------------------------------------------
 
 --
@@ -76,6 +78,19 @@ INSERT INTO `Movie` (`id`, `name`, `year`, `length`, `description`, `director`, 
 (12, 'La Liste de Schindler', 1993, 195, 'Un industriel allemand sauve des milliers de Juifs pendant l\'Holocauste.', 'Steven Spielberg', 3, 'schindler.webp', 'https://www.youtube.com/embed/ONWtyxzl-GE?si=xC3ASGGPy5Ib-aPn', 16),
 (17, 'Your Name', 2016, 107, 'Deux adolescents échangent leurs corps de manière mystérieuse.', 'Makoto Shinkai', 5, 'your_name.jpg', 'https://www.youtube.com/embed/AROOK45LXXg?si=aUQyGk2VMCb_ToUL', 10),
 (27, 'Le Bon, la Brute et le Truand', 1966, 161, 'Trois hommes se lancent à la recherche d\'un trésor caché.', 'Sergio Leone', 8, 'bon_brute_truand.jpg', 'https://www.youtube.com/embed/WA1hCZFOPqs?si=TwNZAoM4oj4KpGja', 12);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Profile`
+--
+
+CREATE TABLE `Profile` (
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `pseudo` varchar(255) NOT NULL,
+  `avatar` varchar(255) DEFAULT NULL,
+  `min_age` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Index pour les tables déchargées

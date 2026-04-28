@@ -20,6 +20,9 @@
  */
 require("model.php");
 
+
+/* Fonctions de lecture */
+
 // Fonction de contrôle pour la lecture de tous les films
 function readMoviesController(){
     $movies = getAllMoviesByCategory();
@@ -31,6 +34,26 @@ function readCategoriesController(){
     $categories = getAllCategories();
     return $categories;
 }
+
+// Fonction de contrôle pour la lecture des détails d'un film
+function readMovieDetailsController(){
+    $id = $_REQUEST['id'];
+    if (isset($id)==true && empty($id)==false){
+        $movie_details = getMovieDetails($id);
+        return $movie_details;
+    }
+    else{
+        return "Veuillez fournir un id de film valide.";
+    }
+}
+
+// Fonction de contrôle pour la lecture de tous les profils
+function readProfilesController(){
+    $profiles = getAllProfiles();
+    return $profiles;
+}
+
+/* Fonctions d'ajouts */
 
 /** addMovieController
  * 
@@ -75,7 +98,7 @@ function addMovieController(){
         }
         // Vérifie que le paramètre 'age' n'est pas absent ou vide
         if (isset($age)==true && $age != null){
-            $min_age = ["Tout public", "10 ans et plus", "12 ans et plus", "16 ans et plus", "18 ans et plus"];
+            $min_age = ["Tout public", "10", "12", "16", "18"];
             if (in_array($age, $min_age)){
                 return "Le film $titre a été ajouté avec succès.";
             }
@@ -87,15 +110,29 @@ function addMovieController(){
     }
 }
 
-// Fonction de contrôle pour la lecture des détails d'un film
-function readMovieDetailsController(){
-    $id = $_REQUEST['id'];
-    if (isset($id)==true && empty($id)==false){
-        $movie_details = getMovieDetails($id);
-        return $movie_details;
+/** addProfileController
+ * 
+ * Cette fonction est en charge du traitement des requêtes HTTP pour lesquelles le paramètre 'todo' vaut 'add'.
+ * Elle vérifie si le paramètre nom est défini et non vide dans la requête.
+ * Si le paramètre 'nom' est présent, elle appelle la fonction addProfile et ajoute le profil.
+ * Si le paramètre 'nom' n'est pas présent, vide ou invalide, elle retourne false.
+ * 
+ * @return mixed Le profil si 'nom' est défini, valide et non vide, sinon false.
+ */
+function addProfileController(){
+    // Lecture des données de formulaire
+    $pseudo = $_REQUEST['pseudo'];
+    $avatar = $_REQUEST['avatar'];
+    $age = $_REQUEST['age'];
+    if (isset($pseudo)==true && empty($pseudo)==false){
+        if (isset($age)==true && $age != null){
+            $age = null;
+        }
+        addProfile($pseudo, $avatar, $age);
+        return "Le profil $pseudo a été ajouté avec succès.";
     }
     else{
-        return "Veuillez fournir un id de film valide.";
+        return "Veuillez remplir le champs 'pseudo'.";
     }
 }
 

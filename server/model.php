@@ -18,6 +18,7 @@ define("DBNAME", "ribatet1");
 define("DBLOGIN", "ribatet1");
 define("DBPWD", "ribatet1");
 
+// Fonctions de récupération
 
 function getAllMovies(){
     // Connexion à la base de données
@@ -67,8 +68,28 @@ function getAllMoviesByCategory(){
         // Ajouter le film dans la catégorie correspondante
         $moviesByCategory[$category][] = $movie;
     }
-    
-    return $moviesByCategory; // Retourne les résultats groupés par catégorie
+    // Retourne les résultats groupés par catégorie
+    return $moviesByCategory;
+    /*{
+        "Animation": [{
+                    "id": 17,
+                    "name": "Your Name",
+                    "image": "your_name.jpg",
+                    "category_name": "Animation"
+                },
+                {
+                    "id": 18,
+                    "name": "Demon Slayer : La Forteresse de l'infini",
+                    "image": "demon-slayer-forteresse_infini.jpg",
+                    "category_name": "Animation"
+                }],
+        "Aventure": [{
+                    "id": 27,
+                    "name": "Le Bon, la Brute et le Truand",
+                    "image": "bon_brute_truand.jpg",
+                    "category_name": "Aventure"
+                }]
+    }*/
 }
 
 // Liste des catégories et des âges pour les formulaires d'ajout de film
@@ -85,6 +106,33 @@ function getAllCategories(){
     $res = $stmt->fetchAll(PDO::FETCH_OBJ);
     return $res; // Retourne les résultats
 }
+
+/**
+ * Lit les détails d'un film dans la base de données.
+ *
+ * @param int $id L'ID du film.
+ * @return object Les détails du film.
+ */
+function getMovieDetails($id){
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    // Requête SQL pour récupérer les détails d'un film
+    $sql = "select Movie.*, Category.name as category_name from Movie 
+            join Category on Movie.id_category = Category.id 
+            where Movie.id=:id";
+    // Prépare la requête SQL
+    $stmt = $cnx->prepare($sql);
+    // Lie le paramètre à la valeur
+    $stmt->bindParam(':id', $id);
+    // Exécute la requête SQL
+    $stmt->execute();
+    // Récupère le résultat de la requête sous forme d'un objet
+    $res = $stmt->fetch(PDO::FETCH_OBJ);
+    return $res; // Retourne les résultats
+}
+
+
+// Fonctions d'ajout
 
 /**
  * Ajoute un film dans la base de données.
@@ -123,27 +171,28 @@ function addMovie($t, $an, $duree, $desc, $r, $c, $aff, $l, $age){
 }
 
 /**
- * Lit les détails d'un film dans la base de données.
+ * Ajoute un profil utilisateur dans la base de données.
  *
- * @param int $id L'ID du film.
- * @return object Les détails du film.
+ * @param string $nom Le nom du profil.
+ * @param string $avatar Le nom de l'avatar.
+ * @param string $age La restriction d'âge.
+ * 
  */
-function getMovieDetails($id){
+function addProfile($pseudo, $avatar, $age){
     // Connexion à la base de données
-    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
-    // Requête SQL pour récupérer les détails d'un film
-    $sql = "select Movie.*, Category.name as category_name from Movie 
-            join Category on Movie.id_category = Category.id 
-            where Movie.id=:id";
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD); 
+    // Requête SQL pour jouter un film avec des paramètres
+    $sql = "insert into Profile (`pseudo`, `avatar`, `min_age`) 
+        values (:pseudo, :avatar, :age)";
     // Prépare la requête SQL
     $stmt = $cnx->prepare($sql);
-    // Lie le paramètre à la valeur
-    $stmt->bindParam(':id', $id);
+    // Lie les paramètres aux valeurs
+    $stmt->bindParam(':pseudo', $pseudo);
+    $stmt->bindParam(':avatar', $avatar);
+    $stmt->bindParam(':age', $age);
     // Exécute la requête SQL
     $stmt->execute();
-    // Récupère le résultat de la requête sous forme d'un objet
-    $res = $stmt->fetch(PDO::FETCH_OBJ);
-    return $res; // Retourne les résultats
 }
+
 
 ?>

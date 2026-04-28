@@ -57,6 +57,7 @@ if ( isset($_REQUEST['todo']) ){
   // peut s'écrire aussi avec des if/else
   switch($todo){
 
+    // Read
     case 'readMovies':
       $data = readMoviesController();
       break;
@@ -64,13 +65,22 @@ if ( isset($_REQUEST['todo']) ){
     case 'readCategories':
       $data = readCategoriesController();
       break;
-
-    case 'addMovie':
-      $data = addMovieController();
-      break;
     
     case 'readMovieDetails':
       $data = readMovieDetailsController();
+      break;
+
+    case 'readProfiles':
+      $data = readProfilesController();
+      break;
+
+    // Add
+    case 'addMovie':
+      $data = addMovieController();
+      break;
+
+    case 'addProfile':
+      $data = addProfileController();
       break;
 
     default: // il y a un paramètre todo mais sa valeur n'est pas reconnue/supportée

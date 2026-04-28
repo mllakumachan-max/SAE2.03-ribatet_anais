@@ -1,0 +1,81 @@
+.addProfile {
+    --_bg: var(--color-bg);
+    --_fg: var(--color-fg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 2rem auto;
+    padding: 1rem;
+    .addProfile__form {
+        display: grid;
+        grid-template-areas: "titre titre titre . ."
+                            "img img img . ."
+                            "age age age . ."
+                            "button . . . .";
+        margin: 2rem;
+        padding: 2rem;
+        gap: 2rem;
+        border: 1px solid var(--_bg);
+        border-radius: 5px;
+        .titre {
+            grid-area: titre;
+        }
+        .real {
+            grid-area: real;
+        }
+        .annee {
+            grid-area: annee;
+        }
+        .duree {
+            grid-area: duree;
+        }
+        .categorie {
+            grid-area: categorie;
+        }
+        .desc {
+            grid-area: desc;
+        }
+        .img {
+            grid-area: img;
+        }
+        .lien {
+            grid-area: lien;
+        }
+        .age {
+            grid-area: age;
+        }
+         .button {
+            grid-area: button;
+        }
+        .form__group {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .addProfile__form-info {
+            padding: 0.5rem;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid var(--_bg);
+        }
+        .addProfile__form-desc {
+            padding: 0.5rem;
+            width: 100%;
+            height: 10rem;
+            border-radius: 5px;
+            border: 1px solid var(--_bg);
+        }
+        .addProfile__form-button {
+            padding: 0.5rem;
+            width: 10rem;
+            color: var(--_fg);
+            background-color: var(--_bg);
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+    }
+}
