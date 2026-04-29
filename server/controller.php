@@ -25,11 +25,9 @@ require("model.php");
 
 // Fonction de contrôle pour la lecture de tous les films
 function readMoviesController(){
-    $age = $_REQUEST['age'] ?? null; // Raccourci de isset($_REQUEST['age'])==true;
-    if ($age != ''){
-        $movie = getAllMoviesByProfile($age);
-        return $movie;
-    }
+    $age = $_REQUEST['age'] ?? 0; // Raccourci de isset($_REQUEST['age'])==true;
+    $movie = getAllMoviesByProfile($age);
+    return $movie;
 }
 
 // Fonctions de contrôle pour les catégories

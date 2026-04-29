@@ -7,6 +7,11 @@
   --color-gray-light: hsl(0, 0%, 80%);
   --color-gray: hsl(0, 0%, 50%);
   --color-gray-dark: hsl(0, 0%, 20%);
+
+  --color-green: hsl(134, 80%, 32%);
+  --color-yellow: hsl(56, 92%, 59%);
+  
+
   --ff-sans: "DM sans", sans-serif;
 
   /* Sementic Tokens */

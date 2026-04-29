@@ -35,13 +35,13 @@ function getAllMovies(){
 }
 
 /**
- * Récupère tous les films groupés par catégorie.
+ * Récupère tous les films groupés par catégorie et selon l'âge du profil.
  * Cette fonction retourne une structure de données où les films sont organisés
  * par catégorie, ce qui évite les traitements côté Front pour de meilleures performances.
  *
  * @return array Un tableau associatif où les clés sont les noms de catégorie et les valeurs sont des tableaux de films
  */
-function getAllMoviesByCategory(){
+function getAllMoviesByProfile($age){
     // Connexion à la base de données
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
     // Requête SQL pour récupérer les films avec leur catégorie
@@ -51,6 +51,8 @@ function getAllMoviesByCategory(){
             order by Category.name, Movie.name";
     // Prépare la requête SQL
     $stmt = $cnx->prepare($sql);
+    // Lie le paramètre à la valeur
+    $stmt->bindParam(':age', $age);
     // Exécute la requête SQL
     $stmt->execute();
     // Récupère les résultats de la requête sous forme d'un tableau associatif
@@ -140,25 +142,6 @@ function getAllProfiles(){
     $sql = "select * from Profile";
     // Prépare la requête SQL
     $stmt = $cnx->prepare($sql);
-    // Exécute la requête SQL
-    $stmt->execute();
-    // Récupère les résultats de la requête sous forme d'objets
-    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
-    return $res; // Retourne les résultats
-}
-
-function getAllMoviesByProfile($age){
-    // Connexion à la base de données
-    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
-    // Requête SQL pour récupérer les films associés à un profil
-    "select Movie.id_movie, Movie.name, Movie.image, Category.name as category_name from Movie 
-            join Category on Movie.id_category = Category.id_category 
-            where Movie.min_age <= :age 
-            order by Category.name, Movie.name";
-    // Prépare la requête SQL
-    $stmt = $cnx->prepare($sql);
-    // Lie le paramètre à la valeur
-    $stmt->bindParam(':age', $age);
     // Exécute la requête SQL
     $stmt->execute();
     // Récupère les résultats de la requête sous forme d'objets
