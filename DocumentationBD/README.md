@@ -117,10 +117,13 @@ Pour récupérer les données d'un profil utilisateur :
 
 ### Requêtes
 
-Pour récupérer 
+Pour récupérer les films en fonction de l'âge du profil sélectionné :
 
 ```
-"select * from Profile where id_profile=:id"
+"select Movie.id_movie, Movie.name, Movie.image, Category.name as category_name from Movie 
+join Category on Movie.id_category = Category.id_category 
+where Movie.min_age <= :age 
+order by Category.name, Movie.name"
 ```
 
 ### Vue Looping

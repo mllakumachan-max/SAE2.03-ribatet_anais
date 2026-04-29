@@ -1,12 +1,15 @@
 .profile {
-    --_fg: var(--fg);
+    --_fg: var(--color-fg);
+    --_bg: var(--color-bg);
+    --_accent: var(--color-accent);
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: auto;
     padding: 1rem;
+    background-color: var(--_fg);
     .profile__title {
-        font-size: 24px;
+        font-size: 2rem;
     }
     .profile__list {
         display: flex;
@@ -20,13 +23,16 @@
         scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
         .profile__item {
-            padding: 10px 20px;
-            border: 1px solid #ccc;
+            padding: 1rem;
+            border: 1px solid var(--_bg);
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
             &:hover {
-                background-color: #f0f0f0;
+                background-color: var(--_bg);
+            }
+            &:active {
+                border: 2px solid var(--_accent);
             }
             .cardProfile {
                 display: flex;
@@ -46,17 +52,34 @@
                         margin-bottom: 5px;
                     }
                     .label {
-                        font-size: 0.9rem;
+                        font-size: 1rem;
                         color: var(--_fg);
+                        .tout_public {
+                            color: var(--color-black);
+                        }
+                        .moins_10 {
+                            color: var(--color-green);
+                        }
+                        .moins_12 {
+                            color: var(--color-yellow);
+                        }
+                        .moins_16 {
+                            color: var(--color-orange);
+                        }
+                        .moins_18 {
+                            color: var(--color-red);
+                        }
                     }
                 }
             }
         }
     }
     .profile__button {
-        margin-top: 20px;
-        padding: 10px 20px;
-        font-size: 16px;
+        margin: 2rem auto;
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        font-weight: bold;
         cursor: pointer;
+        border: 2px solid var(--_accent);
     }
 }

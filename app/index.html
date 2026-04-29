@@ -56,7 +56,8 @@
 
       // Lire les films et les afficher
       C.handlerMovies = async function() {
-        let data = await DataMovie.requestMovies();
+        let age = window.activeProfile;
+        let data = await DataMovie.requestMovies(age);
         if (data.length != 0){
           V.renderMovies(data);
         }

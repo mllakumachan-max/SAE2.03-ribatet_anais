@@ -47,6 +47,7 @@ function getAllMoviesByCategory(){
     // Requête SQL pour récupérer les films avec leur catégorie
     $sql = "select Movie.id_movie, Movie.name, Movie.image, Category.name as category_name from Movie 
             join Category on Movie.id_category = Category.id_category 
+            where Movie.min_age <= :age 
             order by Category.name, Movie.name";
     // Prépare la requête SQL
     $stmt = $cnx->prepare($sql);
@@ -146,17 +147,18 @@ function getAllProfiles(){
     return $res; // Retourne les résultats
 }
 
-function getAllMoviesByProfile($id){
+function getAllMoviesByProfile($age){
     // Connexion à la base de données
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
     // Requête SQL pour récupérer les films associés à un profil
-    $sql = "select Movie.id_movie, Movie.name, Movie.image from Movie 
-            join Profile_Movie on Movie.id_movie = Profile_Movie.id_movie 
-            where Profile_Movie.id_profile=:id";
+    "select Movie.id_movie, Movie.name, Movie.image, Category.name as category_name from Movie 
+            join Category on Movie.id_category = Category.id_category 
+            where Movie.min_age <= :age 
+            order by Category.name, Movie.name";
     // Prépare la requête SQL
     $stmt = $cnx->prepare($sql);
     // Lie le paramètre à la valeur
-    $stmt->bindParam(':id', $id);
+    $stmt->bindParam(':age', $age);
     // Exécute la requête SQL
     $stmt->execute();
     // Récupère les résultats de la requête sous forme d'objets
