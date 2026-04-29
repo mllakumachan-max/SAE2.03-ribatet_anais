@@ -37,8 +37,8 @@ function readCategoriesController(){
 
 // Fonction de contrôle pour la lecture des détails d'un film
 function readMovieDetailsController(){
-    $id = $_REQUEST['id'];
-    if (isset($id)==true && empty($id)==false){
+    $id = $_REQUEST['id'] ?? null; // Raccourci de isset($_REQUEST['id'])==true;
+    if (empty($id)==false){
         $movie_details = getMovieDetails($id);
         return $movie_details;
     }
@@ -66,40 +66,19 @@ function readProfilesController(){
  */
 function addMovieController(){
     // Lecture des données de formulaire
-    $titre = $_REQUEST['titre'];
-    $annee = $_REQUEST['annee'];
-    $duree = $_REQUEST['duree'];
-    $desc = $_REQUEST['desc'];
-    $real = $_REQUEST['real'];
-    $categorie = $_REQUEST['categorie'];
-    $img = $_REQUEST['img'];
-    $lien = $_REQUEST['lien'];
-    $age = $_REQUEST['age'];
-    // Vérifie que le paramètre 'titre' n'est pas absent ou vide
-    if (isset($titre)==true && empty($titre)==false){
-        // Vérifie que les paramètres 'annee', 'duree' et 'age' ne sont pas vides, sinon les définit à null
-        if (isset($annee)==true && empty($annee)==true){
-            $annee = null;
-        }
-        if (isset($duree)==true && empty($duree)==true){
-            $duree = null;
-        }
+    $titre = $_REQUEST['titre'] ?? null;
+    $annee = $_REQUEST['annee'] ?? null;
+    $duree = $_REQUEST['duree'] ?? null;
+    $desc = $_REQUEST['desc'] ?? null;
+    $real = $_REQUEST['real'] ?? null;
+    $categorie = $_REQUEST['categorie'] ?? null;
+    $img = $_REQUEST['img'] ?? null;
+    $lien = $_REQUEST['lien'] ?? null;
+    $age = $_REQUEST['age'] ?? null;
+    // Vérifie que le paramètre 'titre' n'est pas vide
+    if (empty($titre)==false){
         // Ajout du film à l'aide de la fonction addMovie décrite dans model.php
         addMovie($titre, $annee, $duree, $desc, $real, $categorie, $img, $lien, $age);
-        // Vérifie que le paramètre 'categorie' n'est pas absent ou vide
-        if (isset($categorie)==true && empty($categorie)==false){
-            $liste = ["Action", "Aventure", "Animation", "Comédie", "Documentaire", "Drame", "Fantastique", "Horreur", "Policier", "Science-fiction"];
-            if (in_array($categorie, $liste)){
-                return "Le film $titre a été ajouté avec succès.";
-            }
-        }
-        // Vérifie que le paramètre 'age' n'est pas absent ou vide
-        if (isset($age)==true && $age != ''){
-            $min_age = [0, 10, 12, 16, 18];
-            if (in_array($age, $min_age)){
-                return "Le film $titre a été ajouté avec succès.";
-            }
-        }
         return "Le film $titre a été ajouté avec succès.";
     }
     else{
@@ -118,11 +97,11 @@ function addMovieController(){
  */
 function addProfileController(){
     // Lecture des données de formulaire
-    $pseudo = $_REQUEST['pseudo'];
-    $avatar = $_REQUEST['avatar'];
-    $age = $_REQUEST['age'];
-    if (isset($pseudo)==true && empty($pseudo)==false){
-        if (isset($age)==true && $age != ''){
+    $pseudo = $_REQUEST['pseudo'] ?? null;
+    $avatar = $_REQUEST['avatar'] ?? null;
+    $age = $_REQUEST['age'] ?? null;
+    if (empty($pseudo)==false){
+        if (empty($age)==false && $age != ''){
             $min_age = [0, 10, 12, 16, 18];
             if (in_array($age, $min_age)){
                 addProfile($pseudo, $avatar, $age);
@@ -131,7 +110,7 @@ function addProfileController(){
         }
     }
     else{
-        return "Veuillez remplir le champs 'nom'.";
+        return "Veuillez remplir le champs 'pseudo'.";
     }
 }
 

@@ -16,7 +16,7 @@ NewMovieForm.format = function(categorie, handlerAjouter, handlerAnnuler) {
     let html= template;
     let liste = '';
     for (let i = 0; i < categorie.length; i++) {
-        liste += NewMovieForm.formatCategorie(categorie[i].id, categorie[i].name);
+        liste += NewMovieForm.formatCategorie(categorie[i].id_category, categorie[i].name);
     }
     html = html.replace('{{categorie__liste}}', liste);
     html = html.replace('{{handlerAjouter}}', handlerAjouter);

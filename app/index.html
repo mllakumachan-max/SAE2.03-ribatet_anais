@@ -17,9 +17,13 @@
       import {Movie} from "./component/Movie/script.js";
       import {MovieDetail} from "./component/MovieDetail/script.js";
       import {MovieCategory} from "./component/MovieCategory/script.js";
+      import {Profile} from "./component/Profile/script.js";
       
       import {DataMovie} from "./data/dataMovie.js";
       import {DataProfile} from "./data/dataProfile.js";
+
+      // Variable globale pour stocker le profil actif
+      window.activeProfile = null;
 
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
@@ -27,16 +31,22 @@
       window.C = {};
 
       // Bouton d'accueil
-      C.handlerHome = function () {
+      C.handlerHome = function() {
         C.handlerMovies();
       };
 
-      // Bouton de profile
-      C.handlerProfile = function(){
-        alert (
-          
-        )
-      }
+      // Bouton de sélection de profil
+      C.handlerProfile = async function(id) {
+        // Stocke le profil actif dans une variable globale
+        window.activeProfile = id;
+        // Faire disparaître la popup de sélection de profil
+        let popup = document.querySelector(".profile");
+        if (popup) {
+          popup.style.display = "none";
+        }
+        // Afficher les films liés au profil
+        C.handlerMovies();
+      };
 
       // Lire les films et les afficher
       C.handlerMovies = async function() {
@@ -50,7 +60,7 @@
       }
 
       // Lire les détails d'un film et les afficher
-      C.handlerDetail = async function (id) {
+      C.handlerMovieDetail = async function(id) {
         let data = await DataMovie.requestMovieDetails(id);
         if (data != null){
           V.renderMovieDetail(data);
@@ -60,10 +70,9 @@
         }
       };
 
-      C.start = function () {
-        V.renderNavBar("C.handlerHome()", "C.handlerProfile()");
-        C.handlerMovies();
-        V.renderMovieDetail("C.handlerDetail(#id)");
+      C.start = function() {
+        V.renderNavBar(C.handlerHome());
+        V.renderProfiles(C.handlerHome());
       };
 
       // Vue (contient tout ce qui est relatif à l'affichage)
@@ -76,27 +85,33 @@
        * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
        * formaté par le composant NavBar.
        */
-      V.renderNavBar = async function (hHome, hProfile) {
+      V.renderNavBar = async function(hHome) {
         let header = document.querySelector("#header");
-        let profil = await DataProfile.requestProfiles();
-        header.innerHTML = NavBar.format(hHome, hProfile, profil);
+        header.innerHTML = NavBar.format(hHome);
       };
 
       // Afficher les films par catégorie
-      V.renderMovies = function (data) {
+      V.renderMovies = function(data) {
         let content = document.querySelector("#content");
         let html = "";
         // Parcourir les catégories
-        for (let categoryName in data) {
-          html += MovieCategory.format(categoryName, data[categoryName]);
+        for (let category in data) {
+          html += MovieCategory.format(category, data[category]);
         }
         content.innerHTML = html;
       };
 
       // Afficher les détails du film
-      V.renderMovieDetail = function (hDetails) {
+      V.renderMovieDetail = function(hDetails) {
         let content = document.querySelector("#content");
         content.innerHTML = MovieDetail.format(hDetails);
+      };
+
+      // Afficher les profils
+      V.renderProfiles = async function(hHomeProfile) {
+        let content = document.querySelector("#content");
+        let data = await DataProfile.requestProfiles();
+        content.innerHTML = Profile.format(hHomeProfile, data);
       };
 
       C.start(); // Démarre l'application

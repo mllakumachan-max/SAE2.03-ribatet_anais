@@ -64,15 +64,15 @@
         content.innerHTML = Log.format(txt);
       };
 
-      V.renderMovie = async function (handler) {
+      V.renderMovie = async function (handlerAjouter, handlerAnnuler) {
         let content = document.querySelector("#addMovie");
         let categories = await C.readCategorie();
-        content.innerHTML = NewMovieForm.format(categories, handler);
+        content.innerHTML = NewMovieForm.format(categories, handlerAjouter, handlerAnnuler);
       };
 
-      V.renderProfile = function (handler) {
+      V.renderProfile = function (handlerAjouter, handlerAnnuler) {
         let content = document.querySelector("#addProfile");
-        content.innerHTML = NewProfileForm.format(handler);
+        content.innerHTML = NewProfileForm.format(handlerAjouter, handlerAnnuler);
       };
 
       C.start();

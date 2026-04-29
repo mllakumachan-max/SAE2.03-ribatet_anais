@@ -168,7 +168,7 @@ function addMovie($t, $an, $duree, $desc, $r, $c, $aff, $l, $age){
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD); 
     // Requête SQL pour jouter un film avec des paramètres
     $sql = "insert into Movie (`name`, `year`, `length`, `description`, `director`, `id_category`, `image`, `trailer`, `min_age`) 
-        values (:titre, :annee, :duree, :desc, :real, (select id_category from Category where name=:categorie), :img, :lien, :age)";
+        values (:titre, :annee, :duree, :desc, :real, :categorie, :img, :lien, :age)";
     // Prépare la requête SQL
     $stmt = $cnx->prepare($sql);
     // Lie les paramètres aux valeurs
