@@ -102,12 +102,10 @@ function addProfileController(){
     $avatar = $_REQUEST['avatar'] ?? null;
     $age = $_REQUEST['age'] ?? null;
     if (empty($pseudo)==false){
-        if ($age != ''){
-            $min_age = [0, 10, 12, 16, 18];
-            if (in_array($age, $min_age)){
-                addProfile($pseudo, $avatar, $age);
-                return "Le profil $pseudo a été ajouté avec succès.";
-            }
+        $min_age = [0, 10, 12, 16, 18];
+        if (in_array($age, $min_age)){
+            addProfile($pseudo, $avatar, $age);
+            return "Le profil $pseudo a été ajouté avec succès.";
         }
     }
     else{
