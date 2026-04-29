@@ -36,7 +36,12 @@
       };
 
       // Bouton de sélection de profil
-      C.handlerProfile = async function(id) {
+      C.handlerProfile = function() {
+        V.renderProfiles("C.handlerHome()");
+      };
+
+      // Bouton de sélection d'un profil spécifique
+      C.handlerProfileDetail = async function(id) {
         // Stocke le profil actif dans une variable globale
         window.activeProfile = id;
         // Faire disparaître la popup de sélection de profil
@@ -71,8 +76,8 @@
       };
 
       C.start = function() {
-        V.renderNavBar(C.handlerHome());
-        V.renderProfiles(C.handlerHome());
+        V.renderNavBar("C.handlerHome()", "C.handlerProfile()");
+        V.renderProfiles("C.handlerHome()");
       };
 
       // Vue (contient tout ce qui est relatif à l'affichage)
@@ -85,9 +90,9 @@
        * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
        * formaté par le composant NavBar.
        */
-      V.renderNavBar = async function(hHome) {
+      V.renderNavBar = async function(hHome, hProfile) {
         let header = document.querySelector("#header");
-        header.innerHTML = NavBar.format(hHome);
+        header.innerHTML = NavBar.format(hHome, hProfile);
       };
 
       // Afficher les films par catégorie
