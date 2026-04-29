@@ -19,14 +19,14 @@ Profile.formatOne = function(id, pseudo, avatar, age){
   return html
 }
 
-Profile.format = function (hHomeProfile, profile) {
+Profile.format = function (hChargeMovies, profile) {
   let html = template;
   let liste = "";
   for (let p of profile){
     liste += Profile.formatOne(p.id_profile, p.pseudo, p.avatar, p.min_age);
   };
   html = html.replace("{{profile_liste}}", liste);
-  html = html.replace("{{handler}}", hHomeProfile);
+  html = html.replace("{{hChargeMovies}}", hChargeMovies);
   return html;
 }
 

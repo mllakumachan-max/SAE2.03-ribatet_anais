@@ -37,21 +37,22 @@
 
       // Bouton de sélection de profil
       C.handlerProfile = function() {
-        V.renderProfiles("C.handlerHome()");
+        V.renderProfiles("C.handlerChargeMovie()");
       };
 
       // Bouton de sélection d'un profil spécifique
-      C.handlerProfileDetail = async function(id) {
+      C.handlerProfileId = function(id) {
         // Stocke le profil actif dans une variable globale
         window.activeProfile = id;
-        // Faire disparaître la popup de sélection de profil
-        let popup = document.querySelector(".profile");
-        if (popup) {
-          popup.style.display = "none";
-        }
-        // Afficher les films liés au profil
-        C.handlerMovies();
       };
+
+      // Bouton de chargement des films liés au profil actif
+      C.handlerChargeMovie = function() {
+        if (window.activeProfile != null) {
+          // Afficher les films liés au profil
+          C.handlerMovies();
+        }
+      }
 
       // Lire les films et les afficher
       C.handlerMovies = async function() {
@@ -77,7 +78,7 @@
 
       C.start = function() {
         V.renderNavBar("C.handlerHome()", "C.handlerProfile()");
-        V.renderProfiles("C.handlerHome()");
+        V.renderProfiles("C.handlerChargeMovie()");
       };
 
       // Vue (contient tout ce qui est relatif à l'affichage)
@@ -113,14 +114,13 @@
       };
 
       // Afficher les profils
-      V.renderProfiles = async function(hHomeProfile) {
+      V.renderProfiles = async function(hChargeMovies) {
         let content = document.querySelector("#content");
         let data = await DataProfile.requestProfiles();
-        content.innerHTML = Profile.format(hHomeProfile, data);
+        content.innerHTML = Profile.format(hChargeMovies, data);
       };
 
       C.start(); // Démarre l'application
     </script>
   </body>
 </html>
-<script type="module"></script>
