@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `Category` (
-  `id_category` int(11) NOT NULL,
+  `id_category` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -57,13 +57,13 @@ INSERT INTO `Category` (`id_category`, `name`) VALUES
 --
 
 CREATE TABLE `Movie` (
-  `id_movie` int(11) NOT NULL,
+  `id_movie` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(255) NOT NULL,
   `year` int(11) DEFAULT NULL,
   `length` int(11) DEFAULT NULL,
   `description` text,
   `director` varchar(255) DEFAULT NULL,
-  `id_category` int(11) DEFAULT NULL,
+  `id_category` int(11) DEFAULT NULL FOREIGN KEY REFERENCES `Category`(`id_category`),
   `image` varchar(255) DEFAULT NULL,
   `trailer` varchar(255) DEFAULT NULL,
   `min_age` int(11) DEFAULT 0
@@ -92,49 +92,6 @@ CREATE TABLE `Profile` (
   `min_age` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `Category`
---
-ALTER TABLE `Category`
-  ADD PRIMARY KEY (`id_category`);
-
---
--- Index pour la table `Movie`
---
-ALTER TABLE `Movie`
-  ADD PRIMARY KEY (`id_movie`),
-  ADD KEY `id_category` (`id_category`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `Category`
---
-ALTER TABLE `Category`
-  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT pour la table `Movie`
---
-ALTER TABLE `Movie`
-  MODIFY `id_movie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
-
---
--- Contraintes pour les tables déchargées
---
-
---
--- Contraintes pour la table `Movie`
---
-ALTER TABLE `Movie`
-  ADD CONSTRAINT `movie_ibfk_1` FOREIGN KEY (`id_category`) REFERENCES `Category` (`id_category`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

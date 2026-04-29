@@ -146,6 +146,24 @@ function getAllProfiles(){
     return $res; // Retourne les résultats
 }
 
+function getAllMoviesByProfile($id){
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    // Requête SQL pour récupérer les films associés à un profil
+    $sql = "select Movie.id_movie, Movie.name, Movie.image from Movie 
+            join Profile_Movie on Movie.id_movie = Profile_Movie.id_movie 
+            where Profile_Movie.id_profile=:id";
+    // Prépare la requête SQL
+    $stmt = $cnx->prepare($sql);
+    // Lie le paramètre à la valeur
+    $stmt->bindParam(':id', $id);
+    // Exécute la requête SQL
+    $stmt->execute();
+    // Récupère les résultats de la requête sous forme d'objets
+    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+    return $res; // Retourne les résultats
+}
+
 
 // Fonctions d'ajout
 

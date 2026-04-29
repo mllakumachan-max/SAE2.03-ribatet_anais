@@ -89,11 +89,11 @@ function addMovieController(){
 /** addProfileController
  * 
  * Cette fonction est en charge du traitement des requêtes HTTP pour lesquelles le paramètre 'todo' vaut 'add'.
- * Elle vérifie si le paramètre nom est défini et non vide dans la requête.
- * Si le paramètre 'nom' est présent, elle appelle la fonction addProfile et ajoute le profil.
- * Si le paramètre 'nom' n'est pas présent, vide ou invalide, elle retourne false.
+ * Elle vérifie si le paramètre pseudo est défini et non vide dans la requête.
+ * Si le paramètre 'pseudo' est présent, elle appelle la fonction addProfile et ajoute le profil.
+ * Si le paramètre 'pseudo' n'est pas présent, vide ou invalide, elle retourne false.
  * 
- * @return mixed Le profil si 'nom' est défini, valide et non vide, sinon false.
+ * @return mixed Le profil si 'pseudo' est défini, valide et non vide, sinon false.
  */
 function addProfileController(){
     // Lecture des données de formulaire
@@ -101,7 +101,7 @@ function addProfileController(){
     $avatar = $_REQUEST['avatar'] ?? null;
     $age = $_REQUEST['age'] ?? null;
     if (empty($pseudo)==false){
-        if (empty($age)==false && $age != ''){
+        if ($age != ''){
             $min_age = [0, 10, 12, 16, 18];
             if (in_array($age, $min_age)){
                 addProfile($pseudo, $avatar, $age);
