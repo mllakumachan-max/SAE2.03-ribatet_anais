@@ -9,10 +9,11 @@ Profile.formatOne = function(id, pseudo, avatar, age){
   let html = template2;
   let className = "";
   html = html.replace("{{id}}", id);
+  html = html.replace("{{age}}", age);
   html = html.replace("{{avatar}}", avatar);
   html = html.replace("{{pseudo}}", pseudo);
   if (age != 0){
-    html = html.replace("{{age}}", "-" + age);
+    html = html.replace("{{restriction}}", "-" + age);
     if (age == 10){
       className = "moins_10";
     }
@@ -27,7 +28,7 @@ Profile.formatOne = function(id, pseudo, avatar, age){
     }
   }
   else {
-    html = html.replace("{{age}}", "Tout public");
+    html = html.replace("{{restriction}}", "Tout public");
     className = "tout_public";
   }
   html = html.replace("{{labelClass}}", className);

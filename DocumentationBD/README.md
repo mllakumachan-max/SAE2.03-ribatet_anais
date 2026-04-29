@@ -126,10 +126,6 @@ where Movie.min_age <= :age
 order by Category.name, Movie.name"
 ```
 
-### Vue Looping
-
-![alt text](screenModele2.png)
-
 ## Itération 8
 
 ### Requêtes

@@ -24,6 +24,7 @@
 
       // Variable globale pour stocker le profil actif
       window.activeProfile = null;
+      window.activeAge = 0;
 
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
@@ -41,9 +42,10 @@
       };
 
       // Bouton de sélection d'un profil spécifique
-      C.handlerProfileId = function(id) {
+      C.handlerProfileId = function(id, age) {
         // Stocke le profil actif dans une variable globale
         window.activeProfile = id;
+        window.activeAge = age;
       };
 
       // Bouton de chargement des films liés au profil actif
@@ -56,13 +58,13 @@
 
       // Lire les films et les afficher
       C.handlerMovies = async function() {
-        let age = ;
+        let age = window.activeAge;
         let data = await DataMovie.requestMovies(age);
-        if (data.length != 0){
+        if (Object.keys(data).length != 0){
           V.renderMovies(data);
         }
         else{
-          V.renderMovies("Erreur: [Aucun film disponible pour le moment]");
+         document.querySelector("#content").innerHTML = "Aucun film disponible pour le moment";
         }
       }
 
@@ -73,7 +75,7 @@
           V.renderMovieDetail(data);
         }
         else{
-          V.renderMovieDetail("Erreur: [Aucun détail disponible pour ce film]");
+          document.querySelector("#content").innerHTML = "Aucun détail disponible pour le moment";
         }
       };
 
