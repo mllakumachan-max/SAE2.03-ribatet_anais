@@ -1,10 +1,10 @@
 <li class="profiles__item">
-    <figure class="cardProfile">
-        <img class="cardProfile__avatar" src="{{avatar}}" alt="">
-        <figcaption class="cardProfile__infos">
-            <h3 class="cardProfile__pseudo">{{pseudo}}</h3>
-            <label class="label {{labelClass}}">{{restriction}}</label>
-            <input class="profiles__button" onclick="{{hModifier}}" type="button" value="Modifier" name="todo">
+    <figure class="profile">
+        <img class="profile__avatar" src="{{avatar}}" alt="">
+        <figcaption class="profile__infos">
+            <h3 class="profile__pseudo">{{pseudo}}</h3>
+            <p class="label">{{restriction}}</p>
+            <input class="profiles__button" onclick="C.handlerUpdateProfile({{id}}, '{{pseudo}}', '{{avatar}}', {{age}})" type="button" value="Modifier" name="todo">
         </figcaption>
     </figure>
 </li>

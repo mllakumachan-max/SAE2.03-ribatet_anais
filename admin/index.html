@@ -7,11 +7,12 @@
     <link rel="stylesheet" href="./css/base.css" />
   </head>
   <body>
+    <section id="header"></section>
     <section id="log"></section>
-    <section id="addMovie"></section>
-    <section id="addProfile"></section>
+    <section id="content"></section>
 
     <script type="module">
+      import {NavBar} from "./component/NavBar/script.js";
       import {Log} from "./component/Log/script.js";
       import {NewMovieForm} from "./component/MovieForm/script.js";
       import {NewProfileForm} from "./component/ProfileForm/script.js";
@@ -22,7 +23,14 @@
       window.C = {};
 
       C.start = function () {
+        V.renderNavBar("C.handlerMovie()", "C.handlerProfile()");
+      };
+
+      C.handlerMovie = function() {
         V.renderMovie("C.handlerAddMovie()", "C.handlerAnnuler()");
+      };
+
+      C.handlerProfile = function() {
         V.renderProfile("C.handlerAddProfile()", "C.handlerAnnuler()");
       };
 
@@ -59,19 +67,24 @@
 
       window.V = {};
 
+      V.renderNavBar = async function(hMovies, hProfiles) {
+        let header = document.querySelector("#header");
+        header.innerHTML = NavBar.format(hMovies, hProfiles);
+      };
+
       V.renderLog = function (txt) {
         let content = document.querySelector("#log");
         content.innerHTML = Log.format(txt);
       };
 
       V.renderMovie = async function (handlerAjouter, handlerAnnuler) {
-        let content = document.querySelector("#addMovie");
+        let content = document.querySelector("#content");
         let categories = await C.readCategorie();
         content.innerHTML = NewMovieForm.format(categories, handlerAjouter, handlerAnnuler);
       };
 
       V.renderProfile = function (handlerAjouter, handlerAnnuler) {
-        let content = document.querySelector("#addProfile");
+        let content = document.querySelector("#content");
         content.innerHTML = NewProfileForm.format(handlerAjouter, handlerAnnuler);
       };
 
