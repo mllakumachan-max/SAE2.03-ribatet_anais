@@ -130,10 +130,10 @@ order by Category.name, Movie.name"
 
 ### Requêtes
 
-
+Pour modifier un profil sélectionné :
 
 ```
-
+"update Profile set pseudo=:pseudo, avatar=:avatar, min_age=:age where id_profile=:id"
 ```
 
 ## Itération 9

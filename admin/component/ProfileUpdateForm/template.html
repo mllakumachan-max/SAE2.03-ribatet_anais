@@ -1,19 +1,19 @@
-<div class="addProfile">
-    <h2 class="addProfile__title">Ajouter un profil utilisateur</h2>
-    <form class="addProfile__form">
+<div class="updateProfile">
+    <h2 class="updateProfile__title">Ajouter un profil utilisateur</h2>
+    <form class="updateProfile__form">
         <div class="form__group pseudo">
             <label class="form__group-title">Pseudo du profil *</label>
-            <input class="addProfile__form-info" required type="text" name="pseudo" value="{{pseudo}}"/>
+            <input class="updateProfile__form-info" required type="text" name="pseudo" value="{{pseudo}}"/>
         </div>
 
         <div class="form__group avatar">
             <label class="form__group-title">Avatar</label>
-            <input class="addProfile__form-info" type="text" name="avatar" value="{{avatar}}"/>
+            <input class="updateProfile__form-info" type="text" name="avatar" value="{{avatar}}"/>
         </div>
 
         <div class="form__group age">
             <label class="form__group-title">Restriction d'âge</label>
-            <select class="addProfile__form-info" name="age">
+            <select class="updateProfile__form-info" name="age">
                 <option {{selected_0}} value="0">Tout public</option>
                 <option {{selected_10}} value="10">10 ans et plus</option>
                 <option {{selected_12}} value="12">12 ans et plus</option>

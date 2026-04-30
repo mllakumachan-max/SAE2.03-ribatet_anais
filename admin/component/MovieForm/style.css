@@ -10,10 +10,10 @@
     .addMovie__form {
         display: grid;
         grid-template-areas: "titre titre titre real real real"
-                            "annee . . duree . ."
+                            "annee annee annee duree duree duree"
                             "categorie categorie categorie categorie categorie categorie"
                             "desc desc desc desc desc desc"
-                            "img . . lien . ."
+                            "img img img lien lien lien"
                             "age age age age age age"
                             "buttons buttons buttons buttons buttons buttons";
         margin: 2rem;

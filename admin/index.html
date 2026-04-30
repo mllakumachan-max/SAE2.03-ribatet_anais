@@ -9,29 +9,37 @@
   <body>
     <section id="header"></section>
     <section id="log"></section>
-    <section id="content"></section>
+    <section id="film"></section>
+    <section id="profil"></section>
 
     <script type="module">
       import {NavBar} from "./component/NavBar/script.js";
       import {Log} from "./component/Log/script.js";
       import {NewMovieForm} from "./component/MovieForm/script.js";
       import {NewProfileForm} from "./component/ProfileForm/script.js";
+      import {ProfileList} from "./component/ProfileList/script.js";
+      import {ProfileUpdateForm} from "./component/ProfileUpdateForm/script.js";
       
       import {DataMovie} from "./data/dataMovie.js";
       import {DataProfile} from "./data/dataProfile.js";
 
       window.C = {};
 
+      // C.start
       C.start = function () {
-        V.renderNavBar("C.handlerMovie()", "C.handlerProfile()");
+        //V.renderNavBar("C.handlerMovie()", "C.handlerProfile()");
+        C.handlerMovie();
+        C.handlerProfile();
+        V.renderProfileList();
       };
 
+      C.handlerAnnuler = function(){
+        C.start();
+      }
+
+      // Movie
       C.handlerMovie = function() {
         V.renderMovie("C.handlerAddMovie()", "C.handlerAnnuler()");
-      };
-
-      C.handlerProfile = function() {
-        V.renderProfile("C.handlerAddProfile()", "C.handlerAnnuler()");
       };
 
       C.readCategorie = async function(){
@@ -52,9 +60,10 @@
         V.renderLog(res);
       }
 
-      C.handlerAnnuler = function(){
-        C.start();
-      }
+      // Profile
+      C.handlerProfile = function() {
+        V.renderProfileUpdate("C.handlerAddProfile()", "C.handlerAnnuler()");
+      };
 
       C.handlerAddProfile = async function(){
         let form = document.querySelector('.addProfile__form');
@@ -65,27 +74,53 @@
         V.renderLog(res);
       }
 
+      C.handlerUpdateProfile = function(id, pseudo, avatar, age){
+        V.renderProfileUpdate(id, pseudo, avatar, age);
+      }
+
+      C.handlerConfirmUpdate = async function(){
+        let form = document.querySelector('.updateProfile__form');
+        let fdata = new FormData(form);
+        let res = await DataProfile.update(fdata);
+        V.renderLog(res);
+      }
+
       window.V = {};
 
+      // Navigation
       V.renderNavBar = async function(hMovies, hProfiles) {
         let header = document.querySelector("#header");
         header.innerHTML = NavBar.format(hMovies, hProfiles);
       };
 
+      // Messages
       V.renderLog = function (txt) {
         let content = document.querySelector("#log");
         content.innerHTML = Log.format(txt);
       };
 
+      // Movie
       V.renderMovie = async function (handlerAjouter, handlerAnnuler) {
-        let content = document.querySelector("#content");
+        let content = document.querySelector("#film");
         let categories = await C.readCategorie();
         content.innerHTML = NewMovieForm.format(categories, handlerAjouter, handlerAnnuler);
       };
 
+      // Profile
       V.renderProfile = function (handlerAjouter, handlerAnnuler) {
-        let content = document.querySelector("#content");
+        let content = document.querySelector("#profil");
         content.innerHTML = NewProfileForm.format(handlerAjouter, handlerAnnuler);
+      };
+
+      // V.renderProfileList = function () {
+      //   let content = document.querySelector("#profil");
+      //   content.innerHTML = ProfileList.format();
+      // };
+
+      V.renderProfileUpdate = async function (id, pseudo, avatar, age) {
+        let content = document.querySelector("#profil");
+        let profile = await C.handlerConfirmUpdate();
+        content.innerHTML = ProfileUpdateForm.format(profile, handlerModifier, handlerAnnuler);
       };
 
       C.start();
