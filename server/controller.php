@@ -84,6 +84,9 @@ function addMovieController(){
         if (empty($duree)==true){
             $duree = null;
         }
+        if (empty($categorie)==true) {
+            $categorie = null;
+        }
         // Ajout du film à l'aide de la fonction addMovie décrite dans model.php
         addMovie($titre, $annee, $duree, $desc, $real, $categorie, $img, $lien, $age);
         return "Le film $titre a été ajouté avec succès.";
