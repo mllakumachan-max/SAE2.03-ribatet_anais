@@ -38,6 +38,7 @@
             transition: background-color 0.3s ease;
             &:hover {
                 background-color: var(--_bg);
+                color: var(--_fg);
             }
             &:active {
                 border: 2px solid var(--_accent);
@@ -63,21 +64,20 @@
                     }
                     .label {
                         font-size: 1rem;
-                        color: var(--_fg);
                         .moins_10 {
-                            color: var(--color-black);
+                            background-color: var(--color-black);
                         }
                         .dix_ans {
-                            color: var(--color-green);
+                            background-color: var(--color-green);
                         }
                         .douze_ans {
-                            color: var(--color-yellow);
+                            background-color: var(--color-yellow);
                         }
                         .seize_ans {
-                            color: var(--color-orange);
+                            background-color: var(--color-orange);
                         }
                         .dix_huit_ans {
-                            color: var(--color-red);
+                            background-color: var(--color-red);
                         }
                     }
                 }
