@@ -3,7 +3,7 @@
     --_fg: var(--color-fg);
     display: grid;
     grid-template-columns: repeat(6, 1fr 1fr);
-    width: auto;
+    width: 100%;
     overflow-x: scroll;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;

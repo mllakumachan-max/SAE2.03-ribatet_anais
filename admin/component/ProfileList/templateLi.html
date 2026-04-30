@@ -1,9 +1,10 @@
-<li class="profile__item" onclick="C.handlerProfileId({{id}}, {{age}})">
+<li class="profiles__item">
     <figure class="cardProfile">
         <img class="cardProfile__avatar" src="{{avatar}}" alt="">
         <figcaption class="cardProfile__infos">
             <h3 class="cardProfile__pseudo">{{pseudo}}</h3>
-            <p class="label {{labelClass}}">{{restriction}}</p>
+            <label class="label {{labelClass}}">{{restriction}}</label>
+            <input class="profiles__button" onclick="{{hModifier}}" type="button" value="Modifier" name="todo">
         </figcaption>
     </figure>
 </li>

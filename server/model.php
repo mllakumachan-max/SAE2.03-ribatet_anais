@@ -212,5 +212,25 @@ function addProfile($pseudo, $avatar, $age){
     $stmt->execute();
 }
 
+// Fonction de modification
+
+function updateProfile($id, $pseudo, $avatar, $age){
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD); 
+    // Requête SQL de mise à jour du profil avec des paramètres
+    $sql = "update Profile set pseudo=:pseudo, avatar=:avatar, age=:age where id=:id";
+    // Prépare la requête SQL
+    $stmt = $cnx->prepare($sql);
+    // Lie les paramètres aux valeurs
+    $stmt->bindParam(':id', $id);
+    $stmt->bindParam(':pseudo', $pseudo);
+    $stmt->bindParam(':avatar', $avatar);
+    $stmt->bindParam(':age', $age);
+    // Exécute la requête SQL
+    $stmt->execute();
+    // Récupère le nombre de lignes affectées par la requête
+    $res = $stmt->rowCount(); 
+    return $res; // Retourne le nombre de lignes affectées
+}
 
 ?>

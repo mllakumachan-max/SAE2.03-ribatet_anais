@@ -113,4 +113,21 @@ function addProfileController(){
     }
 }
 
+// Fonction de modification
+
+function updateProfileController(){
+    // Lecture des données de formulaire
+    $id = $_REQUEST['id'] ?? null;
+    $pseudo = $_REQUEST['pseudo'] ?? null;
+    $avatar = $_REQUEST['avatar'] ?? null;
+    $age = $_REQUEST['age'] ?? null;
+    $ok = updateProfile($id, $pseudo, $avatar, $age);
+    if ($ok == 1){
+        return "Le profil $pseudo a été mis à jour avec succès.";
+    }
+    else{
+        return false;
+    }
+}
+
 ?>
