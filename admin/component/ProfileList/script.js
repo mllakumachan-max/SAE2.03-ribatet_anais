@@ -12,24 +12,6 @@ ProfileList.formatOne = function(id, pseudo, avatar, age){
   html = html.replace("{{avatar}}", avatar);
   html = html.replace("{{pseudo}}", pseudo);
   html = html.replace("{{age}}", age);
-  if (age == 0){
-    restriction = "-10ans";
-  }
-  else if (age == 10){
-    restriction = "10ans";
-  }
-  else if (age == 12){
-    restriction = "12ans";
-  }
-  else if (age == 16){
-    restriction = "16ans";
-  }
-  else if (age == 18){
-    restriction = "18ans";
-  }
-  html = html.replace("{{restriction}}", restriction);
-  return html;
-}
 
 ProfileList.format = function (profile) {
   let html = template;

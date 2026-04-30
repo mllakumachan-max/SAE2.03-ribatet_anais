@@ -9,3 +9,4 @@
 @import "../component/MovieForm/style.css" layer(components);
 @import "../component/ProfileForm/style.css" layer(components);
 @import "../component/ProfileList/style.css" layer(components);
+@import "../component/ProfileUpdateForm/style.css" layer(components);
