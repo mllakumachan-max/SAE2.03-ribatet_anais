@@ -3,39 +3,40 @@ let template = await templateFile.text();
 
 let ProfileUpdateForm = {};
 
-ProfileUpdateForm.format = function(profiles, handlerModifier, handlerAnnuler) {
+ProfileUpdateForm.format = function(id, pseudo, avatar, age, handlerModifier, handlerAnnuler) {
     let html = template;
-    html = html.replace("{{pseudo}}", profiles.pseudo);
-    html = html.replace("{{avatar}}", profiles.avatar);
-    if (profiles.min_age == 0){
+    html = html.replace("{{id}}", id);
+    html = html.replace("{{pseudo}}", pseudo);
+    html = html.replace("{{avatar}}", avatar);
+    if (age == 0){
         html = html.replace("{{selected_0}}", "selected");
         html = html.replace("{{selected_10}}", "");
         html = html.replace("{{selected_12}}", "");
         html = html.replace("{{selected_16}}", "");
         html = html.replace("{{selected_18}}", "");
     }
-    else if (profiles.min_age == 10){
+    else if (age == 10){
         html = html.replace("{{selected_0}}", "");
         html = html.replace("{{selected_10}}", "selected");
         html = html.replace("{{selected_12}}", "");
         html = html.replace("{{selected_16}}", "");
         html = html.replace("{{selected_18}}", "");
     }
-    else if (profiles.min_age == 12){
+    else if (age == 12){
         html = html.replace("{{selected_0}}", "");
         html = html.replace("{{selected_10}}", "");
         html = html.replace("{{selected_12}}", "selected");
         html = html.replace("{{selected_16}}", "");
         html = html.replace("{{selected_18}}", "");
     }
-    else if (profiles.min_age == 16){
+    else if (age == 16){
         html = html.replace("{{selected_0}}", "");
         html = html.replace("{{selected_10}}", "");
         html = html.replace("{{selected_12}}", "");
         html = html.replace("{{selected_16}}", "selected");
         html = html.replace("{{selected_18}}", "");
     }
-    else if (profiles.min_age == 18){
+    else if (age == 18){
         html = html.replace("{{selected_0}}", "");
         html = html.replace("{{selected_10}}", "");
         html = html.replace("{{selected_12}}", "");
