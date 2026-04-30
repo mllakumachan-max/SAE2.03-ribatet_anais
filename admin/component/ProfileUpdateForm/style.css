@@ -1,4 +1,4 @@
-.addProfile {
+.updateProfile {
     --_bg: var(--color-bg);
     --_fg: var(--color-fg);
     display: flex;
@@ -7,7 +7,7 @@
     flex-direction: column;
     margin: 2rem auto;
     padding: 1rem;
-    .addProfile__form {
+    .updateProfile__form {
         display: grid;
         grid-template-areas: "pseudo pseudo pseudo pseudo pseudo"
                             "avatar avatar avatar avatar avatar"
@@ -57,7 +57,7 @@
             flex-direction: column;
             gap: 0.5rem;
         }
-        .addProfile__form-info {
+        .updateProfile__form-info {
             padding: 0.5rem;
             width: 100%;
             border-radius: 5px;

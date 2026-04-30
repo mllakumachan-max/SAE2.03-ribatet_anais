@@ -10,8 +10,6 @@
     <section id="header"></section>
     <section id="log"></section>
     <section id="content"></section>
-    <section id="profil"></section>
-    <section id="profilList"></section>
 
     <script type="module">
       import {NavBar} from "./component/NavBar/script.js";
@@ -30,7 +28,8 @@
       C.start = function () {
         V.renderNavBar(
           "C.handlerMovie()",
-          "C.handlerProfile()",
+          "V.renderProfile()",
+          "C.handlerProfile()"
         );
       };
 
@@ -93,9 +92,9 @@
       window.V = {};
 
       // Navigation
-      V.renderNavBar = async function(hMovies, hProfiles) {
+      V.renderNavBar = async function(hMovies, hProfiles, hProfilesList) {
         let header = document.querySelector("#header");
-        header.innerHTML = NavBar.format(hMovies, hProfiles);
+        header.innerHTML = NavBar.format(hMovies, hProfiles, hProfilesList);
       };
 
       // Messages
@@ -113,18 +112,18 @@
 
       // Profile
       V.renderProfile = function (handlerAjouter, handlerAnnuler) {
-        let content = document.querySelector("#profil");
+        let content = document.querySelector("#content");
         content.innerHTML = NewProfileForm.format(handlerAjouter, handlerAnnuler);
       };
 
       V.renderProfileList = async function () {
-        let content = document.querySelector("#profilList");
+        let content = document.querySelector("#content");
         let profile = await C.readProfile();
         content.innerHTML = ProfileList.format(profile);
       };
 
       V.renderProfileUpdate = function (id, pseudo, avatar, age) {
-        let content = document.querySelector("#profilList");
+        let content = document.querySelector("#content");
         content.innerHTML = ProfileUpdateForm.format(id, pseudo, avatar, age, "C.handlerConfirmUpdate()", "C.handlerAnnuler()");
       };
 
