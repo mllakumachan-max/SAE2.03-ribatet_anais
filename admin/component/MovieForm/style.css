@@ -15,7 +15,7 @@
                             "desc desc desc desc desc desc"
                             "img . . lien . ."
                             "age age age age age age"
-                            "buttons . . . . .";
+                            "buttons buttons buttons buttons buttons buttons";
         margin: 2rem;
         padding: 2rem;
         gap: 2rem;
@@ -51,6 +51,7 @@
         .buttons {
             grid-area: buttons;
             .button-ajouter {
+                margin: 0.25rem 0;
                 padding: 0.5rem;
                 width: 5rem;
                 cursor: pointer;
@@ -60,6 +61,7 @@
                 border-radius: 5px;
             }
             .button-annuler {
+                margin: 0.25rem 0;
                 padding: 0.5rem;
                 width: 5rem;
                 cursor: pointer;

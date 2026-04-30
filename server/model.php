@@ -218,7 +218,7 @@ function updateProfile($id, $pseudo, $avatar, $age){
     // Connexion à la base de données
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD); 
     // Requête SQL de mise à jour du profil avec des paramètres
-    $sql = "update Profile set pseudo=:pseudo, avatar=:avatar, age=:age where id=:id";
+    $sql = "update Profile set pseudo=:pseudo, avatar=:avatar, min_age=:age where id_profile=:id";
     // Prépare la requête SQL
     $stmt = $cnx->prepare($sql);
     // Lie les paramètres aux valeurs

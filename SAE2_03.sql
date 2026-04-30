@@ -63,7 +63,8 @@ CREATE TABLE `Movie` (
   `length` int(11) DEFAULT NULL,
   `description` text,
   `director` varchar(255) DEFAULT NULL,
-  `id_category` int(11) DEFAULT NULL FOREIGN KEY REFERENCES `Category`(`id_category`),
+  `id_category` int(11) DEFAULT NULL,
+  FOREIGN KEY (`id_category`) REFERENCES `Category`(`id_category`),
   `image` varchar(255) DEFAULT NULL,
   `trailer` varchar(255) DEFAULT NULL,
   `min_age` int(11) DEFAULT 0
