@@ -5,7 +5,7 @@
 @import "./utilities.css" layer(utilities);
 
 @import "../component/NavBar/style.css" layer(components);
-@import "../component/Log/style.css" layer(components);
+@import "../component/Notification/style.css" layer(components);
 @import "../component/MovieForm/style.css" layer(components);
 @import "../component/ProfileForm/style.css" layer(components);
 @import "../component/ProfileList/style.css" layer(components);

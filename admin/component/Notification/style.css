@@ -1,0 +1,28 @@
+.notification {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    padding: 1rem 1.5rem;
+    border: 5px solid var(--color-black);
+    border-radius: 10px;
+    font-size: 1.25rem;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+}
+
+.success {
+    background-color: var(--color-green);
+    color: var(--color-white);
+}
+
+/* Notification apparaît */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Notification disparaît */
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}

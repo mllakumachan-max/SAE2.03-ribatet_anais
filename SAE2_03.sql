@@ -48,7 +48,12 @@ INSERT INTO `Category` (`id_category`, `name`) VALUES
 (7, 'Horreur'),
 (8, 'Aventure'),
 (9, 'Fantaisie'),
-(10, 'Documentaire');
+(10, 'Documentaire'),
+(11, 'Romance'),
+(12, 'Biopic'),
+(13, 'Historique'),
+(14, 'Musical'),
+(15, 'Western');
 
 -- --------------------------------------------------------
 
@@ -63,7 +68,7 @@ CREATE TABLE `Movie` (
   `length` int(11) DEFAULT NULL,
   `description` text,
   `director` varchar(255) DEFAULT NULL,
-  `id_category` int(11) DEFAULT NULL,
+  `id_category` int(11) DEFAULT NOT NULL,
   FOREIGN KEY (`id_category`) REFERENCES `Category`(`id_category`),
   `image` varchar(255) DEFAULT NULL,
   `trailer` varchar(255) DEFAULT NULL,

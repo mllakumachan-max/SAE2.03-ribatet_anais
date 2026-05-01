@@ -9,9 +9,11 @@ ProfileList.formatOne = function(id, pseudo, avatar, age){
   let html = template2;
   let restriction = "";
   html = html.replace("{{id}}", id);
-  html = html.replace("{{avatar}}", avatar);
-  html = html.replace("{{pseudo}}", pseudo);
+  html = html.replaceAll("{{avatar}}", avatar);
+  html = html.replaceAll("{{pseudo}}", pseudo);
   html = html.replace("{{age}}", age);
+  return html;
+}
 
 ProfileList.format = function (profile) {
   let html = template;

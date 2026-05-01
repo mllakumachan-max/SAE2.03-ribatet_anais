@@ -7,6 +7,11 @@
     flex-direction: column;
     margin: 2rem auto;
     padding: 1rem;
+    .addMovie__title{
+        margin: 1rem;
+        padding: 0.5rem;
+        font-size: 1.5rem;
+    }
     .addMovie__form {
         display: grid;
         grid-template-areas: "titre titre titre real real real"

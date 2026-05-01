@@ -4,7 +4,7 @@
         <input type="hidden" name="id" value="{{id}}">
         <div class="form__group pseudo">
             <label class="form__group-title">Pseudo du profil *</label>
-            <input class="updateProfile__form-info" required type="text" name="pseudo" value="{{pseudo}}"/>
+            <input required class="updateProfile__form-info" type="text" name="pseudo" value="{{pseudo}}"/>
         </div>
 
         <div class="form__group avatar">
@@ -14,7 +14,7 @@
 
         <div class="form__group age">
             <label class="form__group-title">Restriction d'âge</label>
-            <select class="updateProfile__form-info" name="age">
+            <select required class="updateProfile__form-info" name="age">
                 <option {{selected_0}} value="0">Tout public</option>
                 <option {{selected_10}} value="10">10 ans et plus</option>
                 <option {{selected_12}} value="12">12 ans et plus</option>

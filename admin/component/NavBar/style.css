@@ -1,32 +1,40 @@
 .navbar {
+  --_bg: var(--color-bg);
+  --_fg: var(--color-fg);
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: column;
+  margin: 2rem auto;
   padding: 1rem 2rem;
-  color: var(--color-fg);
-  background-color: var(--color-bg);
+  color: var(--color-bg);
+  .navbar__title {
+    font-size: 1.5rem;
+  }
   .navbar__list {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 1rem;
-  }
-  .navbar__item {
-    --_offset: 0.2rem;
-    padding: 0.5rem 1rem;
-    text-decoration: underline;
-    text-decoration-thickness: 0.1rem;
-    text-underline-offset: var(--_offset);
-    cursor: pointer;
-    transition: text-underline-offset 0.2s ease-in-out;
-    &:hover {
-      --_offset: 0.5rem;
-    }
-  }
-  .profile {
-    display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    flex-direction: column;
+    margin: 2rem;
+    padding: 1rem;
+    gap: 1rem;
+    .navbar__item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1rem auto;
+      padding: 0.5rem 1rem;
+      color: var(--_fg);
+      background-color: var(--_bg);
+      border: 2px solid var(--_fg);
+      border-radius: 7px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      &:hover {
+        background-color: var(--_fg);
+        color: var(--_bg);
+      }
+    }
   }
 }
