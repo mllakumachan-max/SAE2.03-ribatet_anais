@@ -18,6 +18,7 @@
       import {MovieDetail} from "./component/MovieDetail/script.js";
       import {MovieCategory} from "./component/MovieCategory/script.js";
       import {Profile} from "./component/Profile/script.js";
+      import {Notification} from "./component/Notification/script.js";
       
       import {DataMovie} from "./data/dataMovie.js";
       import {DataProfile} from "./data/dataProfile.js";
@@ -73,7 +74,7 @@
       C.handlerMovieDetail = async function(id) {
         let data = await DataMovie.requestMovieDetails(id, window.activeProfile);
         if (data != null){
-          V.renderMovieDetail(data, window.activeProfile);
+          V.renderMovieDetail(window.activeProfile, data);
         }
         else{
           document.querySelector("#content").innerHTML = "Aucun détail disponible pour le moment";
@@ -83,7 +84,7 @@
       // Ajouter un film aux favoris
       C.handlerAddFavorite = async function(id_movie) {
         if (window.activeProfile != null) {
-          let success = await DataFavorite.addFavorite(id_movie, window.activeProfile);
+          let success = await DataFavorite.addFavorite(window.activeProfile, id_movie);
           C.handlerMovieDetail(id_movie); // Met à jour les détails du film pour refléter le changement de favoris
           Notification.show(success);
         }
@@ -92,7 +93,7 @@
       // Supprimer un film des favoris
       C.handlerRemoveFavorite = async function(id_movie) {
         if (window.activeProfile != null) {
-          let success = await DataFavorite.removeFavorite(id_movie, window.activeProfile);
+          let success = await DataFavorite.removeFavorite(window.activeProfile, id_movie);
           C.handlerMovieDetail(id_movie); // Met à jour les détails du film pour refléter le changement de favoris
           Notification.show(success);
         }
@@ -130,9 +131,9 @@
       };
 
       // Afficher les détails du film
-      V.renderMovieDetail = function(hDetails, id_profile) {
+      V.renderMovieDetail = function(id_profile, movie) {
         let content = document.querySelector("#content");
-        content.innerHTML = MovieDetail.format(hDetails, id_profile);
+        content.innerHTML = MovieDetail.format(id_profile, movie);
       };
 
       // Afficher les favoris

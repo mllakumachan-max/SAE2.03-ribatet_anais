@@ -110,7 +110,7 @@ CREATE TABLE `Favorite` (
   `id_movie` int(11) NOT NULL,
   `date_added` datetime DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (`id_profile`) REFERENCES `Profile`(`id_profile`),
-  FOREIGN KEY (`id_movie`) REFERENCES `Movie`(`id_movie`),
+  FOREIGN KEY (`id_movie`) REFERENCES `Movie`(`id_movie`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

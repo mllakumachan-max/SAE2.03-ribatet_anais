@@ -3,16 +3,16 @@ let template = await templateFile.text();
 
 let MovieDetail = {};
 
-MovieDetail.format = function(movie, profile_id) {
+MovieDetail.format = function(profile_id, movie) {
     let html = template;
     html = html.replace("{{id_movie}}", movie.id_movie);
     html = html.replace("{{titre}}", movie.name);
     if (movie.is_favorite) {
-        html = html.replace("{{handler}}", "C.handlerRemoveFavorite(" + movie.id_movie + ", " + profile_id + ")");
+        html = html.replace("{{handler}}", "C.handlerRemoveFavorite(" + movie.id_movie + ")");
         html = html.replace("{{texte}}", "Retirer des favoris");
     }
     else {
-        html = html.replace("{{handler}}", "C.handlerAddFavorite(" + movie.id_movie + ", " + profile_id + ")");
+        html = html.replace("{{handler}}", "C.handlerAddFavorite(" + movie.id_movie + ")");
         html = html.replace("{{texte}}", "Ajouter aux favoris");
     }
     html = html.replace("{{img}}", "../server/images/" + movie.image);
