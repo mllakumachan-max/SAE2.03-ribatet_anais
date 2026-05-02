@@ -140,10 +140,39 @@ Pour modifier un profil sélectionné :
 
 ### Requêtes
 
-
+J'ai créé une nouvelle table pour gérer les favoris d'un profil :
 
 ```
+CREATE TABLE `Favorite` (
+  `id_favorite` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id_profile` int(11) NOT NULL,
+  `id_movie` int(11) NOT NULL,
+  `date_added` datetime DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`id_profile`) REFERENCES `Profile`(`id_profile`),
+  FOREIGN KEY (`id_movie`) REFERENCES `Movie`(`id_movie`),
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
 
+Pour ajouter aux favoris :
+
+```
+"insert into Favorite (`id_profile`, `id_movie`) 
+values (:id_profile, :id_movie)"
+```
+
+Pour lire les favoris d'un profil :
+
+```
+"select Movie.* from Movie 
+join Favorite on Movie.id_movie = Favorite.id_movie 
+where Favorite.id_profile = :id_profile
+order by Favorite.date_added DESC"
+```
+
+Pour récupérer la liste des films dans les favoris :
+
+```
+"select *from Favorite where id_profile = :id_profile and id_movie = :id_movie"
 ```
 
 ### Vue Looping
@@ -151,6 +180,16 @@ Pour modifier un profil sélectionné :
 
 
 ## Itération 10
+
+### Requêtes
+
+Pour supprimer un film des favoris
+
+```
+"delete from Favorite where id_profile = :id_profile and id_movie = :id_movie"
+```
+
+## Itération 11
 
 ### Requêtes
 
@@ -162,8 +201,14 @@ Pour modifier un profil sélectionné :
 
 ## Cardinalités
 
-- Pour Movie vers Category : 1:N car un film peut appartenir au minimum à une catégorie, ou à plusieurs
-- Pour Category vers Movie : 0:N car une catégorie peut n'appartenir à aucun film car elle existe dans la base mais n'est pas attribuée, ou à autant de films qu'on veut
+- Pour Movie vers Category : 1:N car un film peut appartenir au minimum à une catégorie, et au maximum à plusieurs
+- Pour Category vers Movie : 0:N car une catégorie peut au minimum n'appartenir à aucun film car elle existe dans la base mais n'est pas attribuée, et au maximum à autant de films qu'on veut
 
-- Pour Movie vers Profile : 0:N car un film peut n'être restreint par aucun profil comme les "Tout public", ou peut être restreint par plusieurs profils comme "Déconseillé au -18ans"
-- Pour Profile vers Movie : 0:N car un profil peut ne restreindre aucun films comme "Tout public", ou peut restreindre plusieurs films selon l'âge
+- Pour Movie vers Profile : 0:N car un film peut au minimum n'être restreint par aucun profil comme les "Tout public", et peut au maximum être restreint par plusieurs profils comme "Déconseillé au -18ans"
+- Pour Profile vers Movie : 0:N car un profil peut au minimum ne restreindre aucun films comme "Tout public", et peut au maximum restreindre plusieurs films selon l'âge
+
+- Pour Movie vers Favorite : 0:1 car un film peut, au minimum, ne pas apparaître dans une liste, et au maximum, apparaître qu'une seule fois dans une liste de favoris
+- Pour Favorite vers Movie : 0:N car une liste de favoris peut faire apparaître au minimum aucun film, et au maximum tous les films proposés
+
+- Pour Profile vers Favorite : 1:1 car un profil possède au minimum et au maximum une seule liste de favoris, qu'elle soit vide ou non
+- Pour Favorite vers Profile : 1:N car une liste est possédée par au minimum un profil et au maximum par tous les profils

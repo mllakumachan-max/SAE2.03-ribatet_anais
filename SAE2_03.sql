@@ -98,6 +98,21 @@ CREATE TABLE `Profile` (
   `min_age` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Favorite`
+--
+
+CREATE TABLE `Favorite` (
+  `id_favorite` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id_profile` int(11) NOT NULL,
+  `id_movie` int(11) NOT NULL,
+  `date_added` datetime DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`id_profile`) REFERENCES `Profile`(`id_profile`),
+  FOREIGN KEY (`id_movie`) REFERENCES `Movie`(`id_movie`),
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

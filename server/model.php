@@ -18,13 +18,28 @@ define("DBNAME", "ribatet1");
 define("DBLOGIN", "ribatet1");
 define("DBPWD", "ribatet1");
 
-// Fonctions de récupération
+// Fonctions Movie
 
 function getAllMovies(){
     // Connexion à la base de données
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
     // Requête SQL pour récupérer tous les films
     $sql = "select Movie.id_movie, Movie.name, Movie.image from Movie";
+    // Prépare la requête SQL
+    $stmt = $cnx->prepare($sql);
+    // Exécute la requête SQL
+    $stmt->execute();
+    // Récupère les résultats de la requête sous forme d'objets
+    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+    return $res; // Retourne les résultats
+}
+
+// Liste des catégories et des âges pour les formulaires d'ajout de film
+function getAllCategories(){
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    // Requête SQL pour récupérer les catégories
+    $sql = "select id_category, name from Category";
     // Prépare la requête SQL
     $stmt = $cnx->prepare($sql);
     // Exécute la requête SQL
@@ -83,8 +98,8 @@ function getAllMoviesByProfile($age){
                 },
                 {
                     "id_movie": 18,
-                    "name": "Demon Slayer : La Forteresse de l'infini",
-                    "image": "demon-slayer-forteresse_infini.jpg",
+                    "name": "Demon Slayer : La Forteresse infinie",
+                    "image": "demon-slayer-forteresse_infinie.jpg",
                     "category_name": "Animation"
                 }],
         "Aventure": [{
@@ -96,61 +111,32 @@ function getAllMoviesByProfile($age){
     }*/
 }
 
-// Liste des catégories et des âges pour les formulaires d'ajout de film
-function getAllCategories(){
-    // Connexion à la base de données
-    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
-    // Requête SQL pour récupérer les catégories
-    $sql = "select id_category, name from Category";
-    // Prépare la requête SQL
-    $stmt = $cnx->prepare($sql);
-    // Exécute la requête SQL
-    $stmt->execute();
-    // Récupère les résultats de la requête sous forme d'objets
-    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
-    return $res; // Retourne les résultats
-}
-
 /**
  * Lit les détails d'un film dans la base de données.
  *
  * @param int $id L'ID du film.
+ * @param int $id_profile L'ID du profil.
  * @return object Les détails du film.
  */
-function getMovieDetails($id){
+function getMovieDetails($id, $id_profile){
     // Connexion à la base de données
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
     // Requête SQL pour récupérer les détails d'un film
-    $sql = "select Movie.*, Category.name as category_name from Movie 
+    $sql = "select Movie.*, Category.name as category_name, Favorite.id_movie as is_favorite from Movie 
             join Category on Movie.id_category = Category.id_category 
+            left join Favorite on Movie.id_movie = Favorite.id_movie and Favorite.id_profile = :id_profile
             where Movie.id_movie=:id";
     // Prépare la requête SQL
     $stmt = $cnx->prepare($sql);
     // Lie le paramètre à la valeur
     $stmt->bindParam(':id', $id);
+    $stmt->bindParam(':id_profile', $id_profile);
     // Exécute la requête SQL
     $stmt->execute();
     // Récupère le résultat de la requête sous forme d'un objet
     $res = $stmt->fetch(PDO::FETCH_OBJ);
     return $res; // Retourne les résultats
 }
-
-function getAllProfiles(){
-    // Connexion à la base de données
-    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
-    // Requête SQL pour récupérer les catégories
-    $sql = "select * from Profile";
-    // Prépare la requête SQL
-    $stmt = $cnx->prepare($sql);
-    // Exécute la requête SQL
-    $stmt->execute();
-    // Récupère les résultats de la requête sous forme d'objets
-    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
-    return $res; // Retourne les résultats
-}
-
-
-// Fonctions d'ajout
 
 /**
  * Ajoute un film dans la base de données.
@@ -212,7 +198,19 @@ function addProfile($pseudo, $avatar, $age){
     $stmt->execute();
 }
 
-// Fonction de modification
+function getAllProfiles(){
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    // Requête SQL pour récupérer les catégories
+    $sql = "select * from Profile";
+    // Prépare la requête SQL
+    $stmt = $cnx->prepare($sql);
+    // Exécute la requête SQL
+    $stmt->execute();
+    // Récupère les résultats de la requête sous forme d'objets
+    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+    return $res; // Retourne les résultats
+}
 
 function updateProfile($id, $pseudo, $avatar, $age){
     // Connexion à la base de données
@@ -231,6 +229,95 @@ function updateProfile($id, $pseudo, $avatar, $age){
     // Récupère le nombre de lignes affectées par la requête
     $res = $stmt->rowCount(); 
     return $res; // Retourne le nombre de lignes affectées
+}
+
+// Fonction Favorite
+
+/**
+ * Ajoute un film aux favoris d'un profil.
+ *
+ * @param int $id_profile L'ID du profil.
+ * @param int $id_movie L'ID du film.
+ */
+function addFavorite($id_profile, $id_movie){
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    // Requête SQL pour ajouter un film aux favoris
+    $sql = "insert into Favorite (`id_profile`, `id_movie`) 
+            values (:id_profile, :id_movie)";
+    // Prépare la requête SQL
+    $stmt = $cnx->prepare($sql);
+    // Lie les paramètres aux valeurs
+    $stmt->bindParam(':id_profile', $id_profile);
+    $stmt->bindParam(':id_movie', $id_movie);
+    // Exécute la requête SQL
+    $stmt->execute();
+}
+
+/**
+ * Récupère tous les films favoris d'un profil.
+ *
+ * @param int $id_profile L'ID du profil.
+ * @return array Les films favoris du profil.
+ */
+function getFavorites($id_profile){
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    // Requête SQL pour récupérer les films favoris d'un profil
+    $sql = "select Movie.* from Movie 
+            join Favorite on Movie.id_movie = Favorite.id_movie 
+            where Favorite.id_profile = :id_profile
+            order by Favorite.date_added DESC";
+    // Prépare la requête SQL
+    $stmt = $cnx->prepare($sql);
+    // Lie le paramètre à la valeur
+    $stmt->bindParam(':id_profile', $id_profile);
+    // Exécute la requête SQL
+    $stmt->execute();
+    // Récupère les résultats de la requête sous forme d'objets
+    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+    return $res; // Retourne les résultats
+}
+
+/**
+ * Vérifie si un film est dans les favoris d'un profil.
+ *
+ * @param int $id_profile L'ID du profil.
+ * @param int $id_movie L'ID du film.
+ * @return bool true si le film est en favori, false sinon.
+ */
+function isFavorite($id_profile, $id_movie){
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    // Requête SQL pour vérifier si le film est en favori
+    $sql = "select * from Favorite 
+            where id_profile = :id_profile and id_movie = :id_movie";
+    // Prépare la requête SQL
+    $stmt = $cnx->prepare($sql);
+    // Lie les paramètres aux valeurs
+    $stmt->bindParam(':id_profile', $id_profile);
+    $stmt->bindParam(':id_movie', $id_movie);
+    // Exécute la requête SQL
+    $stmt->execute();
+    // Récupère le résultat de la requête sous forme d'un tableau associatif
+    $res = $stmt->fetch(PDO::FETCH_ASSOC);
+    // Retourne true si le count est > 0, false sinon
+    return !empty($res);
+}
+
+function removeFavorite($id_profile, $id_movie){
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    // Requête SQL pour supprimer un film des favoris
+    $sql = "delete from Favorite 
+            where id_profile = :id_profile and id_movie = :id_movie";
+    // Prépare la requête SQL
+    $stmt = $cnx->prepare($sql);
+    // Lie les paramètres aux valeurs
+    $stmt->bindParam(':id_profile', $id_profile);
+    $stmt->bindParam(':id_movie', $id_movie);
+    // Exécute la requête SQL
+    $stmt->execute();
 }
 
 ?>

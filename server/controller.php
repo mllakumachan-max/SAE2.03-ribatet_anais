@@ -39,12 +39,13 @@ function readCategoriesController(){
 // Fonction de contrôle pour la lecture des détails d'un film
 function readMovieDetailsController(){
     $id = $_REQUEST['id'] ?? null; // Raccourci de isset($_REQUEST['id'])==true;
-    if (empty($id)==false){
-        $movie_details = getMovieDetails($id);
+    $id_profile = $_REQUEST['id_profile'] ?? null;
+    if (empty($id)==false && empty($id_profile)==false){
+        $movie_details = getMovieDetails($id, $id_profile);
         return $movie_details;
     }
     else{
-        return "Veuillez fournir un id de film valide.";
+        return "Veuillez fournir un id de film et un id de profil valides.";
     }
 }
 
@@ -53,6 +54,14 @@ function readProfilesController(){
     $profiles = getAllProfiles();
     return $profiles;
 }
+
+// Fonction de contrôle pour lire les films favoris d'un profil
+function readFavoritesController(){
+    $id_profile = $_REQUEST['id_profile'] ?? null;
+    $favorites = getFavorites($id_profile);
+    return $favorites;
+}
+
 
 /* Fonctions d'ajouts */
 
@@ -86,6 +95,9 @@ function addMovieController(){
         }
         if (empty($categorie)==true) {
             $categorie = null;
+        }
+        else {
+            return "Veuillez fournir une catégorie valide.";
         }
         // Ajout du film à l'aide de la fonction addMovie décrite dans model.php
         addMovie($titre, $annee, $duree, $desc, $real, $categorie, $img, $lien, $age);
@@ -122,6 +134,23 @@ function addProfileController(){
     }
 }
 
+function addFavoriteController(){
+    $id_profile = $_REQUEST['id_profile'] ?? null;
+    $id_movie = $_REQUEST['id_movie'] ?? null;
+    if (empty($id_profile)==false && empty($id_movie)==false){
+        if (isFavorite($id_profile, $id_movie)==false){
+            addFavorite($id_profile, $id_movie);
+            return "Le film a été ajouté à vos favoris.";
+        }
+        else{
+            return "Ce film est déjà dans vos favoris.";
+        }
+    }
+    else{
+        return "Veuillez fournir un ID de profil et un ID de film valides.";
+    }
+}
+
 // Fonction de modification
 
 function updateProfileController(){
@@ -136,6 +165,25 @@ function updateProfileController(){
     }
     else{
         return false;
+    }
+}
+
+// Fonctions de suppression
+
+function removeFavoriteController(){
+    $id_profile = $_REQUEST['id_profile'] ?? null;
+    $id_movie = $_REQUEST['id_movie'] ?? null;
+    if (empty($id_profile)==false && empty($id_movie)==false){
+        if (isFavorite($id_profile, $id_movie)==true){
+            removeFavorite($id_profile, $id_movie);
+            return "Le film a été retiré de vos favoris.";
+        }
+        else{
+            return "Ce film n'est pas dans vos favoris.";
+        }
+    }
+    else{
+        return "Veuillez fournir un ID de profil et un ID de film valides.";
     }
 }
 

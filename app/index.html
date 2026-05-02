@@ -21,6 +21,7 @@
       
       import {DataMovie} from "./data/dataMovie.js";
       import {DataProfile} from "./data/dataProfile.js";
+      import {DataFavorite} from "./data/dataFavorite.js";
 
       // Variable globale pour stocker le profil actif
       window.activeProfile = null;
@@ -70,12 +71,30 @@
 
       // Lire les détails d'un film et les afficher
       C.handlerMovieDetail = async function(id) {
-        let data = await DataMovie.requestMovieDetails(id);
+        let data = await DataMovie.requestMovieDetails(id, window.activeProfile);
         if (data != null){
-          V.renderMovieDetail(data);
+          V.renderMovieDetail(data, window.activeProfile);
         }
         else{
           document.querySelector("#content").innerHTML = "Aucun détail disponible pour le moment";
+        }
+      };
+
+      // Ajouter un film aux favoris
+      C.handlerAddFavorite = async function(id_movie) {
+        if (window.activeProfile != null) {
+          let success = await DataFavorite.addFavorite(id_movie, window.activeProfile);
+          C.handlerMovieDetail(id_movie); // Met à jour les détails du film pour refléter le changement de favoris
+          Notification.show(success);
+        }
+      };
+
+      // Supprimer un film des favoris
+      C.handlerRemoveFavorite = async function(id_movie) {
+        if (window.activeProfile != null) {
+          let success = await DataFavorite.removeFavorite(id_movie, window.activeProfile);
+          C.handlerMovieDetail(id_movie); // Met à jour les détails du film pour refléter le changement de favoris
+          Notification.show(success);
         }
       };
 
@@ -111,9 +130,15 @@
       };
 
       // Afficher les détails du film
-      V.renderMovieDetail = function(hDetails) {
+      V.renderMovieDetail = function(hDetails, id_profile) {
         let content = document.querySelector("#content");
-        content.innerHTML = MovieDetail.format(hDetails);
+        content.innerHTML = MovieDetail.format(hDetails, id_profile);
+      };
+
+      // Afficher les favoris
+      V.renderFavorites = function(data) {
+        let content = document.querySelector("#content");
+        content.innerHTML = MovieFavorites.format(data);
       };
 
       // Afficher les profils

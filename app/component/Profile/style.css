@@ -84,13 +84,40 @@
             }
         }
     }
-    .profile__button {
+    .profile__actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
         margin: 2rem auto;
+    }
+    .profile__button {
         padding: 1rem 2rem;
         font-size: 1rem;
         font-weight: bold;
         cursor: pointer;
         border: 2px solid var(--_accent);
         border-radius: 10px;
+        background-color: var(--_accent);
+        color: var(--_bg);
+        transition: all 0.3s ease;
+        
+        &:hover {
+            background-color: transparent;
+            color: var(--_accent);
+        }
+        
+        &:active {
+            transform: scale(0.98);
+        }
+    }
+    .profile__button--favorites {
+        background-color: #e74c3c;
+        border-color: #e74c3c;
+        
+        &:hover {
+            color: #e74c3c;
+        }
     }
 }
