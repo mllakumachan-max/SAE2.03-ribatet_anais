@@ -1,123 +1,131 @@
+/* ── Block ── */
 .profile {
-    --_fg: var(--color-fg);
-    --_bg: var(--color-bg);
-    --_accent: var(--color-accent);
     display: flex;
-    flex-direction: column;
-    align-items: center;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
     z-index: 100;
-    margin: auto;
-    padding: 1rem;
-    background-color: var(--_fg);
-    .profile__title {
-        font-size: 2rem;
+    overflow: hidden;
+    width: 100%;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-lg);
+    padding: var(--space-lg);
+    background-color: var(--color-bg-overlay);
+}
+
+/* ── Elements ── */
+.profile__title {
+    font-size: var(--fs-h2);
+    font-weight: var(--fw-bold);
+    color: var(--color-fg);
+    text-align: center;
+}
+
+.profile__list {
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    width: 100%;
+    gap: var(--space-lg);
+    padding: var(--space-md) var(--space-lg);
+    scrollbar-width: none;
+}
+
+.profile__item {
+    display: flex;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+    justify-content: center;
+    width: 12rem;
+    padding: var(--space-md);
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    &:hover {
+        transform: scale(1.05);
+        border-color: var(--color-accent);
     }
+    /* ── Modifier : sélectionné ── */
+    &.profile__item--selected {
+        border-color: var(--color-accent);
+        border-width: 2px;
+    }
+    &.profile__item--center {
+        transform: scale(1.1);
+        border-color: var(--color-accent);
+    }
+}
+
+/* ── Card ── */
+.cardProfile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.cardProfile__avatar {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: var(--color-bg-card);
+}
+
+.cardProfile__pseudo {
+    font-size: var(--fs-h3);
+    font-weight: var(--fw-bold);
+    color: var(--color-fg);
+    text-align: center;
+}
+
+.cardProfile__infos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+/* ── Label âge ── */
+.label {
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: 50px;
+    font-size: var(--fs-label);
+    font-weight: var(--fw-bold);
+    color: var(--color-fg);
+    background-color: var(--color-accent);
+}
+
+/* ── Bouton ── */
+.profile__button {
+    padding: var(--space-sm) var(--space-lg);
+    border: none;
+    border-radius: 8px;
+    font-size: var(--fs-body);
+    font-weight: var(--fw-bold);
+    color: var(--color-bg);
+    background-color: var(--color-fg);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    &:hover {
+        background-color: var(--color-gray-light);
+    }
+}
+
+/* ── Desktop ── */
+@media (min-width: 48em) {
     .profile__list {
-        display: flex;
         justify-content: center;
-        align-items: center;  
-        margin: 2rem auto;
-        padding: 1rem;
-        gap: 1rem;
-        width: 100%;
-        overflow-x: scroll;
-        scroll-snap-type: x mandatory;
-        scrollbar-width: none;
-        scroll-behavior: smooth;
-        .profile__item {
-            margin: 0;
-            padding: 0;
-            border: 1px solid var(--_bg);
-            border-radius: 5px;
-            scroll-snap-align: start;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            &:hover {
-                background-color: var(--_bg);
-                color: var(--_fg);
-            }
-            &:active {
-                border: 2px solid var(--_accent);
-            }
-            .cardProfile {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                margin: auto;
-                padding: 0 2rem;
-                .cardProfile__avatar {
-                    width: 100px;
-                    height: 100px;
-                    border-radius: 50%;
-                    margin: 1rem 0;
-                }
-                .cardProfile__infos {
-                    text-align: center;
-                    font-size: 1rem;
-                    .cardProfile__pseudo {
-                        font-weight: bold;
-                        margin: 0.5rem 0;
-                    }
-                    .label {
-                        font-size: 1rem;
-                        .moins_10 {
-                            background-color: var(--color-black);
-                        }
-                        .dix_ans {
-                            background-color: var(--color-green);
-                        }
-                        .douze_ans {
-                            background-color: var(--color-yellow);
-                        }
-                        .seize_ans {
-                            background-color: var(--color-orange);
-                        }
-                        .dix_huit_ans {
-                            background-color: var(--color-red);
-                        }
-                    }
-                }
-            }
-        }
+        flex-wrap: nowrap;
     }
-    .profile__actions {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        margin: 2rem auto;
-    }
-    .profile__button {
-        padding: 1rem 2rem;
-        font-size: 1rem;
-        font-weight: bold;
-        cursor: pointer;
-        border: 2px solid var(--_accent);
-        border-radius: 10px;
-        background-color: var(--_accent);
-        color: var(--_bg);
-        transition: all 0.3s ease;
-        
-        &:hover {
-            background-color: transparent;
-            color: var(--_accent);
-        }
-        
-        &:active {
-            transform: scale(0.98);
-        }
-    }
-    .profile__button--favorites {
-        background-color: #e74c3c;
-        border-color: #e74c3c;
-        
-        &:hover {
-            color: #e74c3c;
-        }
+
+    .profile__item:hover {
+        transform: scale(1.1);
     }
 }

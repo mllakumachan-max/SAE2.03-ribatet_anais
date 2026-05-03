@@ -112,7 +112,18 @@ CREATE TABLE `Favorite` (
   FOREIGN KEY (`id_profile`) REFERENCES `Profile`(`id_profile`),
   FOREIGN KEY (`id_movie`) REFERENCES `Movie`(`id_movie`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- --------------------------------------------------------
 
+--
+-- Structure de la table `Featured`
+--
+
+CREATE TABLE `Featured` (
+  `id_featured` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id_movie` int(11) NOT NULL,
+  `date_added` datetime DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`id_movie`) REFERENCES `Movie`(`id_movie`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

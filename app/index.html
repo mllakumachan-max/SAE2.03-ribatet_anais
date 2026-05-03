@@ -8,17 +8,21 @@
   </head>
 
   <body>
-    <header id="header"></header>
 
+    <!-- Page -->
+    <header id="header"></header>
     <section id="content"></section>
 
+    <!-- Implémentation dynamique -->
     <script type="module">
+      // Imports
       import {NavBar} from "./component/NavBar/script.js";
       import {Movie} from "./component/Movie/script.js";
       import {MovieDetail} from "./component/MovieDetail/script.js";
       import {MovieCategory} from "./component/MovieCategory/script.js";
-      import {Profile} from "./component/Profile/script.js";
+      import {Profile, initCarouselZoom} from "./component/Profile/script.js";
       import {Notification} from "./component/Notification/script.js";
+      import {MovieFavorites} from "./component/MovieFavorites/script.js";
       
       import {DataMovie} from "./data/dataMovie.js";
       import {DataProfile} from "./data/dataProfile.js";
@@ -27,12 +31,13 @@
       // Variable globale pour stocker le profil actif
       window.activeProfile = null;
       window.activeAge = 0;
+      window.activeName = "Aucun profil actif";
 
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
       // Une fois l'application terminée, on pourrait remettre let C.
       window.C = {};
-
+   
       // Bouton d'accueil
       C.handlerHome = function() {
         C.handlerMovies();
@@ -44,10 +49,21 @@
       };
 
       // Bouton de sélection d'un profil spécifique
-      C.handlerProfileId = function(id, age) {
+      C.handlerProfileId = function(element, id, age, name) {
         // Stocke le profil actif dans une variable globale
         window.activeProfile = id;
         window.activeAge = age;
+        window.activeName = name;
+
+        // Retire la sélection de tous les items
+        document.querySelectorAll(".profile__item").forEach(item => {
+            item.classList.remove("profile__item--selected");
+        });
+
+        // Ajoute la sélection sur l'item cliqué
+        element.classList.add("profile__item--selected");
+
+        V.renderNavBar("C.handlerHome()", "C.handlerProfile()", "C.handlerFavorites()");
       };
 
       // Bouton de chargement des films liés au profil actif
@@ -88,6 +104,17 @@
           C.handlerMovieDetail(id_movie); // Met à jour les détails du film pour refléter le changement de favoris
           Notification.show(success);
         }
+        else{
+         document.querySelector("#content").innerHTML = "Votre liste de favoris est vide pour le moment";
+        }
+      };
+
+      // Afficher les favoris du profil actif
+      C.handlerFavorites = async function() {
+        if (window.activeProfile != null) {
+          let data = await DataFavorite.requestFavorites(window.activeProfile);
+          V.renderFavorites(data);
+        }
       };
 
       // Supprimer un film des favoris
@@ -100,7 +127,7 @@
       };
 
       C.start = function() {
-        V.renderNavBar("C.handlerHome()", "C.handlerProfile()");
+        V.renderNavBar("C.handlerHome()", "C.handlerProfile()", "C.handlerFavorites()");
         V.renderProfiles("C.handlerChargeMovie()");
       };
 
@@ -114,9 +141,9 @@
        * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
        * formaté par le composant NavBar.
        */
-      V.renderNavBar = async function(hHome, hProfile) {
+      V.renderNavBar = async function(hHome, hProfile, hFavorites) {
         let header = document.querySelector("#header");
-        header.innerHTML = NavBar.format(hHome, hProfile);
+        header.innerHTML = NavBar.format(hHome, hProfile, hFavorites);
       };
 
       // Afficher les films par catégorie
@@ -136,20 +163,89 @@
         content.innerHTML = MovieDetail.format(id_profile, movie);
       };
 
+      // Afficher les profils
+      V.renderProfiles = async function(hChargeMovies) {
+        let content = document.querySelector("#content");
+        let data = await DataProfile.requestProfiles();
+        content.innerHTML = Profile.format(hChargeMovies, data);
+        // Zoom seulement sur smartphone
+        if (window.matchMedia("(width < 48em)").matches) {  // Équivalent media query
+          initCarouselZoom();
+        }
+      };
+
       // Afficher les favoris
       V.renderFavorites = function(data) {
         let content = document.querySelector("#content");
         content.innerHTML = MovieFavorites.format(data);
       };
 
-      // Afficher les profils
-      V.renderProfiles = async function(hChargeMovies) {
-        let content = document.querySelector("#content");
-        let data = await DataProfile.requestProfiles();
-        content.innerHTML = Profile.format(hChargeMovies, data);
-      };
-
       C.start(); // Démarre l'application
     </script>
+
+    <!-- Icônes SVG -->
+    <svg 
+      aria-hidden="true" 
+      style="position: absolute; 
+      width: 0; height: 0; 
+      overflow: hidden;" 
+      version="1.1" 
+      xmlns="http://www.w3.org/2000/svg">
+
+      <symbol 
+        id="icon-home" 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        xmlns="http://www.w3.org/2000/svg">
+        <path 
+          d="M10 20V14H14V20H19V12H22L12 3L2 12H5V20H10Z" 
+          fill="currentColor"/>
+      </symbol>
+
+      <symbol 
+        id="icon-profile" 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        xmlns="http://www.w3.org/2000/svg">
+        <path 
+          d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" 
+          fill="currentColor"/>
+      </symbol>
+
+      <symbol 
+        id="icon-star" 
+        viewBox="0 0 24 24" 
+        fill="none">
+        <path 
+          d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" 
+          fill="currentColor"/>
+      </symbol>
+
+      <symbol 
+        id="icon-chevron-left" 
+        viewBox="0 0 24 24" 
+        fill="none">
+        <path 
+          d="M15 18L9 12L15 6" 
+          stroke="currentColor" 
+          stroke-width="2" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+      </symbol>
+
+      <symbol 
+        id="icon-chevron-right" 
+        viewBox="0 0 24 24" 
+        fill="none">
+        <path 
+          d="M9 18L15 12L9 6" 
+          stroke="currentColor" 
+          stroke-width="2" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+      </symbol>
+
+    </svg>
+
   </body>
 </html>

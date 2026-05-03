@@ -1,0 +1,10 @@
+.movieFavorites{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem 0;
+    .movieFavorites__title{
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+}

@@ -3,10 +3,12 @@ let template = await templateFile.text();
 
 let NavBar = {};
 
-NavBar.format = function (hHome, hProfile) {
+NavBar.format = function (hHome, hProfile, hFavorites) {
   let html = template;
   html = html.replace("{{hHome}}", hHome);
+  html = html.replace("{{activeProfile}}", window.activeName);
   html = html.replace("{{hProfile}}", hProfile);
+  html = html.replace("{{hFavorites}}", hFavorites);
   return html;
 };
 

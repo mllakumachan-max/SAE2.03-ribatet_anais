@@ -12,7 +12,7 @@ Profile.formatOne = function(id, pseudo, avatar, age){
   html = html.replace("{{id}}", id);
   html = html.replace("{{age}}", age);
   html = html.replace("{{avatar}}", avatar);
-  html = html.replace("{{pseudo}}", pseudo);
+  html = html.replaceAll("{{pseudo}}", pseudo);
 
   if (age == 0){
     restriction = "-10ans";
@@ -50,4 +50,31 @@ Profile.format = function (hChargeMovies, profile) {
   return html;
 }
 
-export {Profile};
+// Fonction pour un effet de zoom sur les cartes de profil lorsqu'elles sont centrées sur l'écran du smartphone
+function initCarouselZoom() {
+  // Sélectionnez tous les éléments de la liste de profils
+  const items = document.querySelectorAll(".profile__item");
+  // Créez un nouvel IntersectionObserver pour surveiller la visibilité des éléments
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        // Si l'élément est visible à 80% ou plus, ajouter la classe pour le zoom, sinon la retirer
+        if (entry.intersectionRatio > 0.8) {  //entry.intersectionRatio = pourcentage réel de visibilité de l'élément
+          entry.target.classList.add("profile__item--center");
+        }
+        else {
+          entry.target.classList.remove("profile__item--center");
+        }
+      });
+    },
+    {
+      root: document.querySelector(".profile__list"),
+      // L'élément doit être visible à 80% pour déclencher l'effet de zoom
+      threshold: [0.8]
+    }
+  );
+  // Observer chaque élément de la liste
+  items.forEach(item => observer.observe(item));
+}
+
+export {Profile, initCarouselZoom};

@@ -112,6 +112,33 @@ function getAllMoviesByProfile($age){
 }
 
 /**
+ * Récupère tous les films mis en avant filtrés par l'âge du profil.
+ * Les films mis en avant sont ceux marqués dans la table Featured.
+ * Cette fonction retourne uniquement les films qui respectent la restriction d'âge.
+ *
+ * @param int $age L'âge du profil
+ * @return array Un tableau d'objets contenant les films mis en avant
+ */
+function getFeaturedMovies($age){
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    // Requête SQL pour récupérer les films mis en avant avec leur catégorie
+    $sql = "select Movie.id_movie, Movie.name, Movie.image, Movie.description, Movie.min_age from Movie 
+            join Featured on Movie.id_movie = Featured.id_movie
+            where Movie.min_age <= :age 
+            order by Featured.date_added DESC";
+    // Prépare la requête SQL
+    $stmt = $cnx->prepare($sql);
+    // Lie le paramètre à la valeur
+    $stmt->bindParam(':age', $age);
+    // Exécute la requête SQL
+    $stmt->execute();
+    // Récupère les résultats de la requête sous forme d'un tableau d'objets
+    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+    return $res; // Retourne les résultats
+}
+
+/**
  * Lit les détails d'un film dans la base de données.
  *
  * @param int $id L'ID du film.
@@ -305,6 +332,12 @@ function isFavorite($id_profile, $id_movie){
     return !empty($res);
 }
 
+/**
+ * Supprime un film des favoris d'un profil.
+ *
+ * @param int $id_profile L'ID du profil.
+ * @param int $id_movie L'ID du film.
+ */
 function removeFavorite($id_profile, $id_movie){
     // Connexion à la base de données
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);

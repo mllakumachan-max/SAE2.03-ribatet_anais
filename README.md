@@ -22,3 +22,5 @@ commit :
 -   git push
   
 Si tout va bien, vous devez retrouver sur votre espace Github la modification que vous venez de réaliser.
+
+On passe au prochain composant, la Notification. J'aimerai qu'elle apparaisse en haut de la page par-dessus tout le reste, comme une vraie notif sur smartphone. Je veux les laisser en blanc avec un contour noir et mettre des icons en fonction du type de message (tick vert = succès, croix rouge = erreur)

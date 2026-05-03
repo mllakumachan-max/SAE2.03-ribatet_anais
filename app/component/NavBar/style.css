@@ -1,32 +1,106 @@
+/* ── Block ── */
 .navbar {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
-  padding: 1rem 2rem;
-  color: var(--color-fg);
-  background-color: var(--color-bg);
-  .navbar__list {
     display: flex;
-    justify-content: flex-start;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+    padding: var(--space-sm) var(--space-lg);
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.navbar__list {
+    display: flex;
     align-items: center;
-    gap: 1rem;
-  }
-  .navbar__item {
-    --_offset: 0.2rem;
-    padding: 0.5rem 1rem;
-    text-decoration: underline;
-    text-decoration-thickness: 0.1rem;
-    text-underline-offset: var(--_offset);
+    justify-content: space-between;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar__item {
+    display: flex;
+    align-items: center;
     cursor: pointer;
-    transition: text-underline-offset 0.2s ease-in-out;
+    color: var(--color-fg);
+    transition: color 0.2s ease;
     &:hover {
-      --_offset: 0.5rem;
+        color: var(--color-accent);
     }
-  }
-  .profile {
+}
+
+/* ── Icon ── */
+.navbar__icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: currentColor;
+}
+
+/* ── Profile button ── */
+.navbar__item--profile {
+    position: relative;
+}
+
+.navbar__profile-btn {
     display: flex;
-    justify-content: center;
     align-items: center;
-  }
+    gap: var(--space-sm);
+    padding: var(--space-xs) var(--space-md);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: none;
+    color: var(--color-fg);
+    font-size: var(--fs-body);
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+    &:hover {
+        border-color: var(--color-accent);
+    }
+}
+
+.navbar__profile-name {
+    font-size: var(--fs-meta);
+    font-weight: var(--fw-bold);
+}
+
+/* ── Menu déroulant ── */
+.navbar__dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    padding-top: 0;
+    right: 0;
+    z-index: 50;
+    min-width: 12rem;
+    padding: var(--space-xs) 0;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+}
+
+
+.navbar__item--profile:hover .navbar__dropdown {
+    display: block;
+}
+
+.navbar__dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--fs-body);
+    color: var(--color-fg);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    &:hover {
+        background-color: var(--color-hover);
+    }
+}
+
+/* ── Desktop ── */
+@media (min-width: 48em) {
+    .navbar {
+        padding: var(--space-sm) var(--space-xl);
+    }
 }
