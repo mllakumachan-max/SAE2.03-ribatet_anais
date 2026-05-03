@@ -103,15 +103,9 @@ function addMovieController(){
         if (empty($categorie)==true) {
             $categorie = null;
         }
-        else {
-            return "Veuillez fournir une catégorie valide.";
-        }
         // Ajout du film à l'aide de la fonction addMovie décrite dans model.php
         addMovie($titre, $annee, $duree, $desc, $real, $categorie, $img, $lien, $age);
         return "Le film $titre a été ajouté avec succès.";
-    }
-    else{
-        return "Veuillez remplir le champs 'titre'.";
     }
 }
 
@@ -130,14 +124,8 @@ function addProfileController(){
     $avatar = $_REQUEST['avatar'] ?? null;
     $age = $_REQUEST['age'] ?? null;
     if (empty($pseudo)==false){
-        $min_age = [0, 10, 12, 16, 18];
-        if (in_array($age, $min_age)){
-            addProfile($pseudo, $avatar, $age);
-            return "Le profil $pseudo a été ajouté avec succès.";
-        }
-    }
-    else{
-        return "Veuillez remplir le champs 'pseudo'.";
+        addProfile($pseudo, $avatar, $age);
+        return "Le profil $pseudo a été ajouté avec succès.";
     }
 }
 
@@ -168,7 +156,7 @@ function updateProfileController(){
         return "Le profil $pseudo a été mis à jour avec succès.";
     }
     else{
-        return false;
+        return "Veuillez modifier les informations du profil $pseudo.";
     }
 }
 
