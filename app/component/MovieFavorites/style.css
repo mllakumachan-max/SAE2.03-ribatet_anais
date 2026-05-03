@@ -1,10 +1,40 @@
-.movieFavorites{
+.movieFavorites {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin: 2rem 0;
-    .movieFavorites__title{
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
+    gap: var(--space-lg);
+    padding: var(--space-xl) var(--space-lg);
+}
+
+.movieFavorites__title {
+    font-size: var(--fs-h2);
+    font-weight: var(--fw-bold);
+    color: var(--color-bg);
+}
+
+/* ── Grille dans le contexte MovieFavorites ── */
+.movieFavorites .movies {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    overflow-x: unset;
+    scroll-snap-type: unset;
+    padding: 0;
+    gap: var(--space-lg);
+}
+
+.movieFavorites .movies__item {
+    width: 100%;
+    scroll-snap-align: unset;
+}
+
+/* ── Desktop ── */
+@media (width >= 48em) {
+    .movieFavorites .movies {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (width >= 87.5em) {
+    .movieFavorites .movies {
+        grid-template-columns: repeat(6, 1fr);
     }
 }

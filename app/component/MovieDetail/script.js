@@ -10,10 +10,12 @@ MovieDetail.format = function(profile_id, movie) {
     if (movie.is_favorite) {
         html = html.replace("{{handler}}", "C.handlerRemoveFavorite(" + movie.id_movie + ")");
         html = html.replace("{{texte}}", "Retirer des favoris");
+        html = html.replace("{{iconFavori}}", "#icon-star-full");
     }
     else {
         html = html.replace("{{handler}}", "C.handlerAddFavorite(" + movie.id_movie + ")");
         html = html.replace("{{texte}}", "Ajouter aux favoris");
+        html = html.replace("{{iconFavori}}", "#icon-star-empty");
     }
     html = html.replace("{{img}}", "../server/images/" + movie.image);
     html = html.replace("{{realisateur}}", movie.director);

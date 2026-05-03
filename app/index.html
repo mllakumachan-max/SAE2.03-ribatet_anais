@@ -57,7 +57,7 @@
 
         // Retire la sélection de tous les items
         document.querySelectorAll(".profile__item").forEach(item => {
-            item.classList.remove("profile__item--selected");
+          item.classList.remove("profile__item--selected");
         });
 
         // Ajoute la sélection sur l'item cliqué
@@ -72,13 +72,16 @@
           // Afficher les films liés au profil
           C.handlerMovies();
         }
+        else {
+          Notification.show("Veuillez choisir un profil", "error");
+        }
       }
 
       // Lire les films et les afficher
       C.handlerMovies = async function() {
         let age = window.activeAge;
         let data = await DataMovie.requestMovies(age);
-        if (Object.keys(data).length != 0){
+        if (data.length != 0){
           V.renderMovies(data);
         }
         else{
@@ -97,23 +100,23 @@
         }
       };
 
+      // Afficher les favoris du profil actif
+      C.handlerFavorites = async function() {
+        let data = await DataFavorite.requestFavorites(window.activeProfile);
+        if (data.length != 0) {
+          V.renderFavorites(data);
+        }
+        else{
+          document.querySelector("#content").innerHTML = "Votre liste de favoris est vide pour le moment";
+        }
+      };
+
       // Ajouter un film aux favoris
       C.handlerAddFavorite = async function(id_movie) {
         if (window.activeProfile != null) {
           let success = await DataFavorite.addFavorite(window.activeProfile, id_movie);
-          C.handlerMovieDetail(id_movie); // Met à jour les détails du film pour refléter le changement de favoris
+          await C.handlerMovieDetail(id_movie); // Met à jour les détails du film pour refléter le changement de favoris
           Notification.show(success);
-        }
-        else{
-         document.querySelector("#content").innerHTML = "Votre liste de favoris est vide pour le moment";
-        }
-      };
-
-      // Afficher les favoris du profil actif
-      C.handlerFavorites = async function() {
-        if (window.activeProfile != null) {
-          let data = await DataFavorite.requestFavorites(window.activeProfile);
-          V.renderFavorites(data);
         }
       };
 
@@ -121,7 +124,7 @@
       C.handlerRemoveFavorite = async function(id_movie) {
         if (window.activeProfile != null) {
           let success = await DataFavorite.removeFavorite(window.activeProfile, id_movie);
-          C.handlerMovieDetail(id_movie); // Met à jour les détails du film pour refléter le changement de favoris
+          await C.handlerMovieDetail(id_movie); // Met à jour les détails du film pour refléter le changement de favoris
           Notification.show(success);
         }
       };
@@ -213,12 +216,24 @@
       </symbol>
 
       <symbol 
-        id="icon-star" 
+        id="icon-star-full" 
         viewBox="0 0 24 24" 
         fill="none">
         <path 
           d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" 
           fill="currentColor"/>
+      </symbol>
+
+      <symbol 
+        id="icon-star-empty" 
+        viewBox="0 0 24 24" 
+        fill="none">
+        <path 
+          d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" 
+          stroke="currentColor" 
+          stroke-width="2" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
       </symbol>
 
       <symbol 
@@ -241,6 +256,30 @@
           d="M9 18L15 12L9 6" 
           stroke="currentColor" 
           stroke-width="2" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+      </symbol>
+
+      <symbol 
+        id="icon-check" 
+        viewBox="0 0 24 24" 
+        fill="none">
+        <path 
+          d="M20 6L9 17L4 12" 
+          stroke="currentColor" 
+          stroke-width="2.5" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+      </symbol>
+
+      <symbol 
+        id="icon-cross" 
+        viewBox="0 0 24 24" 
+        fill="none">
+        <path 
+          d="M18 6L6 18M6 6L18 18" 
+          stroke="currentColor" 
+          stroke-width="2.5" 
           stroke-linecap="round" 
           stroke-linejoin="round"/>
       </symbol>

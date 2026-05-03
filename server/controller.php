@@ -45,7 +45,7 @@ function readMovieDetailsController(){
         return $movie_details;
     }
     else{
-        return "Veuillez fournir un id de film et un id de profil valides.";
+        return false;
     }
 }
 
@@ -153,9 +153,6 @@ function addFavoriteController(){
             return "Ce film est déjà dans vos favoris.";
         }
     }
-    else{
-        return "Veuillez fournir un ID de profil et un ID de film valides.";
-    }
 }
 
 // Fonction de modification
@@ -188,9 +185,6 @@ function removeFavoriteController(){
         else{
             return "Ce film n'est pas dans vos favoris.";
         }
-    }
-    else{
-        return "Veuillez fournir un ID de profil et un ID de film valides.";
     }
 }
 

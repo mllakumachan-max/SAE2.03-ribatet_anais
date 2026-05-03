@@ -3,7 +3,12 @@
         <img class="movie__affiche" src="{{img}}" alt="">
         <figcaption class="movie__infos">
             <h2 class="movie__title">{{titre}}</h2>
-            <button class="button-favori" onclick="{{handler}}">{{texte}}</button>
+            <button class="button-favori" onclick="{{handler}}">
+                <svg class="button-favori__icon">
+                    <use href="{{iconFavori}}"/>
+                </svg>
+                {{texte}}
+            </button>
             <p class="movie__notes">
                 <span class="movie__date">{{date}}</span>
                 <span class="movie__duree">{{duree}} min</span>

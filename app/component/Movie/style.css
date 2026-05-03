@@ -1,4 +1,3 @@
-/* ── Block : liste horizontale ── */
 .movies {
     display: flex;
     justify-content: flex-start;

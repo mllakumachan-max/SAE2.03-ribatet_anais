@@ -39,17 +39,18 @@
   /* Sementic Tokens */
   --color-fg: var(--color-white);
   --color-bg: var(--color-gray-dark);
-  --color-bg-overlay: var(--color-black-95);
   --color-accent: var(--color-gray);
+
+  --color-bg-overlay: var(--color-black-95);
+
   --color-bg-card: var(--color-gray-dark);
   --color-fg-secondary: var(--color-gray-light);
   --color-border: var(--color-gray-dark);
   --color-hover: var(--color-gray-dark);
 
   /* Semantic typography */
+  --fs-meta: var(--fs-sm);
   --fs-body: var(--fs-base);
   --fs-h3: var(--fs-md);
   --fs-h2: var(--fs-lg);
-  --fs-label: var(--fs-xs);
-  --fs-meta: var(--fs-sm);
 }
