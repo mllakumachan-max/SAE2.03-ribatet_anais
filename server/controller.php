@@ -62,10 +62,9 @@ function readFavoritesController(){
     return $favorites;
 }
 
-// Fonction de contrôle pour lire les films mis en avant filtrés par l'âge du profil
+// Fonction de contrôle pour lire les films mis en avant
 function readFeaturedMoviesController(){
-    $age = $_REQUEST['age'] ?? 0;
-    $featured_movies = getFeaturedMovies($age);
+    $featured_movies = getFeaturedMovies();
     return $featured_movies;
 }
 

@@ -39,21 +39,21 @@ CREATE TABLE `Category` (
 --
 
 INSERT INTO `Category` (`id_category`, `name`) VALUES
-(1, 'Action'),
-(2, 'Comédie'),
-(3, 'Drame'),
-(4, 'Science-fiction'),
-(5, 'Animation'),
-(6, 'Thriller'),
-(7, 'Horreur'),
-(8, 'Aventure'),
-(9, 'Fantaisie'),
-(10, 'Documentaire'),
-(11, 'Romance'),
-(12, 'Biopic'),
-(13, 'Historique'),
-(14, 'Musical'),
-(15, 'Western');
+(1, "Action"),
+(2, "Comédie"),
+(3, "Drame"),
+(4, "Science-fiction"),
+(5, "Animation"),
+(6, "Thriller"),
+(7, "Horreur"),
+(8, "Aventure"),
+(9, "Fantaisie"),
+(10, "Documentaire"),
+(11, "Romance"),
+(12, "Biopic"),
+(13, "Historique"),
+(14, "Musical"),
+(15, "Western");
 
 -- --------------------------------------------------------
 
@@ -72,18 +72,19 @@ CREATE TABLE `Movie` (
   FOREIGN KEY (`id_category`) REFERENCES `Category`(`id_category`),
   `image` varchar(255) DEFAULT NULL,
   `trailer` varchar(255) DEFAULT NULL,
-  `min_age` int(11) DEFAULT 0
+  `min_age` int(11) DEFAULT 0,
+  `featured` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `Movie`
 --
 
-INSERT INTO `Movie` (`id_movie`, `name`, `year`, `length`, `description`, `director`, `id_category`, `image`, `trailer`, `min_age`) VALUES
-(7, 'Interstellar', 2014, 169, 'Un groupe d\'explorateurs voyage à travers un trou de ver pour sauver l\'humanité.', 'Christopher Nolan', 4, 'interstellar.jpg', 'https://www.youtube.com/embed/VaOijhK3CRU?si=76Ke4uw4LYjuLuQ6', 12),
-(12, 'La Liste de Schindler', 1993, 195, 'Un industriel allemand sauve des milliers de Juifs pendant l\'Holocauste.', 'Steven Spielberg', 3, 'schindler.webp', 'https://www.youtube.com/embed/ONWtyxzl-GE?si=xC3ASGGPy5Ib-aPn', 16),
-(17, 'Your Name', 2016, 107, 'Deux adolescents échangent leurs corps de manière mystérieuse.', 'Makoto Shinkai', 5, 'your_name.jpg', 'https://www.youtube.com/embed/AROOK45LXXg?si=aUQyGk2VMCb_ToUL', 10),
-(27, 'Le Bon, la Brute et le Truand', 1966, 161, 'Trois hommes se lancent à la recherche d\'un trésor caché.', 'Sergio Leone', 8, 'bon_brute_truand.jpg', 'https://www.youtube.com/embed/WA1hCZFOPqs?si=TwNZAoM4oj4KpGja', 12);
+INSERT INTO `Movie` (`id_movie`, `name`, `year`, `length`, `description`, `director`, `id_category`, `image`, `trailer`, `min_age`, `featured`) VALUES
+(7, "Interstellar", 2014, 169, "Un groupe d'explorateurs voyage à travers un trou de ver pour sauver l'humanité.", "Christopher Nolan", 4, "interstellar.jpg", "https://www.youtube.com/embed/VaOijhK3CRU?si=76Ke4uw4LYjuLuQ6", 12, 1),
+(12, "La Liste de Schindler", 1993, 195, "Un industriel allemand sauve des milliers de Juifs pendant l'Holocauste.", "Steven Spielberg", 3, "schindler.webp", "https://www.youtube.com/embed/ONWtyxzl-GE?si=xC3ASGGPy5Ib-aPn", 16, 1),
+(17, "Your Name", 2016, 107, "Deux adolescents échangent leurs corps de manière mystérieuse.", "Makoto Shinkai", 5, "your_name.jpg", "https://www.youtube.com/embed/AROOK45LXXg?si=aUQyGk2VMCb_ToUL", 10, 0),
+(27, "Le Bon, la Brute et le Truand", 1966, 161, "Trois hommes se lancent à la recherche d'un trésor caché.", "Sergio Leone", 8, "bon_brute_truand.jpg", "https://www.youtube.com/embed/WA1hCZFOPqs?si=TwNZAoM4oj4KpGja", 12, 0);
 
 -- --------------------------------------------------------
 
@@ -110,18 +111,6 @@ CREATE TABLE `Favorite` (
   `id_movie` int(11) NOT NULL,
   `date_added` datetime DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (`id_profile`) REFERENCES `Profile`(`id_profile`),
-  FOREIGN KEY (`id_movie`) REFERENCES `Movie`(`id_movie`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
--- --------------------------------------------------------
-
---
--- Structure de la table `Featured`
---
-
-CREATE TABLE `Featured` (
-  `id_featured` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `id_movie` int(11) NOT NULL,
-  `date_added` datetime DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (`id_movie`) REFERENCES `Movie`(`id_movie`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

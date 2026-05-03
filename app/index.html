@@ -11,18 +11,23 @@
 
     <!-- Page -->
     <header id="header"></header>
+    <section id="hero"></section>
     <section id="content"></section>
 
     <!-- Implémentation dynamique -->
     <script type="module">
       // Imports
       import {NavBar} from "./component/NavBar/script.js";
+      
       import {Movie} from "./component/Movie/script.js";
       import {MovieDetail} from "./component/MovieDetail/script.js";
       import {MovieCategory} from "./component/MovieCategory/script.js";
-      import {Profile, initCarouselZoom} from "./component/Profile/script.js";
-      import {Notification} from "./component/Notification/script.js";
       import {MovieFavorites} from "./component/MovieFavorites/script.js";
+      import {MovieFeatured} from "./component/MovieFeatured/script.js";
+
+      import {Profile, initCarouselZoom} from "./component/Profile/script.js";
+
+      import {Notification} from "./component/Notification/script.js";
       
       import {DataMovie} from "./data/dataMovie.js";
       import {DataProfile} from "./data/dataProfile.js";
@@ -37,11 +42,8 @@
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
       // Une fois l'application terminée, on pourrait remettre let C.
       window.C = {};
-   
-      // Bouton d'accueil
-      C.handlerHome = function() {
-        C.handlerMovies();
-      };
+
+      /* Profil */
 
       // Bouton de sélection de profil
       C.handlerProfile = function() {
@@ -66,6 +68,9 @@
         V.renderNavBar("C.handlerHome()", "C.handlerProfile()", "C.handlerFavorites()");
       };
 
+
+      /* Movie */
+
       // Bouton de chargement des films liés au profil actif
       C.handlerChargeMovie = function() {
         if (window.activeProfile != null) {
@@ -82,6 +87,7 @@
         let age = window.activeAge;
         let data = await DataMovie.requestMovies(age);
         if (data.length != 0){
+          await C.handlerMovieFeatured();
           V.renderMovies(data);
         }
         else{
@@ -99,6 +105,19 @@
           document.querySelector("#content").innerHTML = "Aucun détail disponible pour le moment";
         }
       };
+
+      // Lire le film mis en avant et l'afficher
+      C.handlerMovieFeatured = async function() {
+        let data = await DataMovie.requestFeaturedMovies();
+        if (data.length != 0){
+          V.renderMovieFeatured(data);
+        }
+        else{
+          document.querySelector("#hero").innerHTML = "Aucun film mis en avant pour le moment";
+        }
+      }
+
+      /* Favoris */
 
       // Afficher les favoris du profil actif
       C.handlerFavorites = async function() {
@@ -127,6 +146,12 @@
           await C.handlerMovieDetail(id_movie); // Met à jour les détails du film pour refléter le changement de favoris
           Notification.show(success);
         }
+      };
+
+      /* Start */
+
+      C.handlerHome = function() {
+        C.handlerMovies();
       };
 
       C.start = function() {
@@ -164,6 +189,12 @@
       V.renderMovieDetail = function(id_profile, movie) {
         let content = document.querySelector("#content");
         content.innerHTML = MovieDetail.format(id_profile, movie);
+      };
+
+      // Afficher le film mis en avant
+      V.renderMovieFeatured = function(data) {
+        let content = document.querySelector("#hero");
+        content.innerHTML = MovieFeatured.format(data);
       };
 
       // Afficher les profils

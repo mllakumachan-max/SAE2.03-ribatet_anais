@@ -22,8 +22,8 @@ DataMovie.requestMovieDetails = async function(id, id_profile){
     return data;
 }
 
-DataMovie.requestFeaturedMovies = async function(age){
-    let answer = await fetch(HOST_URL + "/server/script.php?todo=readFeaturedMovies&age=" + age);
+DataMovie.requestFeaturedMovies = async function(){
+    let answer = await fetch(HOST_URL + "/server/script.php?todo=readFeaturedMovies");
     let data = await answer.json();
     return data;
 }

@@ -1,34 +1,81 @@
 .movieFeatured {
     display: flex;
     flex-direction: column;
-    margin: var(--space-lg) 0;
-    padding: var(--space-lg) 0;
-    background-color: var(--color-bg-secondary);
-    border-top: 2px solid var(--color-border);
-    border-bottom: 2px solid var(--color-border);
+    padding: var(--space-xl) var(--space-lg);
+    gap: var(--space-lg);
+    background-color: var(--color-bg-card);
 }
 
 .movieFeatured__title {
-    padding: 0 var(--space-lg);
-    margin: var(--space-md) 0;
-    font-size: var(--font-size-lg);
-    font-weight: bold;
-    color: var(--color-text);
+    font-size: var(--fs-h2);
+    font-weight: var(--fw-bold);
+    color: var(--color-fg);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
-.movieFeatured .movies {
+.movieFeatured__list {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 0;
+    gap: var(--space-lg);
+}
+
+.movieFeatured__item {
+    width: 100%;
+    transition: transform 0.2s ease;
+    &:hover {
+        transform: scale(1.02);
+    }
+}
+
+.movieFeatured__film {
+    border: 1px solid var(--color-gray-light);
+    border-radius: 10px;
+}
+
+.movieFeatured__affiche {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border-radius: 9px;
+}
+
+.movieFeatured__infos {
+    display: flex;
+    flex-direction: column;
     margin: 0;
-    padding: var(--space-sm) var(--space-lg);
+    padding: var(--space-sm) 0;
+    gap: var(--space-sm);
+    width: 100%;
+    border-top: 1px solid var(--color-gray-light);
 }
 
-.movieFeatured .movies__description {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+.movieFeatured__infos-title {
+    margin: var(--space-sm);
+    font-size: var(--fs-h3);
+    font-weight: var(--fw-semibold);
+    color: var(--color-fg);
+}
+
+.movieFeatured__infos-description {
+    margin: var(--space-sm);
+    font-size: var(--fs-body);
+    font-style: var(--fst-italic);
+    color: var(--color-fg-secondary);
     overflow: hidden;
-    text-overflow: ellipsis;
-    margin: var(--space-xs) 0 0 0;
-    font-size: 0.85rem;
-    color: var(--color-text-secondary);
-    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+/* ── Desktop ── */
+@media (width >= 48em) {
+    .movieFeatured__list {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .movieFeatured__affiche {
+        aspect-ratio: 2/3;
+    }
 }
