@@ -28,10 +28,13 @@
       import {Profile, initCarouselZoom} from "./component/Profile/script.js";
 
       import {Notification} from "./component/Notification/script.js";
-      
+
+      import {Stats} from "./component/Stats/script.js";
+
       import {DataMovie} from "./data/dataMovie.js";
       import {DataProfile} from "./data/dataProfile.js";
       import {DataFavorite} from "./data/dataFavorite.js";
+      import {DataStats} from "./data/dataStats.js";
 
       // Variable globale pour stocker le profil actif
       window.activeProfile = null;
@@ -65,7 +68,7 @@
         // Ajoute la sélection sur l'item cliqué
         element.classList.add("profile__item--selected");
 
-        V.renderNavBar("C.handlerHome()", "C.handlerProfile()", "C.handlerFavorites()");
+        V.renderNavBar("C.handlerHome()", "C.handlerStats()", "C.handlerProfile()", "C.handlerFavorites()");
       };
 
 
@@ -148,6 +151,21 @@
         }
       };
 
+
+      /* Stats */
+
+      // Afficher les statistiques du profil actif
+      C.handlerStats = async function() {
+        let data = await DataStats.requestStats();
+        if (Object.keys(data).length != 0) {
+          V.renderStats(data);
+        }
+        else{
+          document.querySelector("#content").innerHTML = "Aucune statistique disponible pour le moment";
+        }
+      };
+
+
       /* Start */
 
       C.handlerHome = function() {
@@ -155,7 +173,7 @@
       };
 
       C.start = function() {
-        V.renderNavBar("C.handlerHome()", "C.handlerProfile()", "C.handlerFavorites()");
+        V.renderNavBar("C.handlerHome()", "C.handlerStats()", "C.handlerProfile()", "C.handlerFavorites()");
         V.renderProfiles("C.handlerChargeMovie()");
       };
 
@@ -169,9 +187,9 @@
        * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
        * formaté par le composant NavBar.
        */
-      V.renderNavBar = async function(hHome, hProfile, hFavorites) {
+      V.renderNavBar = async function(hHome, hStats, hProfile, hFavorites) {
         let header = document.querySelector("#header");
-        header.innerHTML = NavBar.format(hHome, hProfile, hFavorites);
+        header.innerHTML = NavBar.format(hHome, hStats, hProfile, hFavorites);
       };
 
       // Afficher les films par catégorie
@@ -214,6 +232,12 @@
         content.innerHTML = MovieFavorites.format(data);
       };
 
+      // Afficher les statistiques
+      V.renderStats = function(data) {
+        let content = document.querySelector("#content");
+        content.innerHTML = Stats.format(data);
+      };
+      
       C.start(); // Démarre l'application
     </script>
 
@@ -311,6 +335,18 @@
           d="M18 6L6 18M6 6L18 18" 
           stroke="currentColor" 
           stroke-width="2.5" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+      </symbol>
+
+      <symbol 
+        id="icon-stats" 
+        viewBox="0 0 24 24" 
+        fill="none">
+        <path 
+          d="M18 20V10M12 20V4M6 20V14" 
+          stroke="currentColor" 
+          stroke-width="2" 
           stroke-linecap="round" 
           stroke-linejoin="round"/>
       </symbol>

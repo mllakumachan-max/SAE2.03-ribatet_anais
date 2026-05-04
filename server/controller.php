@@ -68,6 +68,17 @@ function readFeaturedMoviesController(){
     return $featured_movies;
 }
 
+// Fonction de contrôle pour lire les stattistiques générales
+function readStatsController(){
+    // Syntaxe tableau associatif : "clé" => valeur
+    return [
+        "total_profiles" => getTotalProfiles(),
+        "total_movies" => getTotalMovies(),
+        "avg_favorites" => getAvgFavoritesPerProfile(),
+        "most_favorited_movie" => getMostFavoritedMovie(),
+        "most_popular_category" => getMostPopularCategory()
+    ];
+}
 
 /* Fonctions d'ajouts */
 

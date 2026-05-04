@@ -82,6 +82,10 @@ if ( isset($_REQUEST['todo']) ){
       $data = readFeaturedMoviesController();
       break;
 
+    case 'readStats':
+      $data = readStatsController();
+      break;
+
     // Add
     case 'addMovie':
       $data = addMovieController();

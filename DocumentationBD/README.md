@@ -193,6 +193,87 @@ Pour supprimer un film des favoris
 
 ### Requêtes
 
+J'ai ajouté un élément booléen dans la table Movie pour gérer le statut mis en avant :
+
+```
+CREATE TABLE `Movie` (
+  `id_movie` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` varchar(255) NOT NULL,
+  `year` int(11) DEFAULT NULL,
+  `length` int(11) DEFAULT NULL,
+  `description` text,
+  `director` varchar(255) DEFAULT NULL,
+  `id_category` int(11) DEFAULT NOT NULL,
+  FOREIGN KEY (`id_category`) REFERENCES `Category`(`id_category`),
+  `image` varchar(255) DEFAULT NULL,
+  `trailer` varchar(255) DEFAULT NULL,
+  `min_age` int(11) DEFAULT 0,
+  `featured` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+
+Pour récupérer le statut d'un film :
+
+```
+"select id_movie, name, image, description from Movie 
+where featured = 1"
+```
+
+## Itération 12
+
+### Requêtes
+
+#### 1 - Stats utilisateur & engagement
+
+Pour récupérer le nombre total de profil créés :
+
+```
+"select count(*) from Profile"
+```
+
+Pour récupérer le nombre moyen de films par profil dans les favoris :
+
+```
+"select round(avg(total)) from (
+  select count(*) as total from Favorite group by id_profile
+) as counts"
+```
+
+#### 2 - Stats films & catalogue 
+Pour récupérer le nombre total de films dans la base :
+
+```
+"select count(*) from Movie"
+```
+
+Pour récupérer le film le plus ajouté aux favoris :
+
+```
+select Movie.name from Movie
+join (
+    select id_movie, count(*) as total from Favorite 
+    group by id_movie
+    order by total desc
+    limit 1
+) as top on Movie.id_movie = top.id_movie;
+```
+
+Pour récupérer la catégorie la plus populaire :
+
+```
+select Category.name from Category
+join (
+    select Movie.id_category, count(*) as total from Favorite 
+    join Movie on Favorite.id_movie = Movie.id_movie
+    group by Movie.id_category
+    order by total desc
+    limit 1
+) as top on Category.id_category = top.id_category;
+```
+
+## Itération 13
+
+### Requêtes
 
 
 ```

@@ -348,4 +348,89 @@ function removeFavorite($id_profile, $id_movie){
     $stmt->execute();
 }
 
+
+// Fonctions statistiques
+
+/**
+ * Récupère le nombre total de profils dans la base de données.
+ *
+ * @return object Un objet contenant le nombre total de profils.
+ */
+function getTotalProfiles(){
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT COUNT(*) as total FROM Profile";
+    $stmt = $cnx->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_OBJ);
+}
+
+/**
+ * Récupère le nombre total de favoris dans la base de données.
+ *
+ * @return object Un objet contenant le nombre total de favoris.
+ */
+function getAvgFavoritesPerProfile(){
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT ROUND(AVG(total), 1) as avg FROM (
+                SELECT COUNT(*) as total FROM Favorite GROUP BY id_profile
+            ) as counts";
+    $stmt = $cnx->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_OBJ);
+}
+
+/**
+ * Récupère le nombre total de films dans la base de données.
+ *
+ * @return object Un objet contenant le nombre total de films.
+ */
+function getTotalMovies(){
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT COUNT(*) as total FROM Movie";
+    $stmt = $cnx->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_OBJ);
+}
+
+/**
+ * Récupère le film le plus favorisé dans la base de données.
+ *
+ * @return object Un objet contenant le nom du film le plus favorisé.
+ */
+function getMostFavoritedMovie(){
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT Movie.name FROM Movie
+            JOIN (
+                SELECT id_movie, COUNT(*) as total 
+                FROM Favorite 
+                GROUP BY id_movie
+                ORDER BY total DESC
+                LIMIT 1
+            ) as top ON Movie.id_movie = top.id_movie";
+    $stmt = $cnx->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_OBJ);
+}
+
+/**
+ * Récupère la catégorie la plus populaire dans la base de données.
+ *
+ * @return object Un objet contenant le nom de la catégorie la plus populaire.
+ */
+function getMostPopularCategory(){
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT Category.name FROM Category
+            JOIN (
+                SELECT Movie.id_category, COUNT(*) as total 
+                FROM Favorite 
+                JOIN Movie ON Favorite.id_movie = Movie.id_movie
+                GROUP BY Movie.id_category
+                ORDER BY total DESC
+                LIMIT 1
+            ) as top ON Category.id_category = top.id_category";
+    $stmt = $cnx->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_OBJ);
+}
+
 ?>
