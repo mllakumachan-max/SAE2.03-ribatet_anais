@@ -18,7 +18,9 @@
     <script type="module">
       // Imports
       import {NavBar} from "./component/NavBar/script.js";
-      
+      import {Notification} from "./component/Notification/script.js";
+      import {Search} from "./component/Search/script.js";
+
       import {Movie} from "./component/Movie/script.js";
       import {MovieDetail} from "./component/MovieDetail/script.js";
       import {MovieCategory} from "./component/MovieCategory/script.js";
@@ -26,8 +28,6 @@
       import {MovieFeatured} from "./component/MovieFeatured/script.js";
 
       import {Profile, initCarouselZoom} from "./component/Profile/script.js";
-
-      import {Notification} from "./component/Notification/script.js";
 
       import {Stats} from "./component/Stats/script.js";
 
@@ -68,7 +68,7 @@
         // Ajoute la sélection sur l'item cliqué
         element.classList.add("profile__item--selected");
 
-        V.renderNavBar("C.handlerHome()", "C.handlerStats()", "C.handlerProfile()", "C.handlerFavorites()");
+        V.renderNavBar("C.handlerHome()", "C.handlerStats()", "C.handlerSearch()", "C.handlerProfile()", "C.handlerFavorites()");
       };
 
 
@@ -118,6 +118,21 @@
         }
         else{
           document.querySelector("#hero").innerHTML = "Aucun film mis en avant pour le moment";
+        }
+      }
+
+      // Bouton de recherche de films
+      C.handlerSearchMovie = async function(search) {
+        if (search.trim() !== "") {
+          document.querySelector("#hero").innerHTML = "";
+          let data = await DataMovie.requestSearchMovies(search);
+          if (data.length != 0){
+            let wrapped = {"Résultats de recherche": data};
+            V.renderMovies(wrapped);
+          }
+          else{
+            document.querySelector("#content").innerHTML = "Aucun film ne correspond à votre recherche.";
+          }
         }
       }
 
@@ -176,7 +191,7 @@
       };
 
       C.start = function() {
-        V.renderNavBar("C.handlerHome()", "C.handlerStats()", "C.handlerProfile()", "C.handlerFavorites()");
+        V.renderNavBar("C.handlerHome()", "C.handlerStats()", "C.handlerSearch()", "C.handlerProfile()", "C.handlerFavorites()");
         V.renderProfiles("C.handlerChargeMovie()");
       };
 
@@ -190,9 +205,9 @@
        * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
        * formaté par le composant NavBar.
        */
-      V.renderNavBar = async function(hHome, hStats, hProfile, hFavorites) {
+      V.renderNavBar = async function(hHome, hStats, hSearch, hProfile, hFavorites) {
         let header = document.querySelector("#header");
-        header.innerHTML = NavBar.format(hHome, hStats, hProfile, hFavorites);
+        header.innerHTML = NavBar.format(hHome, hStats, hSearch, hProfile, hFavorites);
       };
 
       // Afficher les films par catégorie
@@ -352,6 +367,16 @@
           stroke-width="2" 
           stroke-linecap="round" 
           stroke-linejoin="round"/>
+      </symbol>
+
+      <symbol
+        id="icon-search"
+        viewBox="0 0 32 32"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M27.613 25.72L23.08 21.2C24.5425 19.3367 25.336 17.0357 25.333 14.667C25.333 8.776 20.558 4 14.667 4C8.776 4 4 8.776 4 14.667C4 20.557 8.776 25.333 14.667 25.333C17.0357 25.336 19.3367 24.5425 21.2 23.08L25.72 27.613C25.8439 27.738 25.9914 27.8371 26.1538 27.9048C26.3163 27.9725 26.4905 28.0074 26.6665 28.0074C26.8425 28.0074 27.0167 27.9725 27.1792 27.9048C27.3416 27.8371 27.4891 27.738 27.613 27.613C27.738 27.4891 27.8371 27.3416 27.9048 27.1792C27.9725 27.0167 28.0074 26.8425 28.0074 26.6665C28.0074 26.4905 27.9725 26.3163 27.9048 26.1538C27.8371 25.9914 27.738 25.8439 27.613 25.72V25.72ZM6.667 14.667C6.667 12.5453 7.50986 10.5104 9.01015 9.01015C10.5104 7.50986 12.5453 6.667 14.667 6.667C16.7887 6.667 18.8236 7.50986 20.3239 9.01015C21.8241 10.5104 22.667 12.5453 22.667 14.667C22.667 16.7887 21.8241 18.8236 20.3239 20.3239C18.8236 21.8241 16.7887 22.667 14.667 22.667C12.5453 22.667 10.5104 21.8241 9.01015 20.3239C7.50986 18.8236 6.667 16.7887 6.667 14.667V14.667Z"
+          fill="currentColor"/>
       </symbol>
 
     </svg>

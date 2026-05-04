@@ -1,17 +1,23 @@
 <nav class="navbar font-sans">
   <ul class="navbar__list">
-    <!-- Accueil -->
-    <li class="navbar__item" onclick="{{hHome}}">
-      <svg class="navbar__icon">
-        <use href="#icon-home"/>
-      </svg>
+    <li class="navbar__item">
+      <!-- Accueil -->
+      <div class="navbar__item-home" onclick="{{hHome}}">
+        <svg class="navbar__icon">
+          <use href="#icon-home"/>
+        </svg>
+      </div>
+      <!-- Statistiques -->
+      <div class="navbar__item-stat" onclick="{{hStats}}">
+        <svg class="navbar__icon">
+          <use href="#icon-stats"/>
+        </svg>
+      </div>
     </li>
 
-    <!-- Statistiques -->
-    <li class="navbar__item" onclick="{{hStats}}">
-      <svg class="navbar__icon">
-        <use href="#icon-stats"/>
-      </svg>
+    <!-- Recherche -->
+    <li class="navbar__item">
+      {{search}}
     </li>
 
     <!-- Menu déroulant du profil -->

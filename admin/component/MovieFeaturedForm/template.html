@@ -1,0 +1,18 @@
+<div class="addMovie">
+    <h2 class="addMovie__title">Ajouter un film</h2>
+    {{search}}
+    <form class="addMovie__form">
+        <div class="form__group statut">
+            <label class="form__group-title">Statut : Mettre en avant ?</label>
+            <select class="addMovie__form-info" name="statut">
+                <option default value="0">Non</option>
+                <option value="1">Oui</option>
+            </select>
+        </div>
+
+        <div class="buttons">
+            <input class="button-ajouter" onclick="{{handlerAjouter}}" type="button" value="Ajouter" name="todo">
+            <input class="button-annuler" onclick="{{handlerAnnuler}}" type="button" value="Annuler" name="todo">
+        </div>
+    </form>
+</div>

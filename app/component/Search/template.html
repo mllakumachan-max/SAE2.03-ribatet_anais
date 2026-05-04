@@ -1,0 +1,15 @@
+<div class="search">
+    <label class="search__img" for="search">
+        <svg class="navbar__icon">
+            <use xlink:href="#icon-search"></use>
+        </svg>
+    </label>
+    <input class="search__input" 
+        placeholder="Rechercher un film" 
+        id="search"
+        onkeyup="C.handlerSearchMovie({{search_movie}})"
+    />
+    <ul class="searchMovies__list">
+        {{list_movies}}
+    </ul>
+</div>

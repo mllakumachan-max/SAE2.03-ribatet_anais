@@ -22,7 +22,7 @@
 }
 
 .movieFeatured__item {
-    width: 100%;
+    width: 20rem;
     transition: transform 0.2s ease;
     &:hover {
         transform: scale(1.02);
@@ -30,6 +30,7 @@
 }
 
 .movieFeatured__film {
+    width: 100%;
     border: 1px solid var(--color-gray-light);
     border-radius: 10px;
 }
@@ -69,8 +70,19 @@
     -webkit-box-orient: vertical;
 }
 
+/* ── Tablet ── */
+@media (width >= 768px) {
+    .movieFeatured__list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .movieFeatured__affiche {
+        aspect-ratio: 3/4;
+    }
+}
+
 /* ── Desktop ── */
-@media (width >= 48em) {
+@media (width >= 1024px) {
     .movieFeatured__list {
         grid-template-columns: repeat(4, 1fr);
     }

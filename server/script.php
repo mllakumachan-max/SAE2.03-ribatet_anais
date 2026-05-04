@@ -86,6 +86,10 @@ if ( isset($_REQUEST['todo']) ){
       $data = readStatsController();
       break;
 
+    case 'readSearchResults':
+      $data = readSearchMoviesController();
+      break;
+
     // Add
     case 'addMovie':
       $data = addMovieController();
@@ -102,6 +106,10 @@ if ( isset($_REQUEST['todo']) ){
     // Update
     case 'updateProfile':
       $data = updateProfileController();
+      break;
+
+    case 'updateFeaturedMovies':
+      $data = updateFeaturedMoviesController();
       break;
 
     // Remove

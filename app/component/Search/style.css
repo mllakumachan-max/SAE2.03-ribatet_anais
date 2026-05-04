@@ -1,0 +1,41 @@
+.search {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin: var(--space-md);
+    padding: 0 var(--space-md);
+    width: 100%;
+    .navbar__icon {
+        width: 2rem;
+        height: 2rem;
+        fill: currentColor;
+    }
+    .search__input {
+        margin: var(--space-md);
+        padding: var(--space-sm) 0;
+        width: auto;
+        color: var(--color-fg);
+        background-color: var(--color-bg);
+        border: none;
+        border-bottom: solid 1px var(--color-gray-light);
+    }
+}
+
+.searchMovies__list {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    .searchMovies__item {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin: var(--space-sm) 0;
+        padding: var(--space-sm);
+        width: auto;
+        color: var(--color-fg);
+        background-color: var(--color-bg);
+        border: solid 1px var(--color-gray-light);
+        border-radius: var(--space-sm);
+    }
+}

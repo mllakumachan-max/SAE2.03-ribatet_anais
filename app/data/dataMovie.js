@@ -28,4 +28,10 @@ DataMovie.requestFeaturedMovies = async function(){
     return data;
 }
 
+DataMovie.requestSearchMovies = async function(search){
+    let answer = await fetch(HOST_URL + "/server/script.php?todo=readSearchResults&search=" + search);
+    let data = await answer.json();
+    return data;
+}
+
 export {DataMovie};

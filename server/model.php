@@ -197,6 +197,42 @@ function addMovie($t, $an, $duree, $desc, $r, $c, $aff, $l, $age){
 }
 
 /**
+ * Récupère les films correspondant à une recherche par nom.
+ *
+ * @param string $search Le terme de recherche.
+ * @return array Un tableau d'objets contenant les films correspondants à la recherche.
+ */
+function getMovieBySearch($search) {
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT id_movie, name, image FROM Movie WHERE name LIKE :search";
+    $stmt = $cnx->prepare($sql);
+    $searchTerm = '%' . $search . '%';
+    $stmt->bindParam(':search', $searchTerm);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
+
+/**
+ * Modifie le statut mis en avant d'un film dans la base de données.
+ */
+function updateFeatured($id, $featured){
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD); 
+    // Requête SQL pour mettre à jour le statut mis en avant d'un film avec des paramètres
+    $sql = "update Movie set featured=:featured where id_movie=:id";
+    // Prépare la requête SQL
+    $stmt = $cnx->prepare($sql);
+    // Lie les paramètres aux valeurs
+    $stmt->bindParam(':id', $id);
+    $stmt->bindParam(':featured', $featured);
+    // Exécute la requête SQL
+    $stmt->execute();
+    // Récupère le nombre de lignes affectées par la requête
+    $res = $stmt->rowCount(); 
+    return $res; // Retourne le nombre de lignes affectées
+}
+
+/**
  * Ajoute un profil utilisateur dans la base de données.
  *
  * @param string $nom Le nom du profil.

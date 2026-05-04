@@ -80,6 +80,18 @@ function readStatsController(){
     ];
 }
 
+// Fonction de contrôle pour la recherche de films
+function readSearchMoviesController(){
+    $search = $_REQUEST['search'] ?? null;
+    if (empty($search)==false){
+        $movies = getMovieBySearch($search);
+        return $movies;
+    }
+    else{
+        return "Aucun résultat correspondant à $search";
+    }
+}
+
 /* Fonctions d'ajouts */
 
 /** addMovieController
@@ -153,7 +165,7 @@ function addFavoriteController(){
     }
 }
 
-// Fonction de modification
+/* Fonction de modification */
 
 function updateProfileController(){
     // Lecture des données de formulaire
@@ -170,7 +182,15 @@ function updateProfileController(){
     }
 }
 
-// Fonctions de suppression
+function updateFeaturedMoviesController(){
+    $movie_ids = $_REQUEST['movie_ids'] ?? null; // Raccourci de isset($_REQUEST['movie_ids'])==true;
+    if (empty($movie_ids)==false && is_array($movie_ids)){
+        updateFeaturedMovies($movie_ids);
+        return "La liste des films mis en avant a été mise à jour avec succès.";
+    }
+}
+
+/* Fonctions de suppression */
 
 function removeFavoriteController(){
     $id_profile = $_REQUEST['id_profile'] ?? null;

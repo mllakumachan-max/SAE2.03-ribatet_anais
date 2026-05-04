@@ -20,19 +20,21 @@
 
 .navbar__item {
     display: flex;
+    justify-content: center;
     align-items: center;
+    gap: 1rem;
     cursor: pointer;
     color: var(--color-fg);
     transition: color 0.2s ease;
-    &:hover {
+    .navbar__icon:hover {
         color: var(--color-accent);
     }
 }
 
 /* ── Icon ── */
 .navbar__icon {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2rem;
+    height: 2rem;
     fill: currentColor;
 }
 
@@ -56,11 +58,10 @@
     &:hover {
         border-color: var(--color-accent);
     }
-}
-
-.navbar__profile-name {
-    font-size: var(--fs-meta);
-    font-weight: var(--fw-bold);
+    .navbar__profile-name {
+        font-size: var(--fs-meta);
+        font-weight: var(--fw-bold);
+    }
 }
 
 /* ── Menu déroulant ── */
@@ -76,25 +77,23 @@
     background-color: var(--color-bg-card);
     border: 1px solid var(--color-border);
     border-radius: 8px;
+    .navbar__dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: var(--space-sm);
+        padding: var(--space-sm) var(--space-md);
+        font-size: var(--fs-body);
+        color: var(--color-fg);
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        &:hover {
+            background-color: var(--color-hover);
+        }
+    }
 }
-
 
 .navbar__item--profile:hover .navbar__dropdown {
     display: block;
-}
-
-.navbar__dropdown-item {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    padding: var(--space-sm) var(--space-md);
-    font-size: var(--fs-body);
-    color: var(--color-fg);
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    &:hover {
-        background-color: var(--color-hover);
-    }
 }
 
 /* ── Desktop ── */
