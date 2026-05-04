@@ -177,7 +177,7 @@ Pour récupérer la liste des films dans les favoris :
 
 ### Vue Looping
 
-
+![alt text](screenModeleFavorite.png)
 
 ## Itération 10
 
@@ -196,20 +196,7 @@ Pour supprimer un film des favoris
 J'ai ajouté un élément booléen dans la table Movie pour gérer le statut mis en avant :
 
 ```
-CREATE TABLE `Movie` (
-  `id_movie` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `name` varchar(255) NOT NULL,
-  `year` int(11) DEFAULT NULL,
-  `length` int(11) DEFAULT NULL,
-  `description` text,
-  `director` varchar(255) DEFAULT NULL,
-  `id_category` int(11) DEFAULT NOT NULL,
-  FOREIGN KEY (`id_category`) REFERENCES `Category`(`id_category`),
-  `image` varchar(255) DEFAULT NULL,
-  `trailer` varchar(255) DEFAULT NULL,
-  `min_age` int(11) DEFAULT 0,
-  `featured` tinyint(1) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+`featured` tinyint(1) DEFAULT 0
 ```
 
 Pour récupérer le statut d'un film :
