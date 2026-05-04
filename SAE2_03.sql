@@ -68,12 +68,12 @@ CREATE TABLE `Movie` (
   `length` int(11) DEFAULT NULL,
   `description` text,
   `director` varchar(255) DEFAULT NULL,
-  `id_category` int(11) DEFAULT NOT NULL,
-  FOREIGN KEY (`id_category`) REFERENCES `Category`(`id_category`),
+  `id_category` int(11),
   `image` varchar(255) DEFAULT NULL,
   `trailer` varchar(255) DEFAULT NULL,
   `min_age` int(11) DEFAULT 0,
-  `featured` tinyint(1) DEFAULT 0
+  `featured` tinyint(1) DEFAULT 0,
+  FOREIGN KEY (`id_category`) REFERENCES `Category`(`id_category`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -107,8 +107,8 @@ CREATE TABLE `Profile` (
 
 CREATE TABLE `Favorite` (
   `id_favorite` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `id_profile` int(11) NOT NULL,
-  `id_movie` int(11) NOT NULL,
+  `id_profile` int(11),
+  `id_movie` int(11),
   `date_added` datetime DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (`id_profile`) REFERENCES `Profile`(`id_profile`),
   FOREIGN KEY (`id_movie`) REFERENCES `Movie`(`id_movie`)

@@ -7,12 +7,50 @@
   --color-gray-light: hsl(0, 0%, 80%);
   --color-gray: hsl(0, 0%, 50%);
   --color-gray-dark: hsl(0, 0%, 20%);
-  --color-green: hsl(120, 100%, 37%);
 
+  --color-black-95: hsl(253, 69%, 8%, 0.95);
+  
+  /* Font Family */
   --ff-sans: "DM sans", sans-serif;
+  
+  /* Typography Scale - Golden Ratio */
+  --fs-sm: 0.618rem;
+  --fs-base: 1rem;
+  --fs-md: 1.618rem;
+  --fs-lg: 2.618rem;
+
+  /* Font Weights */
+  --fw-normal: 400;
+  --fw-bold: 700;
+
+  /* Font Styles */
+  --fst-italic: italic;
+
+  /* Line Height */
+  --lh-base: 1.618;
+
+  /* ── Spacing Scale ── */
+  --space-xs: 0.382rem;
+  --space-sm: 0.618rem;
+  --space-md: 1rem;
+  --space-lg: 1.618rem;
+  --space-xl: 2.618rem;
 
   /* Sementic Tokens */
   --color-fg: var(--color-white);
   --color-bg: var(--color-gray-dark);
-  --color-accent: var(--color-green);
+  --color-accent: var(--color-gray);
+
+  --color-bg-overlay: var(--color-black-95);
+
+  --color-bg-card: var(--color-gray-dark);
+  --color-fg-secondary: var(--color-gray-light);
+  --color-border: var(--color-gray-dark);
+  --color-hover: var(--color-gray-dark);
+
+  /* Semantic typography */
+  --fs-meta: var(--fs-sm);
+  --fs-body: var(--fs-base);
+  --fs-h3: var(--fs-md);
+  --fs-h2: var(--fs-lg);
 }
