@@ -1,79 +1,48 @@
-.addMovie {
-    --_bg: var(--color-bg);
-    --_fg: var(--color-fg);
+.updateMovieFeature {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     margin: 2rem auto;
     padding: 1rem;
-    .addMovie__title{
+    .updateMovieFeature__title{
         margin: 1rem;
         padding: 0.5rem;
         font-size: 1.5rem;
     }
-    .addMovie__form {
-        display: grid;
-        grid-template-areas: "titre titre titre"
-                            "categorie categorie categorie"
-                            "statut statut statut"
-                            "buttons buttons buttons buttons buttons buttons";
+    .updateMovieFeature__form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
         margin: 2rem;
         padding: 2rem;
         gap: 2rem;
-        border: 1px solid var(--_bg);
+        border: 1px solid var(--color-bg);
         border-radius: 5px;
-        .titre {
-            grid-area: titre;
+        .form__title {
+            font-size: 1.25rem;
+            font-weight: var(--fw-bold);
         }
-        .categorie {
-            grid-area: categorie;
-        }
-        .statut {
-            grid-area: statut;
-        }
-        .buttons {
-            grid-area: buttons;
-            .button-modifier {
-                margin: 0.25rem 0;
-                padding: 0.5rem;
-                width: 5rem;
-                cursor: pointer;
-                border: none;
-                color: var(--_fg);
-                background-color: var(--_bg);
-                border-radius: 5px;
-            }
-            .button-annuler {
-                margin: 0.25rem 0;
-                padding: 0.5rem;
-                width: 5rem;
-                cursor: pointer;
-                border: none;
-                color: var(--_bg);
-                background-color: none;
-                border-radius: 5px;
-            }
-        }
-        .form__group {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        .addMovie__form-info {
+        .button-modifier {
+            margin: 0.25rem 0;
             padding: 0.5rem;
-            width: 100%;
+            width: 5rem;
+            cursor: pointer;
+            border: none;
+            color: var(--color-fg);
+            background-color: var(--color-bg);
             border-radius: 5px;
-            border: 1px solid var(--_bg);
         }
-        .addMovie__form-desc {
+        .button-annuler {
+            margin: 0.25rem 0;
             padding: 0.5rem;
-            width: 100%;
-            height: 10rem;
+            width: 5rem;
+            cursor: pointer;
+            border: none;
+            color: var(--color-bg);
+            background-color: var(--color-fg);
             border-radius: 5px;
-            border: 1px solid var(--_bg);
         }
     }
 }

@@ -15,6 +15,7 @@
       import {Notification} from "./component/Notification/script.js";
       
       import {NewMovieForm} from "./component/MovieForm/script.js";
+      import {MovieFeaturedForm} from "./component/MovieFeaturedForm/script.js";
       
       import {NewProfileForm} from "./component/ProfileForm/script.js";
       import {ProfileList} from "./component/ProfileList/script.js";
@@ -29,6 +30,7 @@
       C.start = function () {
         V.renderNavBar(
           "V.renderMovie()",
+          "V.renderMovieFeatured()",
           "V.renderProfile()",
           "V.renderProfileList()"
         );
@@ -106,6 +108,29 @@
         }
       }
 
+      // Bouton de recherche de films
+      C.handlerSearchMovie = async function(search) {
+        if (search != "") {
+          let data = await DataMovie.requestSearchMovies(search);
+          if (data.length != 0){
+            document. querySelector(".searchMovies__list").innerHTML = Search.formatResults(data);
+          }
+          else{
+            document.querySelector(".searchMovies__list").innerHTML = "Aucun film ne correspond à votre recherche.";
+          }
+        }
+      }
+
+      // Vérifie si le clic est à l'intérieur de la barre de recherche, sinon, on vide la liste
+      document.addEventListener("click", function(event) {
+        let search = document.querySelector(".search");
+        let searchList = document.querySelector(".searchMovies__list");
+        if (search && searchList && !search.contains(event.target)) {
+            searchList.innerHTML = "";
+        }
+      });
+
+
       window.V = {};
 
       // Navigation
@@ -119,6 +144,11 @@
         let content = document.querySelector("#content");
         let categories = await C.readCategorie();
         content.innerHTML = NewMovieForm.format(categories, "C.handlerAddMovie()", "C.handlerAnnuler()");
+      };
+
+      V.renderMovieFeatured = function () {
+        let content = document.querySelector("#content");
+        content.innerHTML = MovieFeaturedForm.format("Search.format()");
       };
 
       // Profile

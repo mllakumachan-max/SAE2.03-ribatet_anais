@@ -1,0 +1,14 @@
+<div class="search">
+    <label class="search__img" for="search">
+        <svg class="navbar__icon">
+            <use xlink:href="#icon-search"></use>
+        </svg>
+    </label>
+    <!-- this.value = élément courant -->
+    <input class="search__input" 
+        placeholder="Rechercher un film" 
+        id="search"
+        onkeyup="C.handlerSearchMovie(this.value)"
+    />
+    <ul class="searchMovies__list"></ul>
+</div>

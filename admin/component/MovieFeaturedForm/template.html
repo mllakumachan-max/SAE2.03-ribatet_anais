@@ -1,17 +1,17 @@
-<div class="addMovie">
-    <h2 class="addMovie__title">Ajouter un film</h2>
+<div class="updateMovieFeature">
+    <h2 class="updateMovieFeature__title">Ajouter un film</h2>
     {{search}}
-    <form class="addMovie__form">
-        <div class="form__group statut">
-            <label class="form__group-title">Statut : Mettre en avant ?</label>
-            <select class="addMovie__form-info" name="statut">
-                <option default value="0">Non</option>
-                <option value="1">Oui</option>
-            </select>
+    <form class="updateMovieFeature__form">
+        <h3 class="form__title">Souhaitez-vous mettre ce film en avant ?</h3>
+        <div class="form__group">
+            <input type="radio" id="oui" name="statut" value="1">
+            <label for="oui">Oui</label>
+            <input type="radio" id="non" name="statut" value="0">
+            <label for="non">Non</label>
         </div>
 
         <div class="buttons">
-            <input class="button-ajouter" onclick="{{handlerAjouter}}" type="button" value="Ajouter" name="todo">
+            <input class="button-modifier" onclick="{{handlerModifier}}" type="button" value="Modifier" name="todo">
             <input class="button-annuler" onclick="{{handlerAnnuler}}" type="button" value="Annuler" name="todo">
         </div>
     </form>
