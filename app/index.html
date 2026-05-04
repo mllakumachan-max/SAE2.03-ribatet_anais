@@ -100,6 +100,7 @@
 
       // Lire les détails d'un film et les afficher
       C.handlerMovieDetail = async function(id) {
+        document.querySelector("#hero").innerHTML = "";
         let data = await DataMovie.requestMovieDetails(id, window.activeProfile);
         if (data != null){
           V.renderMovieDetail(window.activeProfile, data);
@@ -124,6 +125,7 @@
 
       // Afficher les favoris du profil actif
       C.handlerFavorites = async function() {
+        document.querySelector("#hero").innerHTML = "";
         let data = await DataFavorite.requestFavorites(window.activeProfile);
         if (data.length != 0) {
           V.renderFavorites(data);
@@ -156,6 +158,7 @@
 
       // Afficher les statistiques du profil actif
       C.handlerStats = async function() {
+        document.querySelector("#hero").innerHTML = "";
         let data = await DataStats.requestStats();
         if (Object.keys(data).length != 0) {
           V.renderStats(data);

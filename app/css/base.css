@@ -12,3 +12,4 @@
 @import "../component/Notification/style.css" layer(components);
 @import "../component/MovieFavorites/style.css" layer(components);
 @import "../component/MovieFeatured/style.css" layer(components);
+@import "../component/Stats/style.css" layer(components);
