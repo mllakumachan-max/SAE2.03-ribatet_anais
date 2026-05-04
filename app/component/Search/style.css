@@ -1,41 +1,96 @@
 .search {
+    position: relative;
     display: flex;
-    justify-content: start;
     align-items: center;
-    margin: var(--space-md);
-    padding: 0 var(--space-md);
-    width: 100%;
-    .navbar__icon {
-        width: 2rem;
-        height: 2rem;
-        fill: currentColor;
-    }
-    .search__input {
-        margin: var(--space-md);
-        padding: var(--space-sm) 0;
-        width: auto;
-        color: var(--color-fg);
-        background-color: var(--color-bg);
-        border: none;
-        border-bottom: solid 1px var(--color-gray-light);
+    gap: var(--space-sm);
+    width: max-content;
+    padding: var(--space-xs) var(--space-md);
+    :focus-within {
+        border-color: var(--color-accent);
     }
 }
 
+.search__input {
+    width: 10rem;
+    font-size: var(--fs-body);
+    color: var(--color-fg);
+    background: none;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid var(--color-gray-light);
+    &::placeholder {
+        color: var(--color-fg-secondary);
+    }
+}
+
+/* ── Liste déroulante ── */
 .searchMovies__list {
     display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
+    position: absolute;
+    top: calc(100% + var(--space-sm));
+    z-index: 200;
     flex-direction: column;
-    .searchMovies__item {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        margin: var(--space-sm) 0;
-        padding: var(--space-sm);
-        width: auto;
-        color: var(--color-fg);
-        background-color: var(--color-bg);
-        border: solid 1px var(--color-gray-light);
-        border-radius: var(--space-sm);
+    width: 25rem;
+    max-height: 20rem;
+    overflow-y: auto;
+    padding: var(--space-xs) 0;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-gray-light);
+    border-radius: 8px;
+    /* Cache la liste quand elle est vide */
+    &:empty {
+        display: none;
+    }
+}
+
+.searchMovies__item {
+    border: 1px solid var(--color-accent);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    &:hover {
+        background-color: var(--color-accent);
+    }
+}
+
+.searchMovies__film {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+}
+
+.searchMovies__affiche {
+    width: 3rem;
+    height: 4rem;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+    background-color: var(--color-bg);
+}
+
+.searchMovies__infos {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.searchMovies__title {
+    font-size: var(--fs-body);
+    font-weight: var(--fw-bold);
+    color: var(--color-fg);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+/* ── Desktop ── */
+@media (min-width: 48em) {
+    .search__input {
+        width: 30rem;
+    }
+
+    .searchMovies__list {
+        width: 45rem;
     }
 }

@@ -26,9 +26,6 @@
     cursor: pointer;
     color: var(--color-fg);
     transition: color 0.2s ease;
-    .navbar__icon:hover {
-        color: var(--color-accent);
-    }
 }
 
 /* ── Icon ── */

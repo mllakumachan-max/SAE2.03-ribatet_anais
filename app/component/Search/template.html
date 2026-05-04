@@ -4,12 +4,11 @@
             <use xlink:href="#icon-search"></use>
         </svg>
     </label>
+    <!-- this.value = élément courant -->
     <input class="search__input" 
         placeholder="Rechercher un film" 
         id="search"
-        onkeyup="C.handlerSearchMovie({{search_movie}})"
+        onkeyup="C.handlerSearchMovie(this.value)"
     />
-    <ul class="searchMovies__list">
-        {{list_movies}}
-    </ul>
+    <ul class="searchMovies__list"></ul>
 </div>

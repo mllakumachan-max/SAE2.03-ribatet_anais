@@ -103,6 +103,11 @@
         document.querySelector("#hero").innerHTML = "";
         let data = await DataMovie.requestMovieDetails(id, window.activeProfile);
         if (data != null){
+          // Vider la barre de recherche et la liste
+          let searchInput = document.querySelector("#search");
+          let searchList = document.querySelector(".searchMovies__list");
+          if (searchInput) searchInput.value = "";
+          if (searchList) searchList.innerHTML = "";
           V.renderMovieDetail(window.activeProfile, data);
         }
         else{
@@ -123,18 +128,25 @@
 
       // Bouton de recherche de films
       C.handlerSearchMovie = async function(search) {
-        if (search.trim() !== "") {
-          document.querySelector("#hero").innerHTML = "";
+        if (search != "") {
           let data = await DataMovie.requestSearchMovies(search);
           if (data.length != 0){
-            let wrapped = {"Résultats de recherche": data};
-            V.renderMovies(wrapped);
+            document. querySelector(".searchMovies__list").innerHTML = Search.formatResults(data);
           }
           else{
-            document.querySelector("#content").innerHTML = "Aucun film ne correspond à votre recherche.";
+            document.querySelector(".searchMovies__list").innerHTML = "Aucun film ne correspond à votre recherche.";
           }
         }
       }
+
+      // Vérifie si le clic est à l'intérieur de la barre de recherche, sinon, on vide la liste
+      document.addEventListener("click", function(event) {
+        let search = document.querySelector(".search");
+        let searchList = document.querySelector(".searchMovies__list");
+        if (search && searchList && !search.contains(event.target)) {
+            searchList.innerHTML = "";
+        }
+      });
 
       /* Favoris */
 
@@ -191,7 +203,7 @@
       };
 
       C.start = function() {
-        V.renderNavBar("C.handlerHome()", "C.handlerStats()", "C.handlerSearch()", "C.handlerProfile()", "C.handlerFavorites()");
+        V.renderNavBar("C.handlerHome()", "C.handlerStats()", "C.handlerProfile()", "C.handlerFavorites()");
         V.renderProfiles("C.handlerChargeMovie()");
       };
 

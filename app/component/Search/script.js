@@ -13,10 +13,16 @@ Search.formatOne = function(id, name, image) {
     return html;
 };
 
-Search.format = function () {
-  let html = template;
-  html = html.replace("{{list_movies}}", "");
-  return html;
+Search.formatResults = function (movies) {
+  let list_movies = "";
+  for (let movie of movies) {
+    list_movies += Search.formatOne(movie.id_movie, movie.name, movie.image);
+  }
+  return list_movies;
+};
+
+Search.format = function() {
+  return template;
 };
 
 export {Search};
