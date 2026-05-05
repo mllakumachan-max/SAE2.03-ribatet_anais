@@ -11,3 +11,4 @@
 @import "../component/ProfileList/style.css" layer(components);
 @import "../component/ProfileUpdateForm/style.css" layer(components);
 @import "../component/MovieFeaturedForm/style.css" layer(components);
+@import "../component/Search/style.css" layer(components);

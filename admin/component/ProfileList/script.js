@@ -7,7 +7,6 @@ let ProfileList = {};
 
 ProfileList.formatOne = function(id, pseudo, avatar, age){
   let html = template2;
-  let restriction = "";
   html = html.replace("{{id}}", id);
   html = html.replaceAll("{{avatar}}", avatar);
   html = html.replaceAll("{{pseudo}}", pseudo);

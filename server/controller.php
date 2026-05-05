@@ -183,10 +183,11 @@ function updateProfileController(){
 }
 
 function updateFeaturedMoviesController(){
-    $movie_ids = $_REQUEST['movie_ids'] ?? null; // Raccourci de isset($_REQUEST['movie_ids'])==true;
-    if (empty($movie_ids)==false && is_array($movie_ids)){
-        updateFeaturedMovies($movie_ids);
-        return "La liste des films mis en avant a été mise à jour avec succès.";
+    $movie = $_REQUEST['id'] ?? null;
+    $statut = $_REQUEST['featured'] ?? null;
+    if (empty($movie)==false){
+        updateFeaturedMovies($movie, $statut);
+        return "Le film a été mis en avant avec succès.";
     }
 }
 

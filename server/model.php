@@ -204,7 +204,7 @@ function addMovie($t, $an, $duree, $desc, $r, $c, $aff, $l, $age){
  */
 function getMovieBySearch($search) {
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
-    $sql = "SELECT id_movie, name, image FROM Movie WHERE name LIKE :search";
+    $sql = "select id_movie, name, image, featured from Movie where name like :search";
     $stmt = $cnx->prepare($sql);
     $searchTerm = '%' . $search . '%';
     $stmt->bindParam(':search', $searchTerm);
@@ -215,16 +215,16 @@ function getMovieBySearch($search) {
 /**
  * Modifie le statut mis en avant d'un film dans la base de données.
  */
-function updateFeatured($id, $featured){
+function updateFeaturedMovies($id, $featured){
     // Connexion à la base de données
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD); 
     // Requête SQL pour mettre à jour le statut mis en avant d'un film avec des paramètres
-    $sql = "update Movie set featured=:featured where id_movie=:id";
+    $sql = "update Movie set featured=:statut where id_movie=:id";
     // Prépare la requête SQL
     $stmt = $cnx->prepare($sql);
     // Lie les paramètres aux valeurs
     $stmt->bindParam(':id', $id);
-    $stmt->bindParam(':featured', $featured);
+    $stmt->bindParam(':statut', $featured);
     // Exécute la requête SQL
     $stmt->execute();
     // Récupère le nombre de lignes affectées par la requête
