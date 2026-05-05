@@ -3,7 +3,7 @@
     flex-direction: column;
     padding: var(--space-xl) var(--space-lg);
     gap: var(--space-lg);
-    background-color: var(--color-bg-card);
+    background-color: var(--color-bg);
 }
 
 .movieFeatured__title {
@@ -31,7 +31,7 @@
 
 .movieFeatured__film {
     width: 100%;
-    border: 1px solid var(--color-gray-light);
+    border: 2px solid var(--color-accent);
     border-radius: 10px;
 }
 
@@ -49,7 +49,7 @@
     padding: var(--space-sm) 0;
     gap: var(--space-sm);
     width: 100%;
-    border-top: 1px solid var(--color-gray-light);
+    border-top: 2px solid var(--color-accent);
 }
 
 .movieFeatured__infos-title {

@@ -6,7 +6,7 @@
     width: 100%;
     padding: var(--space-sm) var(--space-lg);
     background-color: var(--color-bg);
-    border-bottom: 2px solid var(--color-gray-light);
+    border-bottom: 2px solid var(--color-accent);
 }
 
 .navbar__list {
@@ -45,7 +45,7 @@
     align-items: center;
     gap: var(--space-sm);
     padding: var(--space-xs) var(--space-md);
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--color-accent);
     border-radius: 999px;
     background: none;
     color: var(--color-fg);
@@ -70,21 +70,29 @@
     right: 0;
     z-index: 50;
     min-width: 12rem;
-    padding: var(--space-xs) 0;
+    padding: var(--space-xs);
     background-color: var(--color-bg-card);
     border: 1px solid var(--color-border);
     border-radius: 8px;
     .navbar__dropdown-item {
         display: flex;
+        justify-content: center;
         align-items: center;
         gap: var(--space-sm);
         padding: var(--space-sm) var(--space-md);
         font-size: var(--fs-body);
         color: var(--color-fg);
+        background-color: var(--color-bg);
+        border: 1px solid var(--color-accent);
         cursor: pointer;
         transition: background-color 0.2s ease;
         &:hover {
-            background-color: var(--color-hover);
+            background-color: var(--color-accent);
+        }
+        .navbar__icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            fill: currentColor;
         }
     }
 }

@@ -11,7 +11,7 @@
     color: var(--color-bg);
 }
 
-/* ── Grille dans le contexte MovieFavorites ── */
+/* ── Grille MovieFavorites ── */
 .movieFavorites .movies {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

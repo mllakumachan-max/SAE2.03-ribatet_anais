@@ -262,6 +262,68 @@ join (
 
 ### Requêtes
 
+Pour récupérer le titre et l'image des films tapés dans la barre de recherche :
+
+```
+"select id_movie, name, affcihe from Movie where name like :search"
+```
+
+## Itération 14
+
+### Requêtes
+
+Pour récupérer le titre, l'affcihe et le statut des films tapés dans la barre de recherche :
+
+```
+"select id_movie, name, image, featured from Movie where name like :search"
+```
+
+Pour mettre à jour le statut des films :
+
+```
+"update Movie set featured=:statut where id_movie=:id"
+```
+
+## Itération 15
+
+### Requêtes
+
+
+```
+
+```
+
+## Itération 16
+
+### Requêtes
+
+
+```
+
+```
+
+## Itération 17
+
+### Requêtes
+
+
+```
+
+```
+
+## Itération 18
+
+### Requêtes
+
+
+```
+
+```
+
+## Itération 19
+
+### Requêtes
+
 
 ```
 

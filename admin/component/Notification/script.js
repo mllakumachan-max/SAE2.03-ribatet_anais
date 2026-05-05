@@ -19,7 +19,7 @@ Notification.show = function(message, type = "success") {
     // Le supprimer après 3 secondes
     setTimeout(() => {
         document.body.removeChild(notification);
-    }, 3000);
+    }, 2000);
 }
 
 export {Notification};
