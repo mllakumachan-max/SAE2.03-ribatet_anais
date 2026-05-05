@@ -1,0 +1,11 @@
+.note {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.note__label {
+
+}
+
+.note__star
