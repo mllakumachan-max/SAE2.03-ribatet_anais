@@ -49,8 +49,6 @@ INSERT INTO `Category` (`id_category`, `name`) VALUES
 (8, "Aventure"),
 (9, "Fantaisie"),
 (10, "Documentaire"),
-(11, "Romance"),
-(12, "Biopic"),
 (13, "Historique"),
 (14, "Musical"),
 (15, "Western");
@@ -74,17 +72,18 @@ CREATE TABLE `Movie` (
   `min_age` int(11) DEFAULT 0,
   `featured` tinyint(1) DEFAULT 0,
   FOREIGN KEY (`id_category`) REFERENCES `Category`(`id_category`)
+  `note` int(11) DEFAULT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `Movie`
 --
 
-INSERT INTO `Movie` (`id_movie`, `name`, `year`, `length`, `description`, `director`, `id_category`, `image`, `trailer`, `min_age`, `featured`) VALUES
-(7, "Interstellar", 2014, 169, "Un groupe d'explorateurs voyage à travers un trou de ver pour sauver l'humanité.", "Christopher Nolan", 4, "interstellar.jpg", "https://www.youtube.com/embed/VaOijhK3CRU?si=76Ke4uw4LYjuLuQ6", 12, 1),
-(12, "La Liste de Schindler", 1993, 195, "Un industriel allemand sauve des milliers de Juifs pendant l'Holocauste.", "Steven Spielberg", 3, "schindler.webp", "https://www.youtube.com/embed/ONWtyxzl-GE?si=xC3ASGGPy5Ib-aPn", 16, 1),
-(17, "Your Name", 2016, 107, "Deux adolescents échangent leurs corps de manière mystérieuse.", "Makoto Shinkai", 5, "your_name.jpg", "https://www.youtube.com/embed/AROOK45LXXg?si=aUQyGk2VMCb_ToUL", 10, 0),
-(27, "Le Bon, la Brute et le Truand", 1966, 161, "Trois hommes se lancent à la recherche d'un trésor caché.", "Sergio Leone", 8, "bon_brute_truand.jpg", "https://www.youtube.com/embed/WA1hCZFOPqs?si=TwNZAoM4oj4KpGja", 12, 0);
+INSERT INTO `Movie` (`name`, `year`, `length`, `description`, `director`, `id_category`, `image`, `trailer`, `min_age`, `featured`) VALUES
+("Interstellar", 2014, 169, "Un groupe d'explorateurs voyage à travers un trou de ver pour sauver l'humanité.", "Christopher Nolan", 4, "interstellar.jpg", "https://www.youtube.com/embed/VaOijhK3CRU?si=76Ke4uw4LYjuLuQ6", 12, 0),
+("La Liste de Schindler", 1993, 195, "Un industriel allemand sauve des milliers de Juifs pendant l'Holocauste.", "Steven Spielberg", 3, "schindler.webp", "https://www.youtube.com/embed/ONWtyxzl-GE?si=xC3ASGGPy5Ib-aPn", 16, 0),
+("Your Name", 2016, 107, "Deux adolescents échangent leurs corps de manière mystérieuse.", "Makoto Shinkai", 5, "your_name.jpg", "https://www.youtube.com/embed/AROOK45LXXg?si=aUQyGk2VMCb_ToUL", 10, 0),
+("Le Bon, la Brute et le Truand", 1966, 161, "Trois hommes se lancent à la recherche d'un trésor caché.", "Sergio Leone", 8, "bon_brute_truand.jpg", "https://www.youtube.com/embed/WA1hCZFOPqs?si=TwNZAoM4oj4KpGja", 12, 0);
 
 -- --------------------------------------------------------
 
@@ -98,6 +97,13 @@ CREATE TABLE `Profile` (
   `avatar` varchar(255) DEFAULT NULL,
   `min_age` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `Profile` (`pseudo`, `avatar`, `min_age`) VALUES
+("", "", 0),
+("", "", 10),
+("", "", 12),
+("", "", 16),
+("", "", 18);
 
 -- --------------------------------------------------------
 
