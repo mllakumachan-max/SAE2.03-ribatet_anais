@@ -35,8 +35,8 @@
                 width: 5rem;
                 cursor: pointer;
                 border: none;
-                color: var(--_fg);
-                background-color: var(--_bg);
+                color: var(--color-fg);
+                background-color: var(--color-bg);
                 border-radius: 5px;
             }
             .button-annuler {
@@ -45,8 +45,8 @@
                 width: 5rem;
                 cursor: pointer;
                 border: none;
-                color: var(--_bg);
-                background-color: none;
+                color: var(--color-bg);
+                background-color: var(--color-fg);
                 border-radius: 5px;
             }
         }

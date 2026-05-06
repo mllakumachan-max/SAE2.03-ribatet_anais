@@ -49,9 +49,9 @@ INSERT INTO `Category` (`id_category`, `name`) VALUES
 (8, "Aventure"),
 (9, "Fantaisie"),
 (10, "Documentaire"),
-(13, "Historique"),
-(14, "Musical"),
-(15, "Western");
+(11, "Historique"),
+(12, "Musical"),
+(13, "Western");
 
 -- --------------------------------------------------------
 
@@ -72,7 +72,6 @@ CREATE TABLE `Movie` (
   `min_age` int(11) DEFAULT 0,
   `featured` tinyint(1) DEFAULT 0,
   FOREIGN KEY (`id_category`) REFERENCES `Category`(`id_category`)
-  `note` int(11) DEFAULT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -83,7 +82,7 @@ INSERT INTO `Movie` (`name`, `year`, `length`, `description`, `director`, `id_ca
 ("Interstellar", 2014, 169, "Un groupe d'explorateurs voyage à travers un trou de ver pour sauver l'humanité.", "Christopher Nolan", 4, "interstellar.jpg", "https://www.youtube.com/embed/VaOijhK3CRU?si=76Ke4uw4LYjuLuQ6", 12, 0),
 ("La Liste de Schindler", 1993, 195, "Un industriel allemand sauve des milliers de Juifs pendant l'Holocauste.", "Steven Spielberg", 3, "schindler.webp", "https://www.youtube.com/embed/ONWtyxzl-GE?si=xC3ASGGPy5Ib-aPn", 16, 0),
 ("Your Name", 2016, 107, "Deux adolescents échangent leurs corps de manière mystérieuse.", "Makoto Shinkai", 5, "your_name.jpg", "https://www.youtube.com/embed/AROOK45LXXg?si=aUQyGk2VMCb_ToUL", 10, 0),
-("Le Bon, la Brute et le Truand", 1966, 161, "Trois hommes se lancent à la recherche d'un trésor caché.", "Sergio Leone", 8, "bon_brute_truand.jpg", "https://www.youtube.com/embed/WA1hCZFOPqs?si=TwNZAoM4oj4KpGja", 12, 0);
+("Le Bon, la Brute et le Truand", 1966, 161, "Trois hommes se lancent à la recherche d'un trésor caché.", "Sergio Leone", 13, "bon_brute_truand.jpg", "https://www.youtube.com/embed/WA1hCZFOPqs?si=TwNZAoM4oj4KpGja", 12, 0);
 
 -- --------------------------------------------------------
 

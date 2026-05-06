@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>SAE2.03 APP</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/base.css" />
+  </head>
+
+  <body>
+
+    <!-- Page -->
+    <header id="header"></header>
+    <section id="hero"></section>
+    <section id="content"></section>
+
+    <!-- Implémentation dynamique -->
+    <script type="module">
+      // Imports
+      import {NavBar} from "./component/NavBar/script.js";
+      import {Notification} from "./component/Notification/script.js";
+      import {Search} from "./component/Search/script.js";
+
+      import {Movie} from "./component/Movie/script.js";
+      import {MovieDetail} from "./component/MovieDetail/script.js";
+      import {MovieCategory} from "./component/MovieCategory/script.js";
+      import {MovieFavorites} from "./component/MovieFavorites/script.js";
+      import {MovieFeatured} from "./component/MovieFeatured/script.js";
+
+      import {Profile, initCarouselZoom} from "./component/Profile/script.js";
+
+      import {Stats} from "./component/Stats/script.js";
+
+      import {DataMovie} from "./data/dataMovie.js";
+      import {DataProfile} from "./data/dataProfile.js";
+      import {DataFavorite} from "./data/dataFavorite.js";
+      import {DataStats} from "./data/dataStats.js";
+
+      // Variable globale pour stocker le profil actif
+      window.activeProfile = null;
+      window.activeAge = 0;
+      window.activeName = "Aucun profil actif";
+
+      // Controleur
+      // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
+      // Une fois l'application terminée, on pourrait remettre let C.
+      window.C = {};
+
+      /* Profil */
+
+      // Bouton de sélection de profil
+      C.handlerProfile = function() {
+        V.renderProfiles("C.handlerChargeMovie()");
+      };
+
+      // Bouton de sélection d'un profil spécifique
+      C.handlerProfileId = function(element, id, age, name) {
+        // Stocke le profil actif dans une variable globale
+        window.activeProfile = id;
+        window.activeAge = age;
+        window.activeName = name;
+
+        // Retire la sélection de tous les items
+        document.querySelectorAll(".profile__item").forEach(item => {
+          item.classList.remove("profile__item--selected");
+        });
+
+        // Ajoute la sélection sur l'item cliqué
+        element.classList.add("profile__item--selected");
+
+        V.renderNavBar("C.handlerHome()", "C.handlerStats()", "C.handlerProfile()", "C.handlerFavorites()");
+      };
+
+
+      /* Movie */
+
+      // Bouton de chargement des films liés au profil actif
+      C.handlerChargeMovie = function() {
+        if (window.activeProfile != null) {
+          // Afficher les films liés au profil
+          C.handlerMovies();
+        }
+        else {
+          Notification.show("Veuillez choisir un profil", "error");
+        }
+      }
+
+      // Lire les films et les afficher
+      C.handlerMovies = async function() {
+        let age = window.activeAge;
+        let data = await DataMovie.requestMovies(age);
+        if (data.length != 0){
+          await C.handlerMovieFeatured();
+          V.renderMovies(data);
+        }
+        else{
+         document.querySelector("#content").innerHTML = "Aucun film disponible pour le moment";
+        }
+      }
+
+      // Lire les détails d'un film et les afficher
+      C.handlerMovieDetail = async function(id) {
+        document.querySelector("#hero").innerHTML = "";
+        let data = await DataMovie.requestMovieDetails(id, window.activeProfile);
+        if (data != null){
+          // Vider la barre de recherche et la liste
+          let searchInput = document.querySelector("#search");
+          let searchList = document.querySelector(".searchMovies__list");
+          if (searchInput) searchInput.value = "";
+          if (searchList) searchList.innerHTML = "";
+          V.renderMovieDetail(window.activeProfile, data);
+        }
+        else{
+          document.querySelector("#content").innerHTML = "Aucun détail disponible pour le moment";
+        }
+      };
+
+      // Lire le film mis en avant et l'afficher
+      C.handlerMovieFeatured = async function() {
+        let data = await DataMovie.requestFeaturedMovies();
+        if (data.length != 0){
+          V.renderMovieFeatured(data);
+        }
+        else{
+          document.querySelector("#hero").innerHTML = "Aucun film mis en avant pour le moment";
+        }
+      }
+
+      // Bouton de recherche de films
+      C.handlerSearchMovie = async function(search) {
+        if (search != "") {
+          let data = await DataMovie.requestSearchMovies(search);
+          if (data.length != 0){
+            document. querySelector(".searchMovies__list").innerHTML = Search.formatResults(data);
+          }
+          else{
+            document.querySelector(".searchMovies__list").innerHTML = "Aucun film ne correspond à votre recherche.";
+          }
+        }
+      }
+
+      // Vérifie si le clic est à l'intérieur de la barre de recherche, sinon, on vide la liste
+      document.addEventListener("click", function(event) {
+        let search = document.querySelector(".search");
+        let searchList = document.querySelector(".searchMovies__list");
+        if (search && searchList && !search.contains(event.target)) {
+            searchList.innerHTML = "";
+        }
+      });
+
+      /* Favoris */
+
+      // Afficher les favoris du profil actif
+      C.handlerFavorites = async function() {
+        document.querySelector("#hero").innerHTML = "";
+        let data = await DataFavorite.requestFavorites(window.activeProfile);
+        if (data.length != 0) {
+          V.renderFavorites(data);
+        }
+        else{
+          document.querySelector("#content").innerHTML = "Votre liste de favoris est vide pour le moment";
+        }
+      };
+
+      // Ajouter un film aux favoris
+      C.handlerAddFavorite = async function(id_movie) {
+        if (window.activeProfile != null) {
+          let success = await DataFavorite.addFavorite(window.activeProfile, id_movie);
+          await C.handlerMovieDetail(id_movie); // Met à jour les détails du film pour refléter le changement de favoris
+          Notification.show(success);
+        }
+      };
+
+      // Supprimer un film des favoris
+      C.handlerRemoveFavorite = async function(id_movie) {
+        if (window.activeProfile != null) {
+          let success = await DataFavorite.removeFavorite(window.activeProfile, id_movie);
+          await C.handlerMovieDetail(id_movie); // Met à jour les détails du film pour refléter le changement de favoris
+          Notification.show(success);
+        }
+      };
+
+
+      /* Stats */
+
+      // Afficher les statistiques du profil actif
+      C.handlerStats = async function() {
+        document.querySelector("#hero").innerHTML = "";
+        let data = await DataStats.requestStats();
+        if (Object.keys(data).length != 0) {
+          V.renderStats(data);
+        }
+        else{
+          document.querySelector("#content").innerHTML = "Aucune statistique disponible pour le moment";
+        }
+      };
+
+
+      /* Start */
+
+      C.handlerHome = function() {
+        C.handlerMovies();
+      };
+
+      C.start = function() {
+        V.renderNavBar("C.handlerHome()", "C.handlerStats()", "C.handlerProfile()", "C.handlerFavorites()");
+        V.renderProfiles("C.handlerChargeMovie()");
+      };
+
+      // Vue (contient tout ce qui est relatif à l'affichage)
+      window.V = {};
+
+      /**
+       * V.renderNavBar
+       *
+       * Cette fonction est responsable de l'affichage de la barre de navigation (NavBar).
+       * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
+       * formaté par le composant NavBar.
+       */
+      V.renderNavBar = async function(hHome, hStats, hProfile, hFavorites) {
+        let header = document.querySelector("#header");
+        header.innerHTML = NavBar.format(hHome, hStats, hProfile, hFavorites);
+      };
+
+      // Afficher les films par catégorie
+      V.renderMovies = function(data) {
+        let content = document.querySelector("#content");
+        let html = "";
+        // Parcourir les catégories
+        for (let category in data) {
+          html += MovieCategory.format(category, data[category]);
+        }
+        content.innerHTML = html;
+      };
+
+      // Afficher les détails du film
+      V.renderMovieDetail = function(id_profile, movie) {
+        let content = document.querySelector("#content");
+        content.innerHTML = MovieDetail.format(id_profile, movie);
+      };
+
+      // Afficher le film mis en avant
+      V.renderMovieFeatured = function(data) {
+        let content = document.querySelector("#hero");
+        content.innerHTML = MovieFeatured.format(data);
+      };
+
+      // Afficher les profils
+      V.renderProfiles = async function(hChargeMovies) {
+        let content = document.querySelector("#content");
+        let data = await DataProfile.requestProfiles();
+        content.innerHTML = Profile.format(hChargeMovies, data);
+        // Zoom seulement sur smartphone
+        if (window.matchMedia("(width < 48em)").matches) {  // Équivalent media query
+          initCarouselZoom();
+        }
+      };
+
+      // Afficher les favoris
+      V.renderFavorites = function(data) {
+        let content = document.querySelector("#content");
+        content.innerHTML = MovieFavorites.format(data);
+      };
+
+      // Afficher les statistiques
+      V.renderStats = function(data) {
+        let content = document.querySelector("#content");
+        content.innerHTML = Stats.format(data);
+      };
+      
+      C.start(); // Démarre l'application
+    </script>
+
+    <!-- Icônes SVG -->
+    <svg 
+      aria-hidden="true" 
+      style="position: absolute; 
+      width: 0; height: 0; 
+      overflow: hidden;" 
+      version="1.1" 
+      xmlns="http://www.w3.org/2000/svg">
+
+      <symbol 
+        id="icon-home" 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        xmlns="http://www.w3.org/2000/svg">
+        <path 
+          d="M10 20V14H14V20H19V12H22L12 3L2 12H5V20H10Z" 
+          fill="currentColor"/>
+      </symbol>
+
+      <symbol 
+        id="icon-profile" 
+        viewBox="0 0 24 24" 
+        fill="none" 
+        xmlns="http://www.w3.org/2000/svg">
+        <path 
+          d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" 
+          fill="currentColor"/>
+      </symbol>
+
+      <symbol 
+        id="icon-star-full" 
+        viewBox="0 0 24 24" 
+        fill="none">
+        <path 
+          d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" 
+          fill="currentColor"/>
+      </symbol>
+
+      <symbol 
+        id="icon-star-empty" 
+        viewBox="0 0 24 24" 
+        fill="none">
+        <path 
+          d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" 
+          stroke="currentColor" 
+          stroke-width="2" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+      </symbol>
+
+      <symbol 
+        id="icon-chevron-left" 
+        viewBox="0 0 24 24" 
+        fill="none">
+        <path 
+          d="M15 18L9 12L15 6" 
+          stroke="currentColor" 
+          stroke-width="2" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+      </symbol>
+
+      <symbol 
+        id="icon-chevron-right" 
+        viewBox="0 0 24 24" 
+        fill="none">
+        <path 
+          d="M9 18L15 12L9 6" 
+          stroke="currentColor" 
+          stroke-width="2" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+      </symbol>
+
+      <symbol 
+        id="icon-check" 
+        viewBox="0 0 24 24" 
+        fill="none">
+        <path 
+          d="M20 6L9 17L4 12" 
+          stroke="currentColor" 
+          stroke-width="2.5" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+      </symbol>
+
+      <symbol 
+        id="icon-cross" 
+        viewBox="0 0 24 24" 
+        fill="none">
+        <path 
+          d="M18 6L6 18M6 6L18 18" 
+          stroke="currentColor" 
+          stroke-width="2.5" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+      </symbol>
+
+      <symbol 
+        id="icon-stats" 
+        viewBox="0 0 24 24" 
+        fill="none">
+        <path 
+          d="M18 20V10M12 20V4M6 20V14" 
+          stroke="currentColor" 
+          stroke-width="2" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+      </symbol>
+
+      <symbol
+        id="icon-search"
+        viewBox="0 0 32 32"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M27.613 25.72L23.08 21.2C24.5425 19.3367 25.336 17.0357 25.333 14.667C25.333 8.776 20.558 4 14.667 4C8.776 4 4 8.776 4 14.667C4 20.557 8.776 25.333 14.667 25.333C17.0357 25.336 19.3367 24.5425 21.2 23.08L25.72 27.613C25.8439 27.738 25.9914 27.8371 26.1538 27.9048C26.3163 27.9725 26.4905 28.0074 26.6665 28.0074C26.8425 28.0074 27.0167 27.9725 27.1792 27.9048C27.3416 27.8371 27.4891 27.738 27.613 27.613C27.738 27.4891 27.8371 27.3416 27.9048 27.1792C27.9725 27.0167 28.0074 26.8425 28.0074 26.6665C28.0074 26.4905 27.9725 26.3163 27.9048 26.1538C27.8371 25.9914 27.738 25.8439 27.613 25.72V25.72ZM6.667 14.667C6.667 12.5453 7.50986 10.5104 9.01015 9.01015C10.5104 7.50986 12.5453 6.667 14.667 6.667C16.7887 6.667 18.8236 7.50986 20.3239 9.01015C21.8241 10.5104 22.667 12.5453 22.667 14.667C22.667 16.7887 21.8241 18.8236 20.3239 20.3239C18.8236 21.8241 16.7887 22.667 14.667 22.667C12.5453 22.667 10.5104 21.8241 9.01015 20.3239C7.50986 18.8236 6.667 16.7887 6.667 14.667V14.667Z"
+          fill="currentColor"/>
+      </symbol>
+
+    </svg>
+
+  </body>
+</html>

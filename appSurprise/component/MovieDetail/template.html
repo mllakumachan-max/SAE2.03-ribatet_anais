@@ -1,0 +1,25 @@
+<div class="movie__detail" id="{{id_movie}}">
+    <figure class="movie__film">
+        <img class="movie__affiche" src="{{img}}" alt="">
+        <figcaption class="movie__infos">
+            <h2 class="movie__title">{{titre}}</h2>
+            <button class="button-favori" onclick="{{handler}}">
+                <svg class="button-favori__icon">
+                    <use href="{{iconFavori}}"/>
+                </svg>
+                {{texte}}
+            </button>
+            <p class="movie__notes">
+                <span class="movie__date">{{date}}</span>
+                <span class="movie__duree">{{duree}} min</span>
+                <span class="movie__age">{{age}}</span>
+            </p>
+            <p class="movie__real">Par {{realisateur}}</p>
+            <h3 class="movie__section-title">Genre</h3>
+            <p class="movie__categorie">{{categorie}}</p>
+            <h3 class="movie__section-title">Synopsis</h3>
+            <p class="movie__desc">{{desc}}</p>
+        </figcaption>
+    </figure>
+    <iframe class="movie__trailer" src="{{lien}}"></iframe>
+</div>

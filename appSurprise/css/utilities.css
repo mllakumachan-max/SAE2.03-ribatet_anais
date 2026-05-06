@@ -1,0 +1,11 @@
+.font-sans {
+  font-family: var(--ff-sans);
+}
+
+#header {
+  background: var(--color-bg-secondary);
+}
+
+body {
+  background: var(--color-bg);
+}

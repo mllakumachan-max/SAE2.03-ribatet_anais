@@ -1,0 +1,51 @@
+:root {
+  /* Primitive Tokens */
+  --color-black: hsl(253, 69%, 8%);
+  --color-white: hsl(0, 0%, 100%);
+  --color-gray-blue: #c0c3cd;
+  --color-indigo: #031037;
+  --color-dark-blue: #020b26;
+  --color-red: #cc0243;
+
+  --color-transparent-default-10: #ffffff1a;
+  --color-transparent-default-15: #ffffff26;
+  --color-transparent-default-20: #ffffff33;
+  --color-transparent-default-30: #ffffff4d;
+  
+  /* Font Family */
+  --ff-sans: "Roobert", "Arial", sans-serif;
+  /* Typography Scale - Golden Ratio */
+  --fs-sm: 0.8889rem;
+  --fs-base: 1rem;
+  --fs-md: 1.25rem;
+
+  /* Font Weights */
+  --fw-normal: 400;
+  --fw-bold: 600;
+
+  /* Font Styles */
+  --fst-italic: italic;
+
+  /* Line Height */
+  --lh-sm: 1.33;
+  --lh-base: 1.5;
+
+  /* ── Spacing Scale ── */
+  --space-xs: 0.382rem;
+  --space-sm: 0.618rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+
+  /* Sementic Tokens */
+  --color-fg: var(--color-white);
+  --color-fg-secondary: var(--color-gray-blue);
+  --color-bg: var(--color-dark-blue);
+  --color-bg-secondary: var(--color-indigo);
+  --color-complementary: var(--color-red);
+  --color-accent: var(--color-transparent-default-10);
+
+  /* Semantic typography */
+  --fs-meta: var(--fs-sm);
+  --fs-body: var(--fs-base);
+  --fs-h2: var(--fs-md);
+}

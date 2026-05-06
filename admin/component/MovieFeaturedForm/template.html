@@ -1,13 +1,7 @@
 <div class="updateMovieFeature">
     <h2 class="updateMovieFeature__title">Mettre en avant un film</h2>
     {{search}}
-    <figure class="movieToFeatured__film" id="{{id}}">
-        <img class="movieToFeatured__affiche" src="{{img}}" alt="">
-        <figcaption class="movieToFeatured__infos">
-            <h3 class="movieToFeatured__title">{{film_titre}}</h3>
-            <p class="movieToFeatured__statut">{{statut}}</p>
-        </figcaption>
-    </figure>
+    {{movie}}
     <form class="updateMovieFeature__form">
         <input type="hidden" name="id" value="{{id}}">
         <h3 class="form__title">Souhaitez-vous mettre ce film en avant ?</h3>

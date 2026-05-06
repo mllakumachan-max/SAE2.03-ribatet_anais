@@ -13,11 +13,11 @@
 .search__input {
     width: 10rem;
     font-size: var(--fs-body);
-    color: var(--color-fg);
+    color: var(--color-bg);
     background: none;
     outline: none;
     border: none;
-    border-bottom: 1px solid var(--color-gray-light);
+    border-bottom: 1px solid var(--color-accent);
     &::placeholder {
         color: var(--color-fg-secondary);
     }
@@ -30,12 +30,12 @@
     top: calc(100% + var(--space-sm));
     z-index: 200;
     flex-direction: column;
-    width: 25rem;
+    width: 10rem;
     max-height: 20rem;
     overflow-y: auto;
     padding: var(--space-xs) 0;
-    background-color: var(--color-bg-card);
-    border: 1px solid var(--color-gray-light);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-accent);
     border-radius: 8px;
     /* Cache la liste quand elle est vide */
     &:empty {

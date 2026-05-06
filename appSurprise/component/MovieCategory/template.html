@@ -1,0 +1,20 @@
+<section class="movieCategory">
+    <div class="movieCategory__header">
+        <h2 class="movieCategory__title">{{categorie}}</h2>
+        <!-- Buttons scroll -->
+        <span class="movieCategory__controls">
+            <!-- this.closest('.movieCategory').querySelector('.movies').scrollLeft => cible la liste concernée pour scroller de 300px vers la gauche ou la droite -->
+            <button class="movieCategory__btn" onclick="this.closest('.movieCategory').querySelector('.movies').scrollLeft -= 300">
+                <svg class="navbar__icon">
+                    <use href="#icon-chevron-left"/>
+                </svg>
+            </button>
+            <button class="movieCategory__btn" onclick="this.closest('.movieCategory').querySelector('.movies').scrollLeft += 300">
+                <svg class="navbar__icon">
+                    <use href="#icon-chevron-right"/>
+                </svg>
+            </button>
+        </span>
+    </div>
+    {{movies__list}}
+</section>

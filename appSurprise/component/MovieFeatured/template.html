@@ -1,0 +1,22 @@
+<section class="movieFeatured">
+    <div class="movieFeatured__header">
+        <h2 class="movieFeatured__title">Mis en avant</h2>
+        <!-- Buttons scroll -->
+        <span class="movieFeatured__controls">
+            <!-- this.closest('.movieFeatured').querySelector('.movies').scrollLeft => cible la liste concernée pour scroller de 300px vers la gauche ou la droite -->
+            <button class="movieFeatured__btn" onclick="this.closest('.movieFeatured').querySelector('.movies').scrollLeft -= 300">
+                <svg class="navbar__icon">
+                    <use href="#icon-chevron-left"/>
+                </svg>
+            </button>
+            <button class="movieFeatured__btn" onclick="this.closest('.movieFeatured').querySelector('.movies').scrollLeft += 300">
+                <svg class="navbar__icon">
+                    <use href="#icon-chevron-right"/>
+                </svg>
+            </button>
+        </span>
+    </div>
+    <ul class="movieFeatured__list">
+        {{movies}}
+    </ul>
+</section>

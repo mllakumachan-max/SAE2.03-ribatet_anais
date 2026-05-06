@@ -1,0 +1,40 @@
+<nav class="navbar font-sans">
+  <ul class="navbar__list">
+    <!-- Accueil -->
+    <li class="navbar__item navbar__item-home" onclick="{{hHome}}">
+      <svg class="navbar__icon">
+        <use href="#icon-home"/>
+      </svg>
+      <span class="navbar__item-text">Home</span>
+    </li>
+
+    <!-- Favoris -->
+    <li class="navbar__item" onclick="{{hFavorites}}">
+      <svg class="navbar__icon">
+        <use href="#icon-star-full"/>
+      </svg>
+      Mes favoris
+    </li>
+
+    <!-- Statistiques -->
+    <li class="navbar__item" onclick="{{hStats}}">
+      <svg class="navbar__icon">
+        <use href="#icon-stats"/>
+      </svg>
+      <span class="navbar__item-text">Stats</span>
+    </li>
+
+    <!-- Recherche -->
+    <li class="navbar__item navbar__item-search">
+      {{search}}
+    </li>
+
+    <!-- Profil -->
+    <li class="navbar__item navbar__item-profile" onclick="{{hProfile}}">
+      <svg class="navbar__icon">
+        <use href="#icon-profile"/>
+      </svg>
+      <span class="navbar__name">{{activeProfile}}</span>
+    </li>
+  </ul>
+</nav>

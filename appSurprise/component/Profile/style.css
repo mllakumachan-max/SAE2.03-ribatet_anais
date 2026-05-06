@@ -1,0 +1,128 @@
+.profile {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    overflow: hidden;
+    width: 100%;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-lg);
+    padding: var(--space-lg);
+    background-color: var(--color-bg);
+}
+
+.profile__title {
+    font-size: var(--fs-h2);
+    font-weight: var(--fw-bold);
+    color: var(--color-fg);
+    text-align: center;
+    line-height: var(--lh-base);
+}
+
+.profile__list {
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    width: 100%;
+    gap: var(--space-lg);
+    padding: var(--space-md) var(--space-lg);
+    scrollbar-width: none;
+}
+
+.profile__item {
+    display: flex;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+    justify-content: center;
+    width: 12rem;
+    padding: var(--space-md);
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-accent);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    &:hover {
+        transform: scale(1.05);
+        border-color: var(--color-fg);
+    }
+    /* ── Modifier : sélectionné ── */
+    &.profile__item--selected {
+        border-width: 3px;
+    }
+    &.profile__item--center {
+        transform: scale(1.1);
+    }
+}
+
+/* ── Card ── */
+.cardProfile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.cardProfile__avatar {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
+.cardProfile__pseudo {
+    font-size: var(--fs-h2);
+    font-weight: var(--fw-bold);
+    color: var(--color-fg);
+    text-align: center;
+}
+
+.cardProfile__infos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+/* ── Label âge ── */
+.label {
+    padding: var(--space-xs) var(--space-md);
+    border-radius: 999px;
+    font-size: var(--fs-meta);
+    font-weight: var(--fw-bold);
+    color: var(--color-fg);
+    background-color: var(--color-accent);
+}
+
+/* ── Bouton ── */
+.profile__button {
+    padding: var(--space-sm) var(--space-lg);
+    font-size: var(--fs-body);
+    font-weight: var(--fw-bold);
+    color: var(--color-fg);
+    background-color: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    &:hover {
+        color: var(--color-bg);
+        background-color: var(--color-fg);
+    }
+}
+
+/* ── Desktop ── */
+@media (min-width: 48em) {
+    .profile__list {
+        justify-content: center;
+        flex-wrap: nowrap;
+    }
+
+    .profile__item:hover {
+        transform: scale(1.1);
+    }
+}
