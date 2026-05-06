@@ -1,6 +1,7 @@
+import {Movie} from "../Movie/script.js";
+
 let templateFile = await fetch("./component/MovieFavorites/template.html");
 let template = await templateFile.text();
-import {Movie} from "../Movie/script.js";
 
 let MovieFavorites = {};
 

@@ -1,6 +1,7 @@
+import {Search} from "../Search/script.js";
+
 let templateFile = await fetch("./component/NavBar/template.html");
 let template = await templateFile.text();
-import {Search} from "../Search/script.js";
 
 let NavBar = {};
 
