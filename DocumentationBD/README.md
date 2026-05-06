@@ -288,13 +288,11 @@ Pour mettre à jour le statut des films :
 
 ### Requêtes
 
-J'ai ajouter un élément int pour gérer les notes dans la table Movie :
 
 ```
-`note` int(11) DEFAULT NULL,
+
 ```
 
-Pour mettre à jour la note donnée par un profil :
 
 ```
 
