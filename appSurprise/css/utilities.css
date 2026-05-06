@@ -14,10 +14,15 @@
   border-width: 0;
 }
 
+body {
+  color: var(--color-fg);
+  background: var(--color-bg);
+}
+
 #header {
   background: var(--color-bg-secondary);
 }
 
-body {
-  background: var(--color-bg);
+#content {
+  margin: var(--space-md);
 }

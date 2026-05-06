@@ -1,8 +1,9 @@
+import {Search} from "../Search/script.js";
+
 let templateFile = await fetch('./component/MovieFeaturedForm/template.html');
 let template = await templateFile.text();
 let templateFile2 = await fetch('./component/MovieFeaturedForm/templateMovie.html');
 let template2 = await templateFile2.text();
-import {Search} from "../Search/script.js";
 
 let MovieFeaturedForm = {};
 
@@ -13,6 +14,7 @@ MovieFeaturedForm.formatMovie = function(id, title, img, categorie, statut){
     html = html.replace('{{film_titre}}', title);
     html = html.replace('{{categorie}}', categorie);
     html = html.replace('{{statut}}', statut);
+    return html
 }
 
 MovieFeaturedForm.format = function(id, title, img, categorie, statut, handlerModifier, handlerAnnuler) {

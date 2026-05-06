@@ -20,20 +20,6 @@ define("DBPWD", "ribatet1");
 
 // Fonctions Movie
 
-function getAllMovies(){
-    // Connexion à la base de données
-    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
-    // Requête SQL pour récupérer tous les films
-    $sql = "select Movie.id_movie, Movie.name, Movie.image from Movie";
-    // Prépare la requête SQL
-    $stmt = $cnx->prepare($sql);
-    // Exécute la requête SQL
-    $stmt->execute();
-    // Récupère les résultats de la requête sous forme d'objets
-    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
-    return $res; // Retourne les résultats
-}
-
 // Liste des catégories et des âges pour les formulaires d'ajout de film
 function getAllCategories(){
     // Connexion à la base de données

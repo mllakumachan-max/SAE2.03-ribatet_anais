@@ -58,7 +58,7 @@ function readProfilesController(){
 // Fonction de contrôle pour lire les films favoris d'un profil
 function readFavoritesController(){
     $id_profile = $_REQUEST['id_profile'] ?? null;
-    $favorites = getFavorites($id_profile);
+    $favorites = getFavorites($id_profile) ?? null;
     return $favorites;
 }
 
@@ -129,6 +129,9 @@ function addMovieController(){
         addMovie($titre, $annee, $duree, $desc, $real, $categorie, $img, $lien, $age);
         return "Le film $titre a été ajouté avec succès.";
     }
+    else {
+        return "Veuillez saisir un titre";
+    }
 }
 
 /** addProfileController
@@ -148,6 +151,9 @@ function addProfileController(){
     if (empty($pseudo)==false){
         addProfile($pseudo, $avatar, $age);
         return "Le profil $pseudo a été ajouté avec succès.";
+    }
+    else {
+        return "Veuillez choisir un profils";
     }
 }
 
@@ -188,6 +194,9 @@ function updateFeaturedMoviesController(){
     if (empty($movie)==false){
         updateFeaturedMovies($movie, $statut);
         return "Le film a été mis en avant avec succès.";
+    }
+    else {
+        return "Veuillez choisir une réponse";
     }
 }
 
