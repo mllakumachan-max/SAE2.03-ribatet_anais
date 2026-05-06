@@ -16,7 +16,19 @@
 define("HOST", "localhost");
 define("DBNAME", "ribatet1");
 define("DBLOGIN", "ribatet1");
-define("DBPWD", "ribatet1");
+define("DBPWD", "ribat");
+
+
+// Fonction de connexion centralisée
+function getConnexion() {
+    $cnx = new PDO(
+        "mysql:host=".HOST.";dbname=".DBNAME,
+        DBLOGIN,
+        DBPWD,
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+    );
+    return $cnx;
+}
 
 // Fonctions Movie
 
@@ -24,7 +36,7 @@ define("DBPWD", "ribatet1");
 function getAllCategories(){
     // Connexion à la base de données
     try {
-        $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+        $cnx = getConnexion();
         // Requête SQL pour récupérer les catégories
         $sql = "select id_category, name from Category";
         // Prépare la requête SQL
@@ -50,7 +62,7 @@ function getAllCategories(){
 function getAllMoviesByProfile($age){
     // Connexion à la base de données
     try {
-        $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+        $cnx = getConnexion();
         // Requête SQL pour récupérer les films avec leur catégorie
         $sql = "select Movie.id_movie, Movie.name, Movie.image, Category.name as category_name from Movie 
                 join Category on Movie.id_category = Category.id_category 
@@ -117,7 +129,7 @@ function getAllMoviesByProfile($age){
 function getFeaturedMovies(){
     // Connexion à la base de données
     try {
-        $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+        $cnx = getConnexion();
         // Requête SQL pour récupérer les films mis en avant avec leur catégorie
         $sql = "select id_movie, name, image, description from Movie 
                 where featured = 1";
@@ -144,7 +156,7 @@ function getFeaturedMovies(){
 function getMovieDetails($id, $id_profile){
     // Connexion à la base de données
     try {
-        $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+        $cnx = getConnexion();
         // Requête SQL pour récupérer les détails d'un film
         $sql = "select Movie.*, Category.name as category_name, Favorite.id_movie as is_favorite from Movie 
                 join Category on Movie.id_category = Category.id_category 
@@ -183,7 +195,7 @@ function getMovieDetails($id, $id_profile){
 function addMovie($t, $an, $duree, $desc, $r, $c, $aff, $l, $age){
     // Connexion à la base de données
     try {
-        $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD); 
+        $cnx = getConnexion(); 
         // Requête SQL pour jouter un film avec des paramètres
         $sql = "insert into Movie (`name`, `year`, `length`, `description`, `director`, `id_category`, `image`, `trailer`, `min_age`) 
             values (:titre, :annee, :duree, :desc, :real, :categorie, :img, :lien, :age)";
@@ -215,7 +227,7 @@ function addMovie($t, $an, $duree, $desc, $r, $c, $aff, $l, $age){
  */
 function getMovieBySearch($search) {
     try {
-        $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+        $cnx = getConnexion();
         $sql = "select Movie.id_movie, Movie.name, Movie.image, Movie.featured, Category.name as category_name from Movie 
                 join Category on Movie.id_category = Category.id_category
                 where Movie.name like :search or Category.name like :search";
@@ -236,7 +248,7 @@ function getMovieBySearch($search) {
 function updateFeaturedMovies($id, $featured){
     // Connexion à la base de données
     try {
-        $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD); 
+        $cnx = getConnexion(); 
         // Requête SQL pour mettre à jour le statut mis en avant d'un film avec des paramètres
         $sql = "update Movie set featured=:statut where id_movie=:id";
         // Prépare la requête SQL
@@ -266,7 +278,7 @@ function updateFeaturedMovies($id, $featured){
 function addProfile($pseudo, $avatar, $age){
     // Connexion à la base de données
     try {
-        $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD); 
+        $cnx = getConnexion(); 
         // Requête SQL pour jouter un film avec des paramètres
         $sql = "insert into Profile (`pseudo`, `avatar`, `min_age`) 
             values (:pseudo, :avatar, :age)";
@@ -287,7 +299,7 @@ function addProfile($pseudo, $avatar, $age){
 function getAllProfiles(){
     // Connexion à la base de données
     try {
-        $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+        $cnx = getConnexion();
         // Requête SQL pour récupérer les catégories
         $sql = "select * from Profile";
         // Prépare la requête SQL
@@ -306,7 +318,7 @@ function getAllProfiles(){
 function updateProfile($id, $pseudo, $avatar, $age){
     // Connexion à la base de données
     try {
-        $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD); 
+        $cnx = getConnexion(); 
         // Requête SQL de mise à jour du profil avec des paramètres
         $sql = "update Profile set pseudo=:pseudo, avatar=:avatar, min_age=:age where id_profile=:id";
         // Prépare la requête SQL
@@ -338,7 +350,7 @@ function updateProfile($id, $pseudo, $avatar, $age){
 function addFavorite($id_profile, $id_movie){
     // Connexion à la base de données
     try {
-        $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+        $cnx = getConnexion();
         // Requête SQL pour ajouter un film aux favoris
         $sql = "insert into Favorite (`id_profile`, `id_movie`) 
                 values (:id_profile, :id_movie)";
@@ -364,7 +376,7 @@ function addFavorite($id_profile, $id_movie){
 function getFavorites($id_profile){
     // Connexion à la base de données
     try {
-        $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+        $cnx = getConnexion();
         // Requête SQL pour récupérer les films favoris d'un profil
         $sql = "select Movie.* from Movie 
                 join Favorite on Movie.id_movie = Favorite.id_movie 
@@ -395,7 +407,7 @@ function getFavorites($id_profile){
 function isFavorite($id_profile, $id_movie){
     // Connexion à la base de données
     try {
-        $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+        $cnx = getConnexion();
         // Requête SQL pour vérifier si le film est en favori
         $sql = "select * from Favorite 
                 where id_profile = :id_profile and id_movie = :id_movie";
@@ -425,7 +437,7 @@ function isFavorite($id_profile, $id_movie){
 function removeFavorite($id_profile, $id_movie){
     // Connexion à la base de données
     try {
-        $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+        $cnx = getConnexion();
         // Requête SQL pour supprimer un film des favoris
         $sql = "delete from Favorite 
                 where id_profile = :id_profile and id_movie = :id_movie";
@@ -452,7 +464,7 @@ function removeFavorite($id_profile, $id_movie){
  */
 function getTotalProfiles(){
     try {
-        $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+        $cnx = getConnexion();
         $sql = "select count(*) as total from Profile";
         $stmt = $cnx->prepare($sql);
         $stmt->execute();
@@ -470,7 +482,7 @@ function getTotalProfiles(){
  */
 function getAvgFavoritesPerProfile(){
     try {
-        $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+        $cnx = getConnexion();
         $sql = "select round(avg(total), 1) as avg from (
                     select count(*) as total from Favorite GROUP BY id_profile
                 ) as counts";
@@ -490,7 +502,7 @@ function getAvgFavoritesPerProfile(){
  */
 function getTotalMovies(){
     try {
-        $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+        $cnx = getConnexion();
         $sql = "select count(*) as total from Movie";
         $stmt = $cnx->prepare($sql);
         $stmt->execute();
@@ -508,7 +520,7 @@ function getTotalMovies(){
  */
 function getMostFavoritedMovie(){
     try {
-        $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+        $cnx = getConnexion();
         $sql = "select Movie.name from Movie
                 JOIN (
                     SELECT id_movie, COUNT(*) as total 
@@ -533,7 +545,7 @@ function getMostFavoritedMovie(){
  */
 function getMostPopularCategory(){
     try {
-        $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+        $cnx = getConnexion();
         $sql = "select Category.name from Category
                 JOIN (
                     SELECT Movie.id_category, COUNT(*) as total 
