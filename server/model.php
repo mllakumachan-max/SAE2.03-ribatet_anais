@@ -206,7 +206,7 @@ function getMovieBySearch($search) {
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
     $sql = "select Movie.id_movie, Movie.name, Movie.image, Movie.featured, Category.name as category_name from Movie 
     join Category on Movie.id_category = Category.id_category
-    where Movie.name like :search";
+    where Movie.name like :search or Category.name like :search";
     $stmt = $cnx->prepare($sql);
     $searchTerm = '%' . $search . '%';
     $stmt->bindParam(':search', $searchTerm);

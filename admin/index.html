@@ -88,8 +88,8 @@
         }
       });
 
-      C.handlerUpdateMovieFeatured = function(id, name, image, categorie, statut){
-        V.renderMovieFeaturedUpdate(id, name, image, categorie, statut);
+      C.handlerUpdateMovieFeatured = function(id, name, image, category, statut){
+        V.renderMovieFeaturedUpdate(id, name, image, category, statut);
       }
 
       C.handlerConfirmUpdateMovie = async function(){
@@ -164,9 +164,9 @@
         content.innerHTML = NewMovieForm.format(categories, "C.handlerAddMovie()", "C.handlerAnnuler()");
       };
 
-      V.renderMovieFeaturedUpdate = function (id, name, image, categorie, statut){
+      V.renderMovieFeaturedUpdate = function (id, name, image, category, statut){
         let content = document.querySelector("#content");
-        content.innerHTML = MovieFeaturedForm.format(id, name, image, categorie, statut, "C.handlerConfirmUpdateMovie()", "C.handlerAnnuler()");
+        content.innerHTML = MovieFeaturedForm.format(id, name, image, category, statut, "C.handlerConfirmUpdateMovie()", "C.handlerAnnuler()");
       };
 
       // Profile

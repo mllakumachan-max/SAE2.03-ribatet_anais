@@ -26,7 +26,7 @@ CREATE TABLE `Category` (
 ```
 
 ### Vue Looping
-![alt text](screenModele.png)
+![alt text](screen/screenModele.png)
 
 ## Itérations 2
 
@@ -90,7 +90,7 @@ CREATE TABLE `Profile` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
 
-J'ai aussi dû modifier le min_age de Movie en 0 par défaut au lieu de NULL pour éviter des erreurs à cause du NULL dans les values des options "Tout public" des formulaires, où dans les scripts.js où j'ai une condition pour afficher la restriction d'âge :
+J'ai aussi modifié la valeur du min_age de Movie en 0 par défaut au lieu de NULL pour éviter des erreurs à cause du NULL dans les values des options "Tout public" des formulaires, où dans les scripts.js où j'ai une condition pour afficher la restriction d'âge :
 
 ```
 CREATE TABLE `Movie` (
@@ -101,7 +101,7 @@ CREATE TABLE `Movie` (
 
 ### Vue Looping
 
-![alt text](screenProfile.png)
+![alt text](screen/screenProfile.png)
 
 ## Itérations 6
 
@@ -112,6 +112,8 @@ Pour récupérer les données d'un profil utilisateur :
 ```
 "select * from Profile"
 ```
+### Vue Looping
+![alt text](screen/screenProfile&Movie.png)
 
 ## Itération 7
 
@@ -172,12 +174,12 @@ order by Favorite.date_added DESC"
 Pour récupérer la liste des films dans les favoris :
 
 ```
-"select *from Favorite where id_profile = :id_profile and id_movie = :id_movie"
+"select * from Favorite where id_profile = :id_profile and id_movie = :id_movie"
 ```
 
 ### Vue Looping
 
-![alt text](screenModeleFavorite.png)
+![alt text](screen/screenModeleFavorite.png)
 
 ## Itération 10
 
@@ -205,6 +207,9 @@ Pour récupérer le statut d'un film :
 "select id_movie, name, image, description from Movie 
 where featured = 1"
 ```
+
+### Vue looping
+![alt text](screen/screenNewMovie.png)
 
 ## Itération 12
 
@@ -265,17 +270,21 @@ join (
 Pour récupérer le titre et l'image des films tapés dans la barre de recherche :
 
 ```
-"select id_movie, name, affcihe from Movie where name like :search"
+"select Movie.id_movie, Movie.name, Movie.image, Movie.featured, Category.name as category_name from Movie 
+join Category on Movie.id_category = Category.id_category
+where Movie.name like :search or Category.name like :search"
 ```
 
 ## Itération 14
 
 ### Requêtes
 
-Pour récupérer le titre, l'affcihe et le statut des films tapés dans la barre de recherche :
+Pour récupérer le titre, l'affiche, la categorie et le statut des films tapés dans la barre de recherche :
 
 ```
-"select id_movie, name, image, featured from Movie where name like :search"
+"select Movie.id_movie, Movie.name, Movie.image, Movie.featured, Category.name as category_name from Movie 
+join Category on Movie.id_category = Category.id_category
+where Movie.name like :search or Category.name like :search"
 ```
 
 Pour mettre à jour le statut des films :
@@ -297,6 +306,7 @@ Pour mettre à jour le statut des films :
 ```
 
 ```
+
 ## Itération 16
 
 ### Requêtes
@@ -332,6 +342,8 @@ Pour mettre à jour le statut des films :
 ```
 
 ```
+
+![alt text](screen/screenFinal.png)
 
 ## Cardinalités
 

@@ -1,40 +1,62 @@
-<nav class="navbar font-sans">
-  <ul class="navbar__list">
-    <!-- Accueil -->
-    <li class="navbar__item navbar__item-home" onclick="{{hHome}}">
-      <svg class="navbar__icon">
-        <use href="#icon-home"/>
-      </svg>
-      <span class="navbar__item-text">Home</span>
-    </li>
+<nav class="navbar-top font-sans">
 
-    <!-- Favoris -->
-    <li class="navbar__item" onclick="{{hFavorites}}">
-      <svg class="navbar__icon">
-        <use href="#icon-star-full"/>
-      </svg>
-      Mes favoris
-    </li>
+  <nav class="navbar-left font-sans">
+    <ul class="navbar-left__list">
+      <!-- Accueil -->
+      <li class="navbar-left__item navbar-left__item-home" onclick="{{hHome}}">
+        <svg class="navbar__icon">
+          <use href="#icon-home"/>
+        </svg>
+        <span class="sr-only">Home</span>
+        <span class="navbar-left__item-text">Home</span>
+      </li>
 
-    <!-- Statistiques -->
-    <li class="navbar__item" onclick="{{hStats}}">
-      <svg class="navbar__icon">
-        <use href="#icon-stats"/>
-      </svg>
-      <span class="navbar__item-text">Stats</span>
+      <!-- Favoris -->
+      <li class="navbar-left__item" onclick="{{hFavorites}}">
+        <svg class="navbar__icon">
+          <use href="#icon-star-full"/>
+        </svg>
+        <span class="sr-only">Favoris</span>
+        <span class="navbar-left__item-text">Mes favoris</span>
+      </li>
+
+      <!-- Statistiques -->
+      <li class="navbar-left__item" onclick="{{hStats}}">
+        <svg class="navbar__icon">
+          <use href="#icon-stats"/>
+        </svg>
+        <span class="sr-only">Statistiques</span>
+        <span class="navbar-left__item-text">Statistiques</span>
+      </li>
+    </ul>
+  </nav>
+
+  <ul class="navbar-top__list">
+    <!-- Burger -->
+    <li class="navbar-top__item">
+    <input type="checkbox" id="menu-toggle" class="sr-only">
+      <label for="menu-toggle" class="burger">
+        <svg class="burger__svg" viewBox="0 0 32 32" width="32" height="32">
+          <line class="burger__line" x1="2" y1="7" x2="30" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line class="burger__line" x1="2" y1="16" x2="30" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line class="burger__line" x1="2" y1="25" x2="30" y2="25" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span class="sr-only">Menu</span>
+      </label>
     </li>
 
     <!-- Recherche -->
-    <li class="navbar__item navbar__item-search">
+    <li class="navbar-top__item navbar-top__item-search">
       {{search}}
     </li>
 
     <!-- Profil -->
-    <li class="navbar__item navbar__item-profile" onclick="{{hProfile}}">
+    <li class="navbar-top__item navbar-top__item-profile" onclick="{{hProfile}}">
       <svg class="navbar__icon">
         <use href="#icon-profile"/>
       </svg>
-      <span class="navbar__name">{{activeProfile}}</span>
+      <span class="sr-only">Profile</span>
+      <span class="navbar-top__name">{{activeProfile}}</span>
     </li>
   </ul>
 </nav>

@@ -21,8 +21,8 @@ SET time_zone = "+00:00";
 -- Base de données : `SAE2.03`
 --
 
--- CREATE DATABASE IF NOT EXISTS `SAE203` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
--- USE `SAE203`;
+CREATE DATABASE IF NOT EXISTS `SAE203` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `SAE203`;
 -- --------------------------------------------------------
 
 --
@@ -78,11 +78,11 @@ CREATE TABLE `Movie` (
 -- Déchargement des données de la table `Movie`
 --
 
-INSERT INTO `Movie` (`name`, `year`, `length`, `description`, `director`, `id_category`, `image`, `trailer`, `min_age`, `featured`) VALUES
-("Interstellar", 2014, 169, "Un groupe d'explorateurs voyage à travers un trou de ver pour sauver l'humanité.", "Christopher Nolan", 4, "interstellar.jpg", "https://www.youtube.com/embed/VaOijhK3CRU?si=76Ke4uw4LYjuLuQ6", 12, 0),
-("La Liste de Schindler", 1993, 195, "Un industriel allemand sauve des milliers de Juifs pendant l'Holocauste.", "Steven Spielberg", 3, "schindler.webp", "https://www.youtube.com/embed/ONWtyxzl-GE?si=xC3ASGGPy5Ib-aPn", 16, 0),
-("Your Name", 2016, 107, "Deux adolescents échangent leurs corps de manière mystérieuse.", "Makoto Shinkai", 5, "your_name.jpg", "https://www.youtube.com/embed/AROOK45LXXg?si=aUQyGk2VMCb_ToUL", 10, 0),
-("Le Bon, la Brute et le Truand", 1966, 161, "Trois hommes se lancent à la recherche d'un trésor caché.", "Sergio Leone", 13, "bon_brute_truand.jpg", "https://www.youtube.com/embed/WA1hCZFOPqs?si=TwNZAoM4oj4KpGja", 12, 0);
+INSERT INTO `Movie` (`name`, `year`, `length`, `description`, `director`, `id_category`, `image`, `trailer`, `min_age`) VALUES
+("Interstellar", 2014, 169, "Un groupe d'explorateurs voyage à travers un trou de ver pour sauver l'humanité.", "Christopher Nolan", 4, "interstellar.jpg", "https://www.youtube.com/embed/VaOijhK3CRU?si=76Ke4uw4LYjuLuQ6", 12),
+("La Liste de Schindler", 1993, 195, "Un industriel allemand sauve des milliers de Juifs pendant l'Holocauste.", "Steven Spielberg", 3, "schindler.webp", "https://www.youtube.com/embed/ONWtyxzl-GE?si=xC3ASGGPy5Ib-aPn", 16),
+("Your Name", 2016, 107, "Deux adolescents échangent leurs corps de manière mystérieuse.", "Makoto Shinkai", 5, "your_name.jpg", "https://www.youtube.com/embed/AROOK45LXXg?si=aUQyGk2VMCb_ToUL", 10),
+("Le Bon, la Brute et le Truand", 1966, 161, "Trois hommes se lancent à la recherche d'un trésor caché.", "Sergio Leone", 13, "bon_brute_truand.jpg", "https://www.youtube.com/embed/WA1hCZFOPqs?si=TwNZAoM4oj4KpGja", 12);
 
 -- --------------------------------------------------------
 
@@ -98,11 +98,11 @@ CREATE TABLE `Profile` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `Profile` (`pseudo`, `avatar`, `min_age`) VALUES
-("", "", 0),
-("", "", 10),
-("", "", 12),
-("", "", 16),
-("", "", 18);
+("Petits", "", 0),
+("Enfant", "", 10),
+("Pré-ado", "", 12),
+("Ado", "", 16),
+("Adulte", "", 18);
 
 -- --------------------------------------------------------
 

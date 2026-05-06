@@ -110,20 +110,19 @@
 }
 
 /* ── Desktop ── */
-@media (width >= 48em) {
+@media (width >= 1080px) {
     .movie__film {
         flex-direction: row;
         align-items: flex-start;
-        width: 80%;
+        width: 70%;
     }
 
     .movie__affiche {
-        width: 40rem;
-        height: 50rem;
+        aspect-ratio: 5/7;
     }
 
     .movie__trailer {
-        width: 80%;
+        width: 70%;
         height: 40rem;
     }
 }
