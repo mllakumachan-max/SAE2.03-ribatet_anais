@@ -1,0 +1,42 @@
+.profiles {
+    text-align: center;
+    padding: 2rem;
+    .profiles__title {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .profiles__list {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        list-style: none;
+        padding: 0;
+        margin: 0 0 2rem 0;
+        .profiles__item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+        .cardProfile__avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: #ddd;
+        }
+        .cardProfile__pseudo {
+            font-size: 0.9rem;
+        }
+        .profiles__button {
+            margin-top: 0.5rem;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border: 1px solid #333;
+            border-radius: 4px;
+            background: white;
+        }
+    }
+}

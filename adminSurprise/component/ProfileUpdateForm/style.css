@@ -1,0 +1,67 @@
+.updateProfile {
+    --_bg: var(--color-bg);
+    --_fg: var(--color-fg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 2rem auto;
+    padding: 1rem;
+    .updateProfile__form {
+        display: grid;
+        grid-template-areas: "pseudo pseudo pseudo pseudo pseudo"
+                            "avatar avatar avatar avatar avatar"
+                            "age age age age age"
+                            "buttons buttons buttons buttons buttons";
+        margin: 2rem;
+        padding: 2rem;
+        gap: 2rem;
+        border: 1px solid var(--_bg);
+        border-radius: 5px;
+        .pseudo {
+            grid-area: pseudo;
+        }
+        .avatar {
+            grid-area: avatar;
+        }
+        .age {
+            grid-area: age;
+        }
+        .buttons {
+            grid-area: buttons;
+            .button-modifier {
+                margin: 0.25rem 0;
+                padding: 0.5rem;
+                width: 5rem;
+                cursor: pointer;
+                border: none;
+                color: var(--color-fg);
+                background-color: var(--color-bg);
+                border-radius: 5px;
+            }
+            .button-annuler {
+                margin: 0.25rem 0;
+                padding: 0.5rem;
+                width: 5rem;
+                cursor: pointer;
+                border: none;
+                color: var(--color-bg);
+                background-color: var(--color-fg);
+                border-radius: 5px;
+            }
+        }
+        .form__group {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .updateProfile__form-info {
+            padding: 0.5rem;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid var(--_bg);
+        }
+    }
+}

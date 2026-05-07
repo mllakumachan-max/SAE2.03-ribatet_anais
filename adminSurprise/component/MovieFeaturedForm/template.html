@@ -1,0 +1,20 @@
+<div class="updateMovieFeature">
+    <h2 class="updateMovieFeature__title">Mettre en avant un film</h2>
+    {{search}}
+    {{movie}}
+    <form class="updateMovieFeature__form">
+        <input type="hidden" name="id" value="{{id}}">
+        <h3 class="form__title">Souhaitez-vous mettre ce film en avant ?</h3>
+        <div class="form__group">
+            <input type="radio" id="oui" name="featured" value="1">
+            <label for="oui">Oui</label>
+            <input type="radio" id="non" name="featured" value="0">
+            <label for="non">Non</label>
+        </div>
+
+        <div class="buttons">
+            <input class="button-modifier" onclick="{{handlerModifier}}" type="button" value="Modifier" name="todo">
+            <input class="button-annuler" onclick="{{handlerAnnuler}}" type="button" value="Annuler" name="todo">
+        </div>
+    </form>
+</div>

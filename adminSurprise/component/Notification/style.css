@@ -1,0 +1,54 @@
+.notification {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-lg);
+    position: fixed;
+    top: var(--space-lg);
+    left: 50%;
+    z-index: 999;
+    font-size: var(--fs-body);
+    color: var(--color-bg);
+    background-color: var(--color-fg);
+    border: 1px solid var(--color-bg);
+    border-radius: 999px;
+    box-shadow: 0 4px 12px var(--color-bg-overlay);
+    /* Centrer horizontalement */
+    transform: translateX(-50%);
+    animation: slideDown 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+}
+
+/* ── Icon ── */
+.notification__icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    flex-shrink: 0;
+}
+
+/* ── Types ── */
+.notification.success .notification__icon {
+    color: #2ecc71;
+}
+
+.notification.error .notification__icon {
+    color: #e74c3c;
+}
+
+/* ── Animation ── */
+/* Notification apparaît */
+@keyframes slideDown {
+    from { 
+        opacity: 0; 
+        transform: translateX(-50%) translateY(-1rem); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateX(-50%) translateY(0); 
+    }
+}
+
+/* Notification disparaît */
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}

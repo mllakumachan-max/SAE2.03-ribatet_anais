@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>SAE2.03 ADMIN</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/base.css" />
+  </head>
+  <body>
+    <section id="header"></section>
+    <section id="content"></section>
+
+    <script type="module">
+      import {NavBar} from "./component/NavBar/script.js";
+      import {Notification} from "./component/Notification/script.js";
+      
+      import {NewMovieForm} from "./component/MovieForm/script.js";
+      import {MovieFeaturedForm} from "./component/MovieFeaturedForm/script.js";
+      import {Search} from "./component/Search/script.js";
+      
+      import {NewProfileForm} from "./component/ProfileForm/script.js";
+      import {ProfileList} from "./component/ProfileList/script.js";
+      import {ProfileUpdateForm} from "./component/ProfileUpdateForm/script.js";
+      
+      import {DataMovie} from "./data/dataMovie.js";
+      import {DataProfile} from "./data/dataProfile.js";
+
+      window.C = {};
+
+      // C.start
+      C.start = function () {
+        V.renderNavBar(
+          "V.renderMovie()",
+          "V.renderMovieFeaturedUpdate()",
+          "V.renderProfile()",
+          "V.renderProfileList()"
+        );
+        document.querySelector("#header").innerHTML = "";
+      };
+
+      C.handlerAnnuler = function(){
+        C.start();
+      }
+
+      // Movie
+      C.readCategorie = async function(){
+        let data = await DataMovie.requestCategories();
+        let res = [];
+        for (let i=0; i < data.length; i++){
+          res.push(data[i]);
+        }
+        return res
+      }
+
+      C.handlerAddMovie = async function(){
+        let form = document.querySelector('.addMovie__form');
+        let fdata = new FormData(form);
+        if (form.reportValidity()==false){
+          return;
+        }
+        else{
+          let res = await DataMovie.add(fdata);
+          // réinitialise le formulaire
+          form.reset();
+          Notification.show(res);
+        }
+      }
+
+      // Bouton de recherche de films
+      C.handlerSearchMovie = async function(search) {
+        if (search != "") {
+          let data = await DataMovie.requestSearchMovies(search);
+          if (data.length != 0){
+            document. querySelector(".searchMovies__list").innerHTML = Search.formatResults(data);
+          }
+          else{
+            document.querySelector(".searchMovies__list").innerHTML = "Aucun film ne correspond à votre recherche.";
+          }
+        }
+      }
+
+      // Vérifie si le clic est à l'intérieur de la barre de recherche, sinon, on vide la liste
+      document.addEventListener("click", function(event) {
+        let search = document.querySelector(".search");
+        let searchList = document.querySelector(".searchMovies__list");
+        if (search && searchList && !search.contains(event.target)) {
+            searchList.innerHTML = "";
+        }
+      });
+
+      C.handlerUpdateMovieFeatured = function(id, name, image, category, statut){
+        V.renderMovieFeaturedUpdate(id, name, image, category, statut);
+      }
+
+      C.handlerConfirmUpdateMovie = async function(){
+        let form = document.querySelector('.updateMovieFeature__form');
+        let fdata = new FormData(form);
+        let res = await DataMovie.updateFeaturedMovies(fdata);
+        // includes = cherche un mot dans une phrase
+        if (res.includes("succès")){
+          Notification.show(res, "success");
+        }
+        else{
+          Notification.show(res, "error");
+        }
+      }
+
+      // Profile
+      C.handlerAddProfile = async function(){
+        let form = document.querySelector('.addProfile__form');
+        let fdata = new FormData(form);
+        if (form.reportValidity()==false){
+          return;
+        }
+        else{
+          let res = await DataProfile.add(fdata);
+          // réinitialise le formulaire
+          form.reset();
+          Notification.show(res);
+        }
+      }
+
+      C.readProfile = async function(){
+        return await DataProfile.requestProfiles();
+      }
+
+      C.handlerUpdateProfile = function(id, pseudo, avatar, age){
+        V.renderProfileUpdate(id, pseudo, avatar, age);
+      }
+
+      C.handlerConfirmUpdateProfile = async function(){
+        let form = document.querySelector('.updateProfile__form');
+        let fdata = new FormData(form);
+        if (form.reportValidity()==false){
+          return;
+        }
+        else{
+          let res = await DataProfile.update(fdata);
+          // includes = cherche un mot dans une phrase
+          if (res.includes("succès")){
+            // réinitialise le formulaire
+            form.reset();
+            Notification.show(res, "success");
+          }
+          else{
+            Notification.show(res, "error");
+          }
+        }
+      }
+
+
+      window.V = {};
+
+      // Navigation
+      V.renderNavBar = async function(hMovies, hMovieFeatured, hProfiles, hProfilesList) {
+        let header = document.querySelector("#content");
+        header.innerHTML = NavBar.format(hMovies, hMovieFeatured, hProfiles, hProfilesList);
+      };
+
+      // Movie
+      V.renderMovie = async function () {
+        let content = document.querySelector("#content");
+        let categories = await C.readCategorie();
+        content.innerHTML = NewMovieForm.format(categories, "C.handlerAddMovie()", "C.handlerAnnuler()");
+      };
+
+      V.renderMovieFeaturedUpdate = function (id, name, image, category, statut){
+        let content = document.querySelector("#content");
+        content.innerHTML = MovieFeaturedForm.format(id, name, image, category, statut, "C.handlerConfirmUpdateMovie()", "C.handlerAnnuler()");
+      };
+
+      // Profile
+      V.renderProfile = function () {
+        let content = document.querySelector("#content");
+        content.innerHTML = NewProfileForm.format("C.handlerAddProfile()", "C.handlerAnnuler()");
+      };
+
+      V.renderProfileList = async function () {
+        let content = document.querySelector("#header");
+        let profile = await C.readProfile();
+        document.querySelector("#content").innerHTML = "";
+        content.innerHTML = ProfileList.format(profile);
+      };
+
+      V.renderProfileUpdate = function (id, pseudo, avatar, age) {
+        let content = document.querySelector("#content");
+        content.innerHTML = ProfileUpdateForm.format(id, pseudo, avatar, age, "C.handlerConfirmUpdateProfile()", "C.handlerAnnuler()");
+      };
+
+      C.start();
+    </script>
+
+    <!-- Icônes SVG -->
+    <svg 
+      aria-hidden="true" 
+      style="position: absolute; 
+      width: 0; height: 0; 
+      overflow: hidden;" 
+      version="1.1" 
+      xmlns="http://www.w3.org/2000/svg">
+
+      <symbol 
+        id="icon-arrow-right" 
+        viewBox="0 0 24 24" 
+        fill="none">
+        <path 
+          d="M5 12H19M19 12L12 5M19 12L12 19" 
+          stroke="currentColor" 
+          stroke-width="2" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+      </symbol>
+
+      <symbol 
+        id="icon-check" 
+        viewBox="0 0 24 24" 
+        fill="none">
+        <path 
+          d="M20 6L9 17L4 12" 
+          stroke="currentColor" 
+          stroke-width="2.5" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+      </symbol>
+
+      <symbol 
+        id="icon-cross" 
+        viewBox="0 0 24 24" 
+        fill="none">
+        <path 
+          d="M18 6L6 18M6 6L18 18" 
+          stroke="currentColor" 
+          stroke-width="2.5" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+      </symbol>
+
+      <symbol
+        id="icon-search"
+        viewBox="0 0 32 32"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M27.613 25.72L23.08 21.2C24.5425 19.3367 25.336 17.0357 25.333 14.667C25.333 8.776 20.558 4 14.667 4C8.776 4 4 8.776 4 14.667C4 20.557 8.776 25.333 14.667 25.333C17.0357 25.336 19.3367 24.5425 21.2 23.08L25.72 27.613C25.8439 27.738 25.9914 27.8371 26.1538 27.9048C26.3163 27.9725 26.4905 28.0074 26.6665 28.0074C26.8425 28.0074 27.0167 27.9725 27.1792 27.9048C27.3416 27.8371 27.4891 27.738 27.613 27.613C27.738 27.4891 27.8371 27.3416 27.9048 27.1792C27.9725 27.0167 28.0074 26.8425 28.0074 26.6665C28.0074 26.4905 27.9725 26.3163 27.9048 26.1538C27.8371 25.9914 27.738 25.8439 27.613 25.72V25.72ZM6.667 14.667C6.667 12.5453 7.50986 10.5104 9.01015 9.01015C10.5104 7.50986 12.5453 6.667 14.667 6.667C16.7887 6.667 18.8236 7.50986 20.3239 9.01015C21.8241 10.5104 22.667 12.5453 22.667 14.667C22.667 16.7887 21.8241 18.8236 20.3239 20.3239C18.8236 21.8241 16.7887 22.667 14.667 22.667C12.5453 22.667 10.5104 21.8241 9.01015 20.3239C7.50986 18.8236 6.667 16.7887 6.667 14.667V14.667Z"
+          fill="currentColor"/>
+      </symbol>
+
+    </svg>
+  </body>
+</html>

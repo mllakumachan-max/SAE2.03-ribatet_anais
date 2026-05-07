@@ -1,0 +1,30 @@
+<div class="addProfile">
+    <h2 class="addProfile__title">Ajouter un profil utilisateur</h2>
+    <form class="addProfile__form">
+        <div class="form__group pseudo">
+            <label class="form__group-title">Pseudo du profil *</label>
+            <input required class="addProfile__form-info" type="text" name="pseudo" placeholder="Saisir un pseudo"/>
+        </div>
+
+        <div class="form__group avatar">
+            <label class="form__group-title">Avatar</label>
+            <input class="addProfile__form-info" type="text" name="avatar" placeholder="Insérer un avatar"/>
+        </div>
+
+        <div class="form__group age">
+            <label class="form__group-title">Âge</label>
+            <select required class="addProfile__form-info" name="age">
+                <option default value="0">-10 ans</option>
+                <option value="10">10 ans et plus</option>
+                <option value="12">12 ans et plus</option>
+                <option value="16">16 ans et plus</option>
+                <option value="18">18 ans et plus</option>
+            </select>
+        </div>
+
+        <div class="buttons">
+            <input class="button-ajouter" onclick="{{handlerAjouter}}" type="button" value="Ajouter" name="todo">
+            <input class="button-annuler" onclick="{{handlerAnnuler}}" type="button" value="Annuler" name="todo">
+        </div>
+    </form>
+</div>

@@ -1,0 +1,107 @@
+.addMovie {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: var(--space-md);
+    color: var(--color-fg);
+    background-color: var(--color-bg);
+    .addMovie__title{
+        margin: var(--space-md);
+        padding: var(--space-sm);
+        font-size: var(--fs-h2);
+    }
+    .addMovie__form {
+        display: grid;
+        grid-template-areas: "titre titre titre real real real"
+                            "annee annee annee duree duree duree"
+                            "categorie categorie categorie categorie categorie categorie"
+                            "desc desc desc desc desc desc"
+                            "img img img lien lien lien"
+                            "age age age age age age"
+                            "buttons buttons buttons buttons buttons buttons";
+        margin: var(--space-lg);
+        padding: var(--space-lg);
+        gap: var(--space-lg);
+        background-color: var(--color-bg-secondary);
+        border: 2px solid var(--color-accent);
+        border-radius: 0.5rem;
+        .titre {
+            grid-area: titre;
+        }
+        .real {
+            grid-area: real;
+        }
+        .annee {
+            grid-area: annee;
+        }
+        .duree {
+            grid-area: duree;
+        }
+        .categorie {
+            grid-area: categorie;
+        }
+        .desc {
+            grid-area: desc;
+        }
+        .img {
+            grid-area: img;
+        }
+        .lien {
+            grid-area: lien;
+        }
+        .age {
+            grid-area: age;
+        }
+        .buttons {
+            grid-area: buttons;
+            gap: var(--space-xs);
+            .button-ajouter {
+                margin: var(--space-sm) 0;
+                padding: var(--space-sm);
+                width: 5rem;
+                cursor: pointer;
+                color: var(--color-fg);
+                background-color: var(--color-accent);
+                border: 1px solid var(--color-accent);
+                border-radius: 0.5rem;
+                &:hover {
+                    background-color: var(--color-fg);
+                    color: var(--color-bg);
+                }
+            }
+            .button-annuler {
+                margin: var(--space-sm) 0;
+                padding: var(--space-sm);
+                width: 5rem;
+                cursor: pointer;
+                color: var(--color-accent);
+                border: none;
+                border-radius: 0.5rem;
+                &:hover {
+                    color: var(--color-fg);
+                }
+            }
+        }
+        .form__group {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+        .addMovie__form-info {
+            padding: var(--space-sm);
+            width: 100%;
+            border-radius: 0.5rem;
+            border: 1px solid var(--color-accent);
+        }
+        .addMovie__form-desc {
+            padding: var(--space-sm);
+            width: 100%;
+            height: 10rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--color-accent);
+        }
+    }
+}
