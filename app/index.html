@@ -233,7 +233,7 @@
       };
 
       // Afficher les détails du film
-      V.renderMovieDetail = function(movie) {
+      V.renderMovieDetail = function(id_profile, movie) {
         let content = document.querySelector("#content");
         content.innerHTML = MovieDetail.format(id_profile, movie);
       };

@@ -4,14 +4,14 @@
     position: relative;
     margin: var(--space-sm);
     gap: var(--space-sm);
-    width: max-content;
+    width: fit-content;
     :focus-within {
         border-color: var(--color-accent);
     }
 }
 
 .search__input {
-    width: 5rem;
+    width: 15rem;
     font-size: var(--fs-body);
     color: var(--color-fg);
     background: none;
@@ -24,9 +24,9 @@
     display: flex;
     position: absolute;
     top: calc(100% + var(--space-sm));
-    z-index: 200;
+    z-index: 100;
     flex-direction: column;
-    width: 25rem;
+    width: inherit;
     max-height: 20rem;
     overflow-y: auto;
     background-color: var(--color-bg);
@@ -80,7 +80,7 @@
 }
 
 /* ── Desktop ── */
-@media (width >= 48em) {
+@media (width >= 54em) {
     .search__input {
         width: 25rem;
     }
