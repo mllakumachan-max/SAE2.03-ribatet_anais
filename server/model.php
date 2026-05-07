@@ -130,7 +130,7 @@ function getFeaturedMovies($age){
         $cnx = getConnexion();
         // Requête SQL pour récupérer les films mis en avant avec leur catégorie
         $sql = "select id_movie, name, image, description from Movie 
-                where Movie.min_age <= :age and featured = 1";
+                where min_age <= :age and featured = 1";
         // Prépare la requête SQL
         $stmt = $cnx->prepare($sql);
         $stmt->bindParam(':age', $age);

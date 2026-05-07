@@ -70,7 +70,7 @@ function readFavoritesController(){
 // Fonction de contrôle pour lire les films mis en avant
 function readFeaturedMoviesController(){
     $age = $_REQUEST['age'] ?? null;
-    if (empty($age)==false){
+    if ($age != ''){
         $featured_movies = getFeaturedMovies($age);
         return $featured_movies;
     }
