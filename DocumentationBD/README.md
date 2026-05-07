@@ -201,11 +201,11 @@ J'ai ajouté un élément booléen dans la table Movie pour gérer le statut mis
 `featured` tinyint(1) DEFAULT 0
 ```
 
-Pour récupérer le statut d'un film :
+Pour récupérer le statut d'un film selon l'age du profil utilisateur :
 
 ```
 "select id_movie, name, image, description from Movie 
-where featured = 1"
+where Movie.min_age <= :age and featured = 1"
 ```
 
 ### Vue looping
@@ -267,12 +267,13 @@ join (
 
 ### Requêtes
 
-Pour récupérer le titre et l'image des films tapés dans la barre de recherche :
+Pour récupérer le titre et l'image des films tapés dans la barre de recherche selon l'age du profil utilisateur :
 
 ```
-"select Movie.id_movie, Movie.name, Movie.image, Movie.featured, Category.name as category_name from Movie 
+"select Movie.id_movie, Movie.name, Movie.image, Category.name as category_name from Movie 
 join Category on Movie.id_category = Category.id_category
-where Movie.name like :search or Category.name like :search"
+where Movie.min_age <= :age 
+and Movie.name like :search or Category.name like :search"
 ```
 
 ## Itération 14
@@ -284,7 +285,8 @@ Pour récupérer le titre, l'affiche, la categorie et le statut des films tapés
 ```
 "select Movie.id_movie, Movie.name, Movie.image, Movie.featured, Category.name as category_name from Movie 
 join Category on Movie.id_category = Category.id_category
-where Movie.name like :search or Category.name like :search"
+where Movie.min_age <= :age 
+and Movie.name like :search or Category.name like :search"
 ```
 
 Pour mettre à jour le statut des films :
