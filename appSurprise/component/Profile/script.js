@@ -11,7 +11,12 @@ Profile.formatOne = function(id, pseudo, avatar, age){
   let restriction = "";
   html = html.replace("{{id}}", id);
   html = html.replace("{{age}}", age);
-  html = html.replace("{{avatar}}", avatar);
+  if (avatar != null) {
+    html = html.replace("{{avatar}}", "../server/images/profiles/" +  avatar);
+  }
+  else{
+    html = html.replace("{{avatar}}", "../server/images/profiles/default.png");
+  }
   html = html.replaceAll("{{pseudo}}", pseudo);
 
   if (age == 0){

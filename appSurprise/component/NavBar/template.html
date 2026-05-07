@@ -1,37 +1,39 @@
 <nav class="navbar-top font-sans">
-
-  <nav class="navbar-left font-sans">
-    <ul class="navbar-left__list">
-      <!-- Accueil -->
-      <li class="navbar-left__item navbar-left__item-home" onclick="{{hHome}}">
-        <svg class="navbar__icon">
-          <use href="#icon-home"/>
-        </svg>
-        <span class="sr-only">Home</span>
-        <span class="navbar-left__item-text">Home</span>
-      </li>
-
-      <!-- Favoris -->
-      <li class="navbar-left__item" onclick="{{hFavorites}}">
-        <svg class="navbar__icon">
-          <use href="#icon-star-full"/>
-        </svg>
-        <span class="sr-only">Favoris</span>
-        <span class="navbar-left__item-text">Mes favoris</span>
-      </li>
-
-      <!-- Statistiques -->
-      <li class="navbar-left__item" onclick="{{hStats}}">
-        <svg class="navbar__icon">
-          <use href="#icon-stats"/>
-        </svg>
-        <span class="sr-only">Statistiques</span>
-        <span class="navbar-left__item-text">Statistiques</span>
-      </li>
-    </ul>
-  </nav>
-
   <ul class="navbar-top__list">
+
+    <li class="navbar-top__item">
+      <nav class="navbar-left font-sans">
+        <ul class="navbar-left__list">
+          <!-- Accueil -->
+          <li class="navbar-left__item" onclick="{{hHome}}">
+            <svg class="navbar__icon">
+              <use href="#icon-home"/>
+            </svg>
+            <span class="sr-only">Home</span>
+            <span class="navbar-left__item-text">Home</span>
+          </li>
+
+          <!-- Favoris -->
+          <li class="navbar-left__item" onclick="{{hFavorites}}">
+            <svg class="navbar__icon">
+              <use href="#icon-star-full"/>
+            </svg>
+            <span class="sr-only">Favoris</span>
+            <span class="navbar-left__item-text">Mes favoris</span>
+          </li>
+
+          <!-- Statistiques -->
+          <li class="navbar-left__item" onclick="{{hStats}}">
+            <svg class="navbar__icon">
+              <use href="#icon-stats"/>
+            </svg>
+            <span class="sr-only">Statistiques</span>
+            <span class="navbar-left__item-text">Statistiques</span>
+          </li>
+        </ul>
+      </nav>
+    </li>
+
     <!-- Burger -->
     <li class="navbar-top__item">
     <input type="checkbox" id="menu-toggle" class="sr-only">

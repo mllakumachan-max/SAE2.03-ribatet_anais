@@ -16,7 +16,7 @@
 define("HOST", "localhost");
 define("DBNAME", "ribatet1");
 define("DBLOGIN", "ribatet1");
-define("DBPWD", "ribat");
+define("DBPWD", "ribatet1");
 
 
 // Fonction de connexion centralisée
@@ -563,5 +563,3 @@ function getMostPopularCategory(){
         return false;
     }
 }
-
-?>

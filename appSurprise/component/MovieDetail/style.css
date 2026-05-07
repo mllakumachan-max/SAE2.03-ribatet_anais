@@ -110,11 +110,11 @@
 }
 
 /* ── Desktop ── */
-@media (width >= 1080px) {
+@media (width >= 54em) {
     .movie__film {
         flex-direction: row;
         align-items: flex-start;
-        width: 70%;
+        width: 75%;
     }
 
     .movie__affiche {
@@ -122,7 +122,7 @@
     }
 
     .movie__trailer {
-        width: 70%;
+        width: 75%;
         height: 40rem;
     }
 }

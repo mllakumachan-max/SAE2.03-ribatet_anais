@@ -23,6 +23,6 @@ body {
   background: var(--color-bg-secondary);
 }
 
-#content {
+#content, #hero {
   margin: var(--space-md);
 }
