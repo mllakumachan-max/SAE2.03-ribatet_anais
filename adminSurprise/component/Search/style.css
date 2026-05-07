@@ -3,7 +3,7 @@
     display: flex;
     align-items: center;
     gap: var(--space-sm);
-    width: max-content;
+    width: fit-content;
     padding: var(--space-xs) var(--space-md);
     :focus-within {
         border-color: var(--color-accent);
@@ -11,9 +11,9 @@
 }
 
 .search__input {
-    width: 10rem;
+    width: 20rem;
     font-size: var(--fs-body);
-    color: var(--color-bg);
+    color: var(--color-fg);
     background: none;
     outline: none;
     border: none;
@@ -30,10 +30,9 @@
     top: calc(100% + var(--space-sm));
     z-index: 200;
     flex-direction: column;
-    width: 10rem;
+    width: 25rem;
     max-height: 20rem;
     overflow-y: auto;
-    padding: var(--space-xs) 0;
     background-color: var(--color-bg);
     border: 1px solid var(--color-accent);
     border-radius: 8px;

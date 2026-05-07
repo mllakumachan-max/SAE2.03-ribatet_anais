@@ -7,11 +7,11 @@ ProfileUpdateForm.format = function(id, pseudo, avatar, age, handlerModifier, ha
     let html = template;
     html = html.replace("{{id}}", id);
     html = html.replace("{{pseudo}}", pseudo);
-    if (avatar != null) {
-        html = html.replace("{{avatar}}", "../server/images/profiles/" +  avatar);
+    if (avatar == null){
+        html = html.replace("{{avatar}}", "");
     }
-    else{
-        html = html.replace("{{avatar}}", "../server/images/profiles/default.png");
+    else {
+        html = html.replace("{{avatar}}", avatar);
     }
     if (age == 0){
         html = html.replace("{{selected_0}}", "selected");

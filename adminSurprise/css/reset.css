@@ -3,6 +3,10 @@
 *::before {
   box-sizing: border-box;
 }
+body {
+  margin: 0;
+  padding: 0;
+}
 
 ul {
   padding: 0;

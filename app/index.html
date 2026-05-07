@@ -59,15 +59,12 @@
         window.activeProfile = id;
         window.activeAge = age;
         window.activeName = name;
-
         // Retire la sélection de tous les items
         document.querySelectorAll(".profile__item").forEach(item => {
           item.classList.remove("profile__item--selected");
         });
-
         // Ajoute la sélection sur l'item cliqué
         element.classList.add("profile__item--selected");
-
         V.renderNavBar("C.handlerHome()", "C.handlerStats()", "C.handlerProfile()", "C.handlerFavorites()");
       };
 
@@ -117,9 +114,10 @@
 
       // Lire le film mis en avant et l'afficher
       C.handlerMovieFeatured = async function() {
-        let data = await DataMovie.requestFeaturedMovies();
+        let age = window.activeAge;
+        let data = await DataMovie.requestFeaturedMovies(age);
         if (data.length != 0){
-          V.renderMovieFeatured(window.activeProfile, data);
+          V.renderMovieFeatured(data);
         }
         else{
           document.querySelector("#hero").innerHTML = "Aucun film mis en avant pour le moment";
@@ -128,8 +126,9 @@
 
       // Bouton de recherche de films
       C.handlerSearchMovie = async function(search) {
+        let age = window.activeAge;
         if (search != "") {
-          let data = await DataMovie.requestSearchMovies(search);
+          let data = await DataMovie.requestSearchMovies(search, age);
           if (data.length != 0){
             document. querySelector(".searchMovies__list").innerHTML = Search.formatResults(data);
           }
@@ -234,15 +233,15 @@
       };
 
       // Afficher les détails du film
-      V.renderMovieDetail = function(id_profile, movie) {
+      V.renderMovieDetail = function(movie) {
         let content = document.querySelector("#content");
         content.innerHTML = MovieDetail.format(id_profile, movie);
       };
 
       // Afficher le film mis en avant
-      V.renderMovieFeatured = function(profile_id, data) {
+      V.renderMovieFeatured = function(data) {
         let content = document.querySelector("#hero");
-        content.innerHTML = MovieFeatured.format(profile_id, data);
+        content.innerHTML = MovieFeatured.format(data);
       };
 
       // Afficher les profils

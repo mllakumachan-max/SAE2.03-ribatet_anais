@@ -16,20 +16,20 @@ DataMovie.requestMovies = async function(age){
     return data;
 }
 
-DataMovie.requestMovieDetails = async function(id, id_profile){
-    let answer = await fetch(HOST_URL + "/server/script.php?todo=readMovieDetails&id=" + id + "&id_profile=" + id_profile);
+DataMovie.requestMovieDetails = async function(id, age){
+    let answer = await fetch(HOST_URL + "/server/script.php?todo=readMovieDetails&id=" + id + "&age=" + age);
     let data = await answer.json();
     return data;
 }
 
-DataMovie.requestFeaturedMovies = async function(){
-    let answer = await fetch(HOST_URL + "/server/script.php?todo=readFeaturedMovies");
+DataMovie.requestFeaturedMovies = async function(age){
+    let answer = await fetch(HOST_URL + "/server/script.php?todo=readFeaturedMovies&age=" + age);
     let data = await answer.json();
     return data;
 }
 
-DataMovie.requestSearchMovies = async function(search){
-    let answer = await fetch(HOST_URL + "/server/script.php?todo=readSearchResults&search=" + search);
+DataMovie.requestSearchMovies = async function(search, age){
+    let answer = await fetch(HOST_URL + "/server/script.php?todo=readSearchResults&search=" + search + "&age=" + age);
     let data = await answer.json();
     return data;
 }

@@ -22,9 +22,7 @@ define("DBPWD", "ribatet1");
 // Fonction de connexion centralisée
 function getConnexion() {
     $cnx = new PDO(
-        "mysql:host=".HOST.";dbname=".DBNAME,
-        DBLOGIN,
-        DBPWD,
+        "mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD,
         [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
     );
     return $cnx;
@@ -126,15 +124,16 @@ function getAllMoviesByProfile($age){
  *
  * @return array Un tableau d'objets contenant les films mis en avant
  */
-function getFeaturedMovies(){
+function getFeaturedMovies($age){
     // Connexion à la base de données
     try {
         $cnx = getConnexion();
         // Requête SQL pour récupérer les films mis en avant avec leur catégorie
         $sql = "select id_movie, name, image, description from Movie 
-                where featured = 1";
+                where Movie.min_age <= :age and featured = 1";
         // Prépare la requête SQL
         $stmt = $cnx->prepare($sql);
+        $stmt->bindParam(':age', $age);
         // Exécute la requête SQL
         $stmt->execute();
         // Récupère les résultats de la requête sous forme d'un tableau d'objets
@@ -225,14 +224,16 @@ function addMovie($t, $an, $duree, $desc, $r, $c, $aff, $l, $age){
  * @param string $search Le terme de recherche.
  * @return array Un tableau d'objets contenant les films correspondants à la recherche.
  */
-function getMovieBySearch($search) {
+function getMovieBySearch($search, $age) {
     try {
         $cnx = getConnexion();
         $sql = "select Movie.id_movie, Movie.name, Movie.image, Movie.featured, Category.name as category_name from Movie 
                 join Category on Movie.id_category = Category.id_category
-                where Movie.name like :search or Category.name like :search";
+                where Movie.min_age <= :age 
+                and Movie.name like :search or Category.name like :search";
         $stmt = $cnx->prepare($sql);
         $searchTerm = '%' . $search . '%';
+        $stmt->bindParam(':age', $age);
         $stmt->bindParam(':search', $searchTerm);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);

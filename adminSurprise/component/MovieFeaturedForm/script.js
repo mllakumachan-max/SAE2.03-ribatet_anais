@@ -10,10 +10,15 @@ let MovieFeaturedForm = {};
 MovieFeaturedForm.formatMovie = function(id, title, img, categorie, statut){
     let html= template2;
     html = html.replace("{{id}}", id);
-    html = html.replace('{{img}}', "../server/images/" + img);
+    html = html.replace('{{img}}', img);
     html = html.replace('{{film_titre}}', title);
     html = html.replace('{{categorie}}', categorie);
-    html = html.replace('{{statut}}', statut);
+    if (statut == 0){
+        html = html.replace('{{statut}}', "Pas mis en avant");
+    }
+    else{
+        html = html.replace('{{statut}}', "Mis en avant");
+    }
     return html
 }
 
@@ -22,11 +27,9 @@ MovieFeaturedForm.format = function(id, title, img, categorie, statut, handlerMo
     html = html.replace('{{search}}', Search.format());
     if (id != null && id != undefined) {
         if (statut == 0){
-            html = html.replace('{{statut}}', "Pas mis en avant");
             html = html.replace('{{movie}}', MovieFeaturedForm.formatMovie(id, title, img, categorie, statut));
         }
         else{
-            html = html.replace('{{statut}}', "Mis en avant");
             html = html.replace('{{movie}}', MovieFeaturedForm.formatMovie(id, title, img, categorie, statut));
         }
         html = html.replaceAll("{{id}}", id);

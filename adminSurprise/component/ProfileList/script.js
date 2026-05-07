@@ -9,7 +9,7 @@ ProfileList.formatOne = function(id, pseudo, avatar, age){
   let html = template2;
   html = html.replace("{{id}}", id);
   if (avatar != null) {
-    html = html.replace("{{avatar}}", "../server/images/profiles/" +  avatar);
+    html = html.replace("{{avatar}}", avatar);
   }
   else{
     html = html.replace("{{avatar}}", "../server/images/profiles/default.png");

@@ -67,12 +67,11 @@ function readFavoritesController(){
     }
 }
 
-
 // Fonction de contrôle pour lire les films mis en avant
 function readFeaturedMoviesController(){
-    $id_profile = $_REQUEST['id_profile'] ?? null;
-    if (empty($id_profile)==false){
-        $featured_movies = getFeaturedMovies();
+    $age = $_REQUEST['age'] ?? null;
+    if (empty($age)==false){
+        $featured_movies = getFeaturedMovies($age);
         return $featured_movies;
     }
     else {
@@ -95,8 +94,9 @@ function readStatsController(){
 // Fonction de contrôle pour la recherche de films
 function readSearchMoviesController(){
     $search = $_REQUEST['search'] ?? null;
+    $age = $_REQUEST['age'] ?? null;
     if (empty($search)==false){
-        $movies = getMovieBySearch($search);
+        $movies = getMovieBySearch($search, $age);
         return $movies;
     }
     else{

@@ -3,46 +3,59 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin: 2rem auto;
-    padding: 1rem;
+    padding: var(--space-md);
+    color: var(--color-fg);
+    background-color: var(--color-bg);
     .updateMovieFeature__title{
-        margin: 1rem;
-        padding: 0.5rem;
-        font-size: 1.5rem;
+        margin: var(--space-md);
+        padding: var(--space-sm);
+        font-size: var(--fs-h2);
     }
     .updateMovieFeature__form {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        margin: 2rem;
-        padding: 2rem;
-        gap: 2rem;
-        border: 1px solid var(--color-bg);
-        border-radius: 5px;
+        margin: var(--space-lg);
+        padding: var(--space-lg);
+        gap: var(--space-lg);
+        background-color: var(--color-bg-secondary);
+        border: 2px solid var(--color-accent);
+        border-radius: 0.5rem;
         .form__title {
-            font-size: 1.25rem;
+            font-size: var(--fs-h2);
             font-weight: var(--fw-bold);
         }
-        .button-modifier {
-            margin: 0.25rem 0;
-            padding: 0.5rem;
-            width: 5rem;
-            cursor: pointer;
-            border: none;
-            color: var(--color-fg);
-            background-color: var(--color-bg);
-            border-radius: 5px;
-        }
-        .button-annuler {
-            margin: 0.25rem 0;
-            padding: 0.5rem;
-            width: 5rem;
-            cursor: pointer;
-            border: none;
-            color: var(--color-bg);
-            background-color: var(--color-fg);
-            border-radius: 5px;
+        .buttons{
+            display: flex;
+            gap: var(--space-md);
+            .button-modifier {
+                margin: var(--space-sm) 0;
+                padding: var(--space-sm);
+                width: 5rem;
+                cursor: pointer;
+                color: var(--color-fg);
+                background-color: var(--color-accent);
+                border: 1px solid var(--color-accent);
+                border-radius: 0.5rem;
+                &:hover {
+                    background-color: var(--color-fg);
+                    color: var(--color-bg);
+                }
+            }
+            .button-annuler {
+                margin: var(--space-sm) 0;
+                padding: var(--space-sm);
+                width: 5rem;
+                cursor: pointer;
+                color: var(--color-bg);
+                border: 1px solid var(--color-accent);
+                border-radius: 0.5rem;
+                &:hover {
+                    color: var(--color-fg);
+                    background-color: var(--color-bg);
+                }
+            }
         }
     }
 }

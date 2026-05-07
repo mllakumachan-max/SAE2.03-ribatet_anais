@@ -17,9 +17,6 @@
     background: none;
     outline: none;
     border: none;
-    &::placeholder {
-        color: var(--color-fg-secondary);
-    }
 }
 
 /* ── Liste déroulante ── */
@@ -83,11 +80,10 @@
 }
 
 /* ── Desktop ── */
-@media (min-width: 48em) {
+@media (width >= 48em) {
     .search__input {
-        width: 30rem;
+        width: 25rem;
     }
-
     .searchMovies__list {
         width: 45rem;
     }
