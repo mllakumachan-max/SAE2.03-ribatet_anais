@@ -119,7 +119,7 @@
       C.handlerMovieFeatured = async function() {
         let data = await DataMovie.requestFeaturedMovies();
         if (data.length != 0){
-          V.renderMovieFeatured(data);
+          V.renderMovieFeatured(window.activeProfile, data);
         }
         else{
           document.querySelector("#hero").innerHTML = "Aucun film mis en avant pour le moment";
@@ -240,9 +240,9 @@
       };
 
       // Afficher le film mis en avant
-      V.renderMovieFeatured = function(data) {
+      V.renderMovieFeatured = function(profile_id, data) {
         let content = document.querySelector("#hero");
-        content.innerHTML = MovieFeatured.format(data);
+        content.innerHTML = MovieFeatured.format(profile_id, data);
       };
 
       // Afficher les profils

@@ -70,8 +70,14 @@ function readFavoritesController(){
 
 // Fonction de contrôle pour lire les films mis en avant
 function readFeaturedMoviesController(){
-    $featured_movies = getFeaturedMovies();
-    return $featured_movies;
+    $id_profile = $_REQUEST['id_profile'] ?? null;
+    if (empty($id_profile)==false){
+        $featured_movies = getFeaturedMovies();
+        return $featured_movies;
+    }
+    else {
+        return false;
+    }
 }
 
 // Fonction de contrôle pour lire les stattistiques générales

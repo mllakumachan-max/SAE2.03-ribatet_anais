@@ -14,7 +14,7 @@ MovieFeatured.formatOne = function(id, name, image, description) {
     return html;
 };
 
-MovieFeatured.format = function(movies) {
+MovieFeatured.format = function(profile_id, movies) {
     let html = template;
     let liste = "";
     for (let film of movies) {
