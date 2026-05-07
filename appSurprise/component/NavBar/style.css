@@ -10,18 +10,16 @@
       --_trans: 0 9px;
       --_rotate: 45deg;
       transform-origin: 16px 7px;
-      transition: translate 0.2s ease-in-out 0.4s, rotate 0.2s ease-in-out 0.2s;
     }
 
     &:nth-child(2) {
-      transition: opacity 0.2s ease-in-out 0.4s;
+      transition: opacity 0 ease-in-out 0;
     }
 
     &:nth-child(3) {
       --_trans: 0 -9px;
       --_rotate: -45deg;
       transform-origin: 16px 25px;
-      transition: translate 0.2s ease-in-out 0.4s, rotate 0.2s ease-in-out 0.2s;
     }
   }
 
@@ -43,11 +41,9 @@
   & ~ .burger .burger__line {
     translate: var(--_trans);
     rotate: var(--_rotate);
-    transition: translate 0.2s ease-in-out 0.2s, rotate 0.2s ease-in-out 0.4s;
 
     &:nth-child(2) {
       opacity: 0;
-      transition: opacity 0.2s ease-in-out;
     }
   }
 
@@ -126,10 +122,9 @@
   left: 0;
   width: fit-content;
   height: 100%;
-  margin: calc(var(--space-lg) + 2rem) 0 ;
+  margin: calc(var(--space-lg) + 2.5rem) 0 ;
   background-color: var(--color-bg-secondary);
   transform: translateX(0);
-  transition: transform 0.5s ease-in-out;
   .navbar-left__list {
     display: flex;
     justify-content: flex-start;
@@ -159,6 +154,7 @@
   @media (width >= 54em) {
     display: flex;
     position: static;
+    margin: 0;
     background-color: none;
     transform: translateX(0);
     .navbar-left__list {

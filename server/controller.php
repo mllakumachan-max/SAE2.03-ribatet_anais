@@ -58,9 +58,15 @@ function readProfilesController(){
 // Fonction de contrôle pour lire les films favoris d'un profil
 function readFavoritesController(){
     $id_profile = $_REQUEST['id_profile'] ?? null;
-    $favorites = getFavorites($id_profile) ?? null;
-    return $favorites;
+    if (empty($id_profile)==false){
+        $favorites = getFavorites($id_profile) ?? null;
+        return $favorites;
+    }
+    else {
+        return false;
+    }
 }
+
 
 // Fonction de contrôle pour lire les films mis en avant
 function readFeaturedMoviesController(){

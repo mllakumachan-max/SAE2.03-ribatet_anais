@@ -293,59 +293,9 @@ Pour mettre à jour le statut des films :
 "update Movie set featured=:statut where id_movie=:id"
 ```
 
-## Itération 15
-
-### Requêtes
-
-
-```
-
-```
-
-
-```
-
-```
-
-## Itération 16
-
-### Requêtes
-
-
-```
-
-```
-
-## Itération 17
-
-### Requêtes
-
-
-```
-
-```
-
-## Itération 18
-
-### Requêtes
-
-
-```
-
-```
-
-## Itération 19
-
-### Requêtes
-
-
-```
-
-```
+## Cardinalités
 
 ![alt text](screen/screenFinal.png)
-
-## Cardinalités
 
 - Pour Movie vers Category : 1:N car un film peut appartenir au minimum à une catégorie, et au maximum à plusieurs
 - Pour Category vers Movie : 0:N car une catégorie peut au minimum n'appartenir à aucun film car elle existe dans la base mais n'est pas attribuée, et au maximum à autant de films qu'on veut
