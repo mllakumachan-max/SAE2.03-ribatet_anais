@@ -9,7 +9,7 @@ MovieFeatured.formatOne = function(id, name, image, description) {
     let html = templateLi;
     html = html.replaceAll("{{id}}", id);
     html = html.replace('{{film_titre}}', name);
-    html = html.replace("{{img}}", "../server/images/" + image);
+    html = html.replaceAll("{{img}}", "../server/images/" + image);
     html = html.replace("{{description}}", description);
     return html;
 };

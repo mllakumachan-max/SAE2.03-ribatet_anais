@@ -9,7 +9,7 @@ Movie.formatOne = function(id, name, image) {
     let html = template2;
     html = html.replace("{{id}}", id);
     html = html.replace('{{film_titre}}', name);
-    html = html.replace("{{img}}", "../server/images/" + image);
+    html = html.replaceAll("{{img}}", "../server/images/" + image);
     return html;
 };
 
